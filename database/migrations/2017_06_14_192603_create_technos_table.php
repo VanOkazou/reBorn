@@ -16,7 +16,7 @@ class CreateTechnosTable extends Migration
         Schema::create('technos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->enum('type', ['soft', 'lang', 'fram']);
             $table->timestamps();
         });
