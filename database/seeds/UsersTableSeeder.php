@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         $user = [
+            'pseudo'   => 'Ultime Evangelist',
             'lastname' => 'Bibou',
             'firstname'=> 'Admin',
             'job'      => 'Reborn Creator',

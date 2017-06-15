@@ -14,15 +14,17 @@ class TechnosTableSeeder extends Seeder
         $technos = [
             ['name' => 'Photoshop', 'type' => 'soft'],
             ['name' => 'Indesign', 'type' => 'soft'],
-            ['name' => 'Laravel' , 'type' => 'fram'],
             ['name' => 'Illustrator' , 'type' => 'soft'],
             ['name' => 'Php' , 'type' => 'lang'],
-            ['name' => 'React' , 'type' => 'lang'],
             ['name' => 'Javascript' , 'type' => 'lang'],
-            ['name' => 'Node' , 'type' => 'lang'],
-            ['name' => 'Prestashop' , 'type' => 'soft'],
-            ['name' => 'Bootstrap' , 'type' => 'lang'],
+            ['name' => 'jQuery' , 'type' => 'lang'],
+            ['name' => 'Node JS' , 'type' => 'lang'],
+            ['name' => 'React JS' , 'type' => 'fram'],
+            ['name' => 'Bootstrap' , 'type' => 'fram'],
+            ['name' => 'Laravel' , 'type' => 'fram'],
             ['name' => 'Symfony' , 'type' => 'fram'],
+            ['name' => 'Wordpress' , 'type' => 'cms'],
+            ['name' => 'Prestashop' , 'type' => 'cms'],
         ];
 
         foreach($technos as $techno) {
