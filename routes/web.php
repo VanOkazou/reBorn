@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route for connexion
+Route::get('/iamanevangelist', 'Auth\LoginController@showLoginForm');
 
-Route::resource('admin', 'AdminUserController');
+// Route for Evangelist
+Route::get('/{user}', 'UserController@show');
+
+
+Route::resource('admin', 'LoginController@login ');
 Auth::routes();
