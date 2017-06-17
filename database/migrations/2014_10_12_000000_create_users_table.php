@@ -31,6 +31,8 @@ class CreateUsersTable extends Migration
             $table->string('fb')->nullable();
             $table->string('tw')->nullable();
             $table->string('ln')->nullable();
+            $table->string('bh')->nullable();
+            $table->string('db')->nullable();
             $table->string('viadeo')->nullable();
             $table->rememberToken();
             $table->timestamps();

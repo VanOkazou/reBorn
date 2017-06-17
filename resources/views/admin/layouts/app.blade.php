@@ -28,7 +28,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/iamanevangelist') }}">
                         {{ config('app.name', 'reBorn') }}
                     </a>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        &nbsp
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -52,6 +52,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{{ route('iamanevangelist.show', ['id' => Auth::user()->id])}}">Mon compte</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Mes projets</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -75,6 +81,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app-admin.js') }}"></script>
 </body>
 </html>
