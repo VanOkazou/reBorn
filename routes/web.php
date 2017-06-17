@@ -13,7 +13,8 @@ Route::get('/', function () {
 });
 
 // Route for Evangelist
-Route::get('/user/{user}', 'UserController@show');
+Route::get('/evangelist/{user}', 'UserController@show');
+
 
 
 /*
@@ -23,5 +24,17 @@ Route::get('/user/{user}', 'UserController@show');
    *
 
 */
+
 Route::resource('/iamanevangelist', 'AdminUserController');
+
+
+/*
+
+  /*
+   * Auth
+   *
+
+*/
+
 Auth::routes();
+
