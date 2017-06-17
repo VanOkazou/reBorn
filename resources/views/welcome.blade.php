@@ -68,9 +68,11 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
+                    {!! csrf_field() !!}
                     reBorn
                 </div>
             </div>
         </div>
     </body>
+    <script type="text/javascript" src="{{ URL::asset('./js/app.js') }}"></script>
 </html>

@@ -1,0 +1,37 @@
+// Size (width equal to height)
+@mixin size($width, $height:$width) {
+    width: $width;
+    height: $height;
+}
+
+// Font family
+@mixin ff($font: 1) {
+    font-family: map-get($fonts, $font);
+}
+
+// Font size
+@mixin fs($size, $lineheight: $size) {
+    font-size: $size;
+    line-height: $lineheight;
+}
+
+// Flexbox
+@mixin flex($type: flex, $dir: row, $jc: center, $ai: center, $wrap: true) {
+    display: $type;
+    justify-content: $jc;
+    align-items: $ai;
+    flex-direction: $dir;
+    @if $wrap {
+        flex-wrap: wrap;
+    }
+}
+
+// Background Image
+@mixin bgImg($url:false, $size: cover, $position: center center, $repeat: no-repeat) {
+    @if $url {
+        background-image: url($url);
+    }
+    background-position: $position;
+    background-size: $size;
+    background-repeat: $repeat;
+}

@@ -1,0 +1,35 @@
+// Champagne & Limousine font
+
+$champagne-et-limousine-font-path: $font-path !default;
+
+@font-face {
+    font-family: 'champagnelimousines BdIt';
+    src: url('#{$champagne-et-limousine-font-path}/champagne__limousines_bold_italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'champagnelimousines bold';
+    src: url('#{$champagne-et-limousine-font-path}/champagne__limousines_bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'champagnelimousines italic';
+    src: url('#{$champagne-et-limousine-font-path}/champagne__limousines_italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'champagnelimousines regular';
+    src: url('#{$champagne-et-limousine-font-path}/ChampagneLimousines.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

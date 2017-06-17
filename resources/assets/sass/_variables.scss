@@ -1,38 +1,39 @@
+// Breakpoints
+$breakpt-lg: 1200px;
+$breakpt-md: 992px;
+$breakpt-sm: 768px;
+$breakpt-xs: 540px;
 
-// Body
-$body-bg: #f5f8fa;
+// Navbar collapse
+$screen-md-min: $breakpt-md !default;
+$grid-float-breakpoint: $screen-md-min;
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
 
-// Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border: $laravel-border-color;
-$navbar-default-border: $laravel-border-color;
-$panel-default-border: $laravel-border-color;
-$panel-inner-border: $laravel-border-color;
+// Colors
+$colors: (
 
-// Brands
-$brand-primary: #3097D1;
-$brand-info: #8eb4cb;
-$brand-success: #2ab27b;
-$brand-warning: #cbb956;
-$brand-danger: #bf5329;
+);
+
+$white: #fff;
+$black: #000;
+
+$light-grey-2: #fefefe;
+$light-grey-1: #eee;
+$light-grey: #ccc;
+$light-grey-0: #bbb;
+
+$medium-grey-1: #aaa;
+$medium-grey: #999;
+$medium-grey-0: #777;
+
+$dark-grey-1: #494949;
+$dark-grey: #333;
+$dark-grey-0: #222;
 
 // Typography
-$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-$font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
-$line-height-base: 1.6;
-$text-color: #636b6f;
-
-// Navbar
-$navbar-default-bg: #fff;
-
-// Buttons
-$btn-default-color: $text-color;
-
-// Inputs
-$input-border: lighten($text-color, 40%);
-$input-border-focus: lighten($brand-primary, 25%);
-$input-color-placeholder: lighten($text-color, 30%);
-
-// Panels
-$panel-default-heading-bg: #fff;
+$fonts: (
+    1: "champagnelimousines regular",
+    1i: "champagnelimousines italic",
+    1b: "champagnelimousines bold",
+    1bi: "champagnelimousines BdIt",
+);
