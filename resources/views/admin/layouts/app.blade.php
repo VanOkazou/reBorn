@@ -53,10 +53,10 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('iamanevangelist.show', ['id' => Auth::user()->id])}}">Mon compte</a>
+                                        <a href="{{ route('user.show', ['id' => Auth::user()->id ] ) }}">Mon compte</a>
                                     </li>
                                     <li>
-                                        <a href="">Mes projets</a>
+                                        <a href="{{ route('projects.index') }}">Mes projets</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"

@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" method="POST" action="{{ route('iamanevangelist.update', ['id' => $user->id]) }}">
+<form class="form-horizontal" role="form" method="POST" action="{{ route('user.update', ['id' => $user->id]) }}">
     {{ method_field('PUT') }}
     {{csrf_field()}}
     <div class="form-group">
