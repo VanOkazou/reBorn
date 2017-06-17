@@ -3,6 +3,24 @@ html {
     width: 100%;
 
     body {
-        
+        opacity: 0;
+        transition: all .5s ease-in;
+        margin: 0;
+        padding: 0;
+        @include ff(1);
+        font-weight: 300;
+        @include fs(1.6rem, 2.1rem);
+        &.loaded {
+            opacity: 1;
+        }
+        // Container
+        .full-height {
+            min-height: 100vh;
+        }
+
+        // Transition
+        *, *:before, *:after {
+            transition: all .2s ease-in;
+        }
     }
 }

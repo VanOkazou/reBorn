@@ -10,15 +10,13 @@ $grid-float-breakpoint: $screen-md-min;
 $grid-float-breakpoint-max: ($grid-float-breakpoint - 1) !default;
 
 // Colors
-$colors: (
-
-);
-
 $white: #fff;
 $black: #000;
+$dark-reborn: #222;
+$light-reborn: #bbb;
+$gold-reborn: #d4bca0;
 
-$light-grey-2: #fefefe;
-$light-grey-1: #eee;
+$light-grey-1: #fafafa;
 $light-grey: #ccc;
 $light-grey-0: #bbb;
 
@@ -28,12 +26,9 @@ $medium-grey-0: #777;
 
 $dark-grey-1: #494949;
 $dark-grey: #333;
-$dark-grey-0: #222;
+$dark-grey-0: #111;
 
 // Typography
 $fonts: (
-    1: "champagnelimousines regular",
-    1i: "champagnelimousines italic",
-    1b: "champagnelimousines bold",
-    1bi: "champagnelimousines BdIt",
+    1: "Raleway",
 );

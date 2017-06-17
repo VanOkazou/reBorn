@@ -1,0 +1,75 @@
+// reBorn font
+
+$reBorn-font-path: $font-path !default;
+
+
+@charset "UTF-8";
+
+@font-face {
+    font-family: "reborn";
+    src:url("#{$reBorn-font-path}/reborn.eot");
+    src:url("#{$reBorn-font-path}/reborn.eot?#iefix") format("embedded-opentype"),
+    url("#{$reBorn-font-path}/reborn.woff") format("woff"),
+    url("#{$reBorn-font-path}/reborn.ttf") format("truetype"),
+    url("#{$reBorn-font-path}/reborn.svg#reborn") format("svg");
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+[data-icon]:before {
+    font-family: "reborn" !important;
+    content: attr(data-icon);
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="reborn-icon-"]:before,
+[class*=" reborn-icon-"]:before {
+    font-family: "reborn" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.reborn-icon-home:before {
+    content: "\61";
+}
+.reborn-icon-angle-double-left:before {
+    content: "\62";
+}
+.reborn-icon-angle-double-right:before {
+    content: "\63";
+}
+.reborn-icon-angle-double-up:before {
+    content: "\64";
+}
+.reborn-icon-angle-double-down:before {
+    content: "\65";
+}
+.reborn-icon-angle-down:before {
+    content: "\66";
+}
+.reborn-icon-angle-left:before {
+    content: "\67";
+}
+.reborn-icon-angle-right:before {
+    content: "\68";
+}
+.reborn-icon-angle-up:before {
+    content: "\69";
+}
+.reborn-icon-reborn:before {
+    content: "\6a";
+}

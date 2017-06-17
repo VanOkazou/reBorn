@@ -1,0 +1,109 @@
+#homepage {
+    #section-welcome {
+        text-align: center;
+        overflow: hidden;
+        .bandes-container {
+            @include size(100%, 30vh);
+            .bandes {
+                width: 100px;
+                height: 0%;
+                position: relative;
+                margin: auto;
+                transition: all .8s ease-in-out;
+                &:before, &:after {
+                    content: "";
+                    width: calc(50% - 2px);
+                    height: 100%;
+                    display: block;
+                    background-color: $dark-reborn;
+                    position: absolute;
+                    top: 0;
+                }
+                &:before {
+                    left: 0;
+                }
+                &:after {
+                    right: 0;
+                }
+                &.loaded {
+                    height: 80%;
+                }
+            }
+        }
+        .logo-container {
+            @include size(100%, 25vh);
+            text-align: center;
+            #logo {
+                height: 90%;
+            }
+        }
+        .slogan-container {
+            @include size(100%, 100px);
+            padding: 15px 0;
+            &>.container {
+                height: 100%;
+                @include flex();
+                position: relative;
+                h1 {
+                    @include fs(2rem);
+                    font-weight: 100;
+                    position: relative;
+                    z-index: 1;
+                    background-color: $white;
+                    padding: 0 15px;
+                }
+                &:before {
+                    content: "";
+                    display: block;
+                    width: 0;
+                    height: 1px;
+                    background-color: $gold-reborn;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-top: -.5px;
+                    transition: all .8s ease-in-out;
+                }
+            }
+            &.loaded {
+                &>.container {
+                    &:before {
+                        width: 100%;
+                        left: 0;
+                    }
+                }
+            }
+        }
+        .link-container {
+            @include flex($ai: flex-end);
+            @include size(100%, calc(45vh - 100px));
+            a.btn-down {
+                position: absolute;
+                bottom: -100px;
+                opacity: .4;
+                transition: all .8s ease-in-out;
+                .label-link {
+                    color: $dark-reborn;
+                }
+                .link-icon {
+                    span {
+                        color: $dark-reborn;
+                        @include fs(4rem);
+                        @include size(70px);
+                        @include flex();
+                        margin: auto;
+                    }
+                }
+                &:hover {
+                    opacity: 1;
+                    .link-icon {
+                        @include ondeeffect();
+                    }
+                }
+                &.loaded {
+                    bottom: 25px;
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,11 @@
-
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 // Fonts
 $font-path: '../fonts/';
-@import '../fonts/champagne-et-limousine';
+@import '../fonts/reborn';
+
+// Reset
+@import "reset";
 
 // Variables
 @import "variables";
@@ -11,5 +15,8 @@ $font-path: '../fonts/';
 
 // Site
 @import "global";
+
+// Home
+@import "homepage";
 
 

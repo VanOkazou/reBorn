@@ -63,49 +63,36 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 1:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports) {
 
-
-var tealToggle = function tealToggle(_ref) {
-    var target = _ref.target;
-
-    console.log(1);
-};
-
-document.addEventListener('DOMContentLoaded', function () {
-    var body = document.querySelector('body');
-
-    // Fadein content
-    body.classList.add('loaded');
-
-    /*
-    * HOMEPAGE
-    * */
-    // Scroll to section
-    document.querySelector('.btn-down').onclick = tealToggle;
-
-    // Section Welcome animations
-    setTimeout(function () {
-        document.querySelector('#homepage .bandes-container .bandes').classList.add('loaded');
-        document.querySelector('#homepage .slogan-container').classList.add('loaded');
-        document.querySelector('#homepage .link-container .btn-down').classList.add('loaded');
-    }, 800);
-});
+document.addEventListener('DOMContentLoaded', function () {});
 
 /***/ }),
+/* 1 */,
+/* 2 */
+/***/ (function(module, exports) {
 
-/***/ 5:
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(1);
+__webpack_require__(0);
+__webpack_require__(2);
+module.exports = __webpack_require__(3);
 
 
 /***/ })
-
-/******/ });
+/******/ ]);
