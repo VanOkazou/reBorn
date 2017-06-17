@@ -69,9 +69,6 @@
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
-                    <p>{{ $user->username }}</p>
-                    <p>{{ $user->email }}</p>
-                    <img src="{{ $user->avatar }}" alt="">
                 </div>
 
                 <div class="links">
