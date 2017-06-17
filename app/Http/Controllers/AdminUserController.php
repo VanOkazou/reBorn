@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 
 class AdminUserController extends Controller
 {
@@ -13,29 +14,26 @@ class AdminUserController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * @var array
-     */
+
     private $validationRules = [
-        'username' => 'required|filled|alpha_dash|unique:products,sku|max:255',
-        'slug' => 'required|filled|digits_between:12,13|unique:products,barcode',
-        'about' => 'required|filled|string|max:255',
-        'slogan' => 'nullable|integer|min:0|max:4294967295',
-        'description' => 'nullable|integer|min:0|max:4294967295',
-        'email' => 'nullable|integer|min:0|max:4294967295',
-        'fb' => 'nullable|integer|min:0|max:4294967295',
-        'tw' => 'nullable|integer|min:0|max:4294967295',
-        'ln' => 'nullable|integer|min:0|max:4294967295',
-        'bh' => 'nullable|integer|min:0|max:4294967295',
-        'db' => 'nullable|integer|min:0|max:4294967295',
-        'viadeo' => 'nullable|integer|min:0|max:4294967295',
+        'username' => 'required|filled|max:255',
+        'slug' => 'required|filled',
+        'about' => 'nullable|filled|string|',
+        'slogan' => 'nullable|min:0|max:4294967295',
+        'description' => 'nullable|min:0|max:4294967295',
+        'email' => 'required|min:0|max:4294967295',
+        'fb' => 'nullable|min:10|max:4294967295',
+        'tw' => 'nullable|min:10|max:4294967295',
+        'ln' => 'nullable|min:10|max:4294967295',
+        'bh' => 'nullable|min:10|max:4294967295',
+        'db' => 'nullable|min:10|max:4294967295',
+        'viadeo' => 'nullable|min:10|max:4294967295',
     ];
 
     /**
@@ -94,12 +92,23 @@ class AdminUserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request,$id)
     {
-        $input = Input::all();
+        $input = $request->input();
 
+        //Check with validator
+        $validator = $this->validateRules($request->all());
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator->errors())
+                ->withInput($input);
+        }
+
+        //Update if Ok
         $dataUpdate = [
           'username' => $input['username'],
           'slug' => $input['slug'],
@@ -118,9 +127,10 @@ class AdminUserController extends Controller
           'db' => $input['dribble'],
           'viadeo' => $input['viadeo'],
         ];
-        $user = User::where('id', $id)
+        User::where('id', $id)
             ->update($dataUpdate);
 
+        Session::flash('message', 'Votre profil a été modifié !');
         return redirect()->back();
     }
 
@@ -133,5 +143,14 @@ class AdminUserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param array $attributes
+     * @return Validator
+     */
+    private function validateRules(array $attributes)
+    {
+        return Validator::make($attributes, $this->validationRules);
     }
 }
