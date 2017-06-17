@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,7 +30,32 @@ class AdminProjectsController extends Controller
      */
     public function create()
     {
-        return View('admin.projects.create');
+        $categories = Category::all();
+        return View('admin.projects.create' , compact('categories'));
+    }
+
+    public function uploadImage(Request $request){
+
+        $file = $request->file('file');
+
+        $filename = uniqid() . $file->getClientOriginalName();
+
+        // * 3
+        $file->move('uploads/images', $filename);
+
+        // * 4
+        $lastProjectId = Project::all()->last()->id;
+
+        $image = new Attachment();
+        $image->url = 'uploads/images/' . $filename;
+        $image->user_id = Auth::id();
+        $image->project_id = $lastProjectId;
+        $image->save();
+
+
+
+        //var_dump($bo);
+        //return $image;
     }
 
     /**
@@ -39,7 +66,9 @@ class AdminProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->input();
+
+        dd($input);
     }
 
     /**
