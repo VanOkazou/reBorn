@@ -25,8 +25,13 @@ Route::get('/evangelist/{user}', 'UserController@show');
 
 */
 
-Route::resource('/iamanevangelist', 'AdminUserController');
-
+Route::group(['middleware'=>'auth', 'prefix'=>'iamanevangelist' ], function () {
+    Route::get('/', function(){
+        return View('admin.index');
+    });
+    Route::resource('/user', 'AdminUsersController');
+    Route::resource('/projects', 'AdminProjectsController');
+});
 
 /*
 

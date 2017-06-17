@@ -8,19 +8,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class AdminUserController extends Controller
+class AdminUsersController extends Controller
 {
-
-    /**
-     * Create a new controller instance.
-     *
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-
     private $validationRules = [
         'username' => 'required|filled|max:255',
         'slug' => 'required|filled',
