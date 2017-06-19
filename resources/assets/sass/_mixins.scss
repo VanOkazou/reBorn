@@ -29,6 +29,7 @@
 // Flex child full height
 @mixin flexFH() {
     display: flex;
+    flex-direction: column;
     height: auto;
 }
 

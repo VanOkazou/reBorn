@@ -1,40 +1,4 @@
 #homepage {
-    .link-container {
-        position: relative;
-        margin-top: auto;
-        padding-top: 55px;
-        .btn-down {
-            position: absolute;
-            width: 200px;
-            text-align: center;
-            left: 50%;
-            margin-left: -100px;
-            bottom: -100px;
-            opacity: .4;
-            transition: all .8s ease-in-out;
-            .label-link {
-                color: $dark-reborn;
-            }
-            .link-icon {
-                span {
-                    color: $dark-reborn;
-                    @include fs(4rem);
-                    @include size(70px);
-                    @include flex();
-                    margin: auto;
-                }
-            }
-            &:hover {
-                opacity: 1;
-                .link-icon {
-                    @include ondeeffect();
-                }
-            }
-            &.loaded {
-                bottom: 25px;
-            }
-        }
-    }
     #section-welcome {
         text-align: center;
         overflow: hidden;

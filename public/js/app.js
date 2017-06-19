@@ -118,10 +118,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // OneByOne effect
     var evangelists = document.querySelector('.evangelists');
-    oneByOne(evangelists, evangelists.getAttribute('data-interval'));
+    if (document.body.contains(evangelists)) oneByOne(evangelists, evangelists.getAttribute('data-interval'));
 
     var projects = document.querySelector('.projects');
-    oneByOne(projects, projects.getAttribute('data-interval'));
+    if (document.body.contains(projects)) oneByOne(projects, projects.getAttribute('data-interval'));
 
     /*
     * HOMEPAGE
@@ -133,7 +133,8 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Section Welcome animations
-    setTimeout(function () {
+    var homepage = document.querySelector('#homepage');
+    if (document.body.contains(homepage)) setTimeout(function () {
         document.querySelector('#homepage .bandes-container .bandes').classList.add('loaded');
         document.querySelector('#homepage .slogan-container').classList.add('loaded');
         document.querySelector('#homepage .link-container .btn-down').classList.add('loaded');

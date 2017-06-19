@@ -1,0 +1,39 @@
+#evangelist-profil {
+    #section-top {
+        display: flex;
+        position: relative;
+        .bg {
+            @include bgImg();
+            width: 60%;
+            height: 50%;
+            position: absolute;
+            right: 0;
+            top: 85px;
+            opacity: .4;
+        }
+        &>.container {
+            &>.row {
+                &>div {
+                    text-transform: uppercase;
+                    @include ff(2);
+                    .chapter {
+                        color: $medium-grey-1;
+                        @include ff(1);
+                        letter-spacing: 3px;
+                        span {
+                            @include ff(2);
+                            color: $dark-reborn;
+                            width: 35px;
+                            display: inline-block;
+                            letter-spacing: 0;
+                        }
+                    }
+                    .slogan {
+                        @include fs(6rem, 6.5rem);
+                        padding: 25px 0 0 35px;
+                    }
+                }
+            }
+        }
+    }
+}

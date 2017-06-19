@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,600" rel="stylesheet" type="text/css">
 
         <!-- Style -->
-        <link href="css/app.css" rel="stylesheet" type="text/css">
+        <link href="{{ URL::asset('./css/app.css') }}" rel="stylesheet" type="text/css">
 
     </head>
     <body>
@@ -37,7 +37,7 @@
                     </button>
                 </div>
             </section>
-            <section id="section-evangelist-list" class="section full-height padding-top-big padding-bottom-big">
+            <section id="section-evangelist-list" class="section full-height padding-top-big">
                 <div class="container flex-full-height">
                     <div class="row">
                         <div class="col-md-4 col-xs-12 left">
@@ -67,101 +67,7 @@
                                         <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic">
-                                            <img src="https://www.villeroy-boch.be/fileadmin/upload/facelift2014/Bad_und_Wellness/Unser_Versprechen/Designer/Oliver_Schweizer/teaser-designer-oliverschweizer-01.jpg" alt="" />
-                                        </span>
-                                        <span class="name">
-                                            <small>Phan</small>
-                                            <span>Van</span>
-                                        </span>
-                                        <span class="job">
-                                            <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
-                                        </span>
-                                    </a>
-                                    <ul class="socials">
-                                        <li><a href="#" title="ln" class="reborn-icon-linkedin"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-github"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic">
-                                            <img src="https://www.villeroy-boch.be/fileadmin/upload/facelift2014/Bad_und_Wellness/Unser_Versprechen/Designer/Oliver_Schweizer/teaser-designer-oliverschweizer-01.jpg" alt="" />
-                                        </span>
-                                        <span class="name">
-                                            <small>Phan</small>
-                                            <span>Van</span>
-                                        </span>
-                                        <span class="job">
-                                            <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
-                                        </span>
-                                    </a>
-                                    <ul class="socials">
-                                        <li><a href="#" title="ln" class="reborn-icon-linkedin"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-github"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic">
-                                            <img src="https://www.villeroy-boch.be/fileadmin/upload/facelift2014/Bad_und_Wellness/Unser_Versprechen/Designer/Oliver_Schweizer/teaser-designer-oliverschweizer-01.jpg" alt="" />
-                                        </span>
-                                        <span class="name">
-                                            <small>Phan</small>
-                                            <span>Van</span>
-                                        </span>
-                                        <span class="job">
-                                            <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
-                                        </span>
-                                    </a>
-                                    <ul class="socials">
-                                        <li><a href="#" title="ln" class="reborn-icon-linkedin"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-github"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic">
-                                            <img src="https://www.villeroy-boch.be/fileadmin/upload/facelift2014/Bad_und_Wellness/Unser_Versprechen/Designer/Oliver_Schweizer/teaser-designer-oliverschweizer-01.jpg" alt="" />
-                                        </span>
-                                        <span class="name">
-                                            <small>Phan</small>
-                                            <span>Van</span>
-                                        </span>
-                                        <span class="job">
-                                            <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
-                                        </span>
-                                    </a>
-                                    <ul class="socials">
-                                        <li><a href="#" title="ln" class="reborn-icon-linkedin"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-github"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic">
-                                            <img src="https://www.villeroy-boch.be/fileadmin/upload/facelift2014/Bad_und_Wellness/Unser_Versprechen/Designer/Oliver_Schweizer/teaser-designer-oliverschweizer-01.jpg" alt="" />
-                                        </span>
-                                        <span class="name">
-                                            <small>Phan</small>
-                                            <span>Van</span>
-                                        </span>
-                                        <span class="job">
-                                            <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
-                                        </span>
-                                    </a>
-                                    <ul class="socials">
-                                        <li><a href="#" title="ln" class="reborn-icon-linkedin"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-github"></a></li>
-                                        <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
-                                    </ul>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
