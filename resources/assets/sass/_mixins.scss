@@ -26,6 +26,12 @@
     }
 }
 
+// Flex child full height
+@mixin flexFH() {
+    display: flex;
+    height: auto;
+}
+
 // Background Image
 @mixin bgImg($url:false, $size: cover, $position: center center, $repeat: no-repeat) {
     @if $url {

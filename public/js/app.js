@@ -71,11 +71,43 @@
 /***/ 1:
 /***/ (function(module, exports) {
 
+// Scroll to a section
+var scrollTo = function scrollTo(target) {
+    var distance = document.querySelector(target).offsetTop;
+    var scrollInterval = setInterval(function () {
+        if (window.scrollY < distance) {
+            if (window.scrollY + 25 <= distance) {
+                window.scrollBy(0, 25);
+            } else {
+                var exceed = distance - window.scrollY;
+                window.scrollBy(0, exceed);
+            }
+        } else {
+            clearInterval(scrollInterval);
+        }
+    }, 10);
+};
 
-var tealToggle = function tealToggle(_ref) {
-    var target = _ref.target;
+// One by One
+var oneByOne = function oneByOne(group, interval) {
+    var obj_ev = group.children;
+    var arr_ev = Object.keys(obj_ev).map(function (key) {
+        return obj_ev[key];
+    });
+    var length = arr_ev.length;
 
-    console.log(1);
+    var _loop = function _loop(i) {
+        setTimeout(function () {
+            var max = length - i;
+            var random = Math.floor(Math.random() * max + 0);
+            arr_ev[random].classList.add('loaded');
+            arr_ev.splice(random, 1);
+        }, interval * i);
+    };
+
+    for (var i = 0; i < length; i++) {
+        _loop(i);
+    }
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -84,18 +116,28 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fadein content
     body.classList.add('loaded');
 
+    // OneByOne effect
+    var evangelists = document.querySelector('.evangelists');
+    oneByOne(evangelists, evangelists.getAttribute('data-interval'));
+
+    var projects = document.querySelector('.projects');
+    oneByOne(projects, projects.getAttribute('data-interval'));
+
     /*
     * HOMEPAGE
     * */
     // Scroll to section
-    document.querySelector('.btn-down').onclick = tealToggle;
+    document.body.onclick = function (e) {
+        var target = e.target.closest('button').getAttribute('data-target');
+        scrollTo(target);
+    };
 
     // Section Welcome animations
     setTimeout(function () {
         document.querySelector('#homepage .bandes-container .bandes').classList.add('loaded');
         document.querySelector('#homepage .slogan-container').classList.add('loaded');
         document.querySelector('#homepage .link-container .btn-down').classList.add('loaded');
-    }, 800);
+    }, 400);
 });
 
 /***/ }),

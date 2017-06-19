@@ -17,10 +17,98 @@ html {
         .full-height {
             min-height: 100vh;
         }
+        .flex-full-height {
+            @include flexFH;
+        }
+
+        // Colors
+        .white {
+            color: $white!important;
+        }
+        .black {
+            color: $black!important;
+        }
+        .dark-reborn {
+            color: $dark-reborn!important;
+        }
+        .light-reborn {
+            color: $light-reborn!important;
+        }
+        .light-reborn {
+            color: $light-reborn!important;
+        }
+        .gold-reborn {
+            color: $gold-reborn!important;
+        }
+
+        // Background Color
+        .bg-light {
+            background-color: $light-grey-1!important;
+        }
+        .bg-white {
+            background-color: $white!important;
+        }
+        .bg-black {
+            background-color: $black!important;
+        }
+        .bg-dark-reborn {
+            background-color: $dark-reborn!important;
+        }
+        .bg-light-reborn {
+            background-color: $light-reborn!important;
+        }
+        .bg-light-reborn {
+            background-color: $light-reborn!important;
+        }
+        .bg-gold-reborn {
+            background-color: $gold-reborn!important;
+        }
+
+        // Padding
+        .padding-top-big {
+            padding-top: 100px;
+            @media screen and (max-width: $breakpt-md) {
+                padding-top: 60px;
+            }
+            @media screen and (max-width: $breakpt-sm) {
+                padding-top: 30px;
+            }
+        }
+        .padding-bottom-big {
+            padding-bottom: 100px;
+            @media screen and (max-width: $breakpt-md) {
+                padding-bottom: 60px;
+            }
+            @media screen and (max-width: $breakpt-sm) {
+                padding-bottom: 30px;
+            }
+        }
 
         // Transition
         *, *:before, *:after {
             transition: all .2s ease-in;
+        }
+        .oneByOne>* {
+            opacity: 0;
+            &.loaded {
+                opacity: 1;
+            }
+        }
+
+        // Titles
+        .section-big-title {
+            @include ff(2);
+            @include fs(6rem, 7rem);
+            color: $dark-reborn;
+            text-align: right;
+            text-transform: uppercase;
+            padding-top: 100px;
+            small {
+                line-height: 6.7rem;
+                margin-top: -3px;
+                display: block;
+                color: $light-reborn;
+            }
         }
     }
 }

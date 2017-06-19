@@ -41,11 +41,15 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-input, select, textarea {
+input, select, textarea, button {
     outline: none;
     &:hover, &:focus, &:visited, &:active {
         outline: none;
     }
+}
+button {
+    background-color: transparent;
+    border: none;
 }
 
 a {
