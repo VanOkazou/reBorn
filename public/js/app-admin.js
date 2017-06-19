@@ -70,7 +70,20 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-document.addEventListener('DOMContentLoaded', function () {});
+document.addEventListener('DOMContentLoaded', function () {
+    Dropzone.options.formupload2 = {
+        maxFiles: 1,
+        accept: function accept(file, done) {
+            console.log(file);
+            done();
+        },
+        init: function init() {
+            this.on("maxfilesexceeded", function (file) {
+                alert("No more files please!");
+            });
+        }
+    };
+});
 
 /***/ }),
 /* 1 */,

@@ -10,7 +10,7 @@
     <div class="form-group">
         <label for="titre" class="col-md-2 control-label">Titre</label>
         <div class="col-md-9">
-            <input type="text" class="form-control" name="username" autofocus>
+            <input type="text" class="form-control" name="title" autofocus>
         </div>
     </div>
     <div class="form-group">
@@ -29,7 +29,9 @@
         <label for="date" class="col-md-2 control-label">Date de réalisation</label>
         <div class="col-md-9">
             @foreach($categories as $categorie)
-                <label class="checkbox-inline"><input type="checkbox" value="{{ $categorie->name }}" name="category" multiple>{{ $categorie->name }}</label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" value="{{ $categorie->id }}" name="category[]">{{ $categorie->name }}
+                </label>
             @endforeach
         </div>
     </div>
