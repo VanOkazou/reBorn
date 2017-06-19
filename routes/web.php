@@ -31,6 +31,7 @@ Route::group(['middleware'=>'auth', 'prefix'=>'iamanevangelist' ], function () {
     });
     Route::resource('/user', 'AdminUsersController');
     Route::resource('/projects', 'AdminProjectsController');
+    Route::post('/projects/upload', 'AdminProjectsController@uploadImage')->name('projects.upload');
 });
 
 /*
