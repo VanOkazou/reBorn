@@ -34,8 +34,12 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
-                                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></button>
+                                        <form action="{{ route('projects.delete' , ['id' => $project->id]) }}" class="btn btn-danger" method="post">
+                                            <input type="submit" value="Supprimer"/>
+                                        </form>
+                                        <a href="{{ route('projects.show' , ['id' => $project->id]) }}" class="btn btn-primary">
+                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

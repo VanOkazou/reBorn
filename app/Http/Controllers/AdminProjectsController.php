@@ -91,12 +91,10 @@ class AdminProjectsController extends Controller
             $attachment->project_id = $project->id;
             $attachment->save();
 
-            // Move attachment to public/uploads folder
-            Storage::move('public', storage_path());
+            // Copy and delete attachment to public/uploads folder
+            copy(storage_path('app/public/tmp/' . $attachment->url), public_path('uploads/'. $attachment->url));
+            unlink(storage_path('app/public/tmp/' . $attachment->url));
         }
-
-        //delete attachments from storage directory
-        //Storage::deleteDirectory('app/public/tmp');
 
         //Link belongToMany
         $project->categories()->attach($input['category']);
@@ -115,7 +113,9 @@ class AdminProjectsController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::find($id);
+
+        return View('admin.projects.show' , compact('project'));
     }
 
     /**
@@ -126,19 +126,66 @@ class AdminProjectsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $project = Project::find($id);
+        $cats = [];
+        $categories = Category::all();
+
+        foreach($project->categories as $cat) {
+            array_push($cats, $cat->name);
+        }
+        return View('admin.projects.edit' , compact('project','categories','cats'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        //init
+        $input = $request->input();
+
+        $validator = $this->validateRules($request->all());
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator->errors())
+                ->withInput($input);
+        }
+
+        //Create project
+        $project = Project::find($id);
+        $project->title = $input['title'];
+        $project->description = $input['description'];
+        $project->date = $input['date'];
+        $project->save();
+
+        if (count(scandir(storage_path('app/public/tmp'))) > 2 ) {
+            $attachments = Attachment::all();
+            foreach ($attachments as $attachment){
+                if($attachment->project_id == $id){
+                    $attachment->delete();
+                }
+            }
+
+            //Create attachment
+            $files = Storage::files('public/tmp');
+            foreach ($files as $file){
+                // Save image in database
+                $newFile = explode('/', $file);
+                $attachment = new Attachment();
+                $attachment->url = end($newFile);
+                $attachment->project_id = $project->id;
+                $attachment->save();
+
+                // Copy and delete attachment to public/uploads folder
+                copy(storage_path('app/public/tmp/' . $attachment->url), public_path('uploads/'. $attachment->url));
+                unlink(storage_path('app/public/tmp/' . $attachment->url));
+            }
+        }
+
+        //Link belongToMany
+        $project->categories()->sync($input['category']);
+
+        Session::flash('message', 'Votre projet a été crée !');
+        return redirect()->back();
     }
 
     /**
@@ -149,7 +196,15 @@ class AdminProjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+    }
+
+    public function delete($id){
+
+        $project = Project::find($id);
+        $project->delete();
+
+        Session::flash('message', 'Votre projet a été supprimé !');
+        return redirect()->back();
     }
 
     /**
