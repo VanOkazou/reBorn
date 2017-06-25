@@ -1,0 +1,53 @@
+// Lemon Milk font
+
+$lemonMilk-font-path: $font-path !default;
+
+@font-face {
+	font-family: 'Lemon/Milk';
+	src: url('#{$lemonMilk-font-path}/LemonMilklightitalic.eot');
+	src: url('#{$lemonMilk-font-path}/LemonMilklightitalic.eot?#iefix') format('embedded-opentype'),
+		url('#{$lemonMilk-font-path}/LemonMilklightitalic.woff') format('woff'),
+		url('#{$lemonMilk-font-path}/LemonMilklightitalic.ttf') format('truetype');
+	font-weight: 300;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Lemon/Milk';
+	src: url('#{$lemonMilk-font-path}/LemonMilkbold.eot');
+	src: url('#{$lemonMilk-font-path}/LemonMilkbold.eot?#iefix') format('embedded-opentype'),
+		url('#{$lemonMilk-font-path}/LemonMilkbold.woff') format('woff'),
+		url('#{$lemonMilk-font-path}/LemonMilkbold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Lemon/Milk';
+	src: url('#{$lemonMilk-font-path}/LemonMilkitalic.eot');
+	src: url('#{$lemonMilk-font-path}/LemonMilkitalic.eot?#iefix') format('embedded-opentype'),
+		url('#{$lemonMilk-font-path}/LemonMilkitalic.woff') format('woff'),
+		url('#{$lemonMilk-font-path}/LemonMilkitalic.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Lemon/Milk';
+	src: url('#{$lemonMilk-font-path}/LemonMilkbolditalic.eot');
+	src: url('#{$lemonMilk-font-path}/LemonMilkbolditalic.eot?#iefix') format('embedded-opentype'),
+		url('#{$lemonMilk-font-path}/LemonMilkbolditalic.woff') format('woff'),
+		url('#{$lemonMilk-font-path}/LemonMilkbolditalic.ttf') format('truetype');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Lemon/Milk';
+	src: url('#{$lemonMilk-font-path}/LemonMilklight.eot');
+	src: url('#{$lemonMilk-font-path}/LemonMilklight.eot?#iefix') format('embedded-opentype'),
+		url('#{$lemonMilk-font-path}/LemonMilklight.woff') format('woff'),
+		url('#{$lemonMilk-font-path}/LemonMilklight.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}

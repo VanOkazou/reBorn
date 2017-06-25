@@ -53,18 +53,23 @@ document.addEventListener('DOMContentLoaded', () => {
     * */
     // Scroll to section
     document.body.onclick = (e) => {
-        let target = e.target.closest('button').getAttribute('data-target');
-        scrollTo(target);
+        if(e.target.closest('button.btn-down')) {
+            let target = e.target.closest('button').getAttribute('data-target');
+            scrollTo(target);
+        }
     };
 
     // Section Welcome animations
     const homepage = document.querySelector('#homepage')
+
     if(document.body.contains(homepage))
         setTimeout(() => {
             document.querySelector('#homepage .bandes-container .bandes').classList.add('loaded');
             document.querySelector('#homepage .slogan-container').classList.add('loaded');
-            document.querySelector('#homepage .link-container .btn-down').classList.add('loaded');
-        }, 400);
+            [].forEach.call(document.querySelectorAll('#homepage .link-container .btn-down'), btn => {
+                btn.classList.add('loaded');
+            })
+        }, 400)
 
 
 

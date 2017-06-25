@@ -16,7 +16,7 @@
     </head>
     <body>
         <div id="homepage" class="wrapper">
-            <section id="section-welcome" class="section full-height flex-full-height">
+            <section id="section-welcome" class="section full-height flex-full-height bg-light">
                 <div class="bandes-container">
                     <div class="bandes"></div>
                 </div>

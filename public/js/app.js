@@ -128,16 +128,21 @@ document.addEventListener('DOMContentLoaded', function () {
     * */
     // Scroll to section
     document.body.onclick = function (e) {
-        var target = e.target.closest('button').getAttribute('data-target');
-        scrollTo(target);
+        if (e.target.closest('button.btn-down')) {
+            var target = e.target.closest('button').getAttribute('data-target');
+            scrollTo(target);
+        }
     };
 
     // Section Welcome animations
     var homepage = document.querySelector('#homepage');
+
     if (document.body.contains(homepage)) setTimeout(function () {
         document.querySelector('#homepage .bandes-container .bandes').classList.add('loaded');
         document.querySelector('#homepage .slogan-container').classList.add('loaded');
-        document.querySelector('#homepage .link-container .btn-down').classList.add('loaded');
+        [].forEach.call(document.querySelectorAll('#homepage .link-container .btn-down'), function (btn) {
+            btn.classList.add('loaded');
+        });
     }, 400);
 });
 

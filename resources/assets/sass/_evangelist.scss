@@ -5,18 +5,17 @@
         .bg {
             @include bgImg();
             width: 60%;
-            height: 50%;
+            height: calc(80% - 240px);
             position: absolute;
             right: 0;
-            top: 85px;
-            opacity: .4;
+            top: 120px;
+            opacity: .7;
         }
         &>.container {
             &>.row {
                 &>div {
-                    text-transform: uppercase;
-                    @include ff(2);
                     .chapter {
+                        padding-top: 35px;
                         color: $medium-grey-1;
                         @include ff(1);
                         letter-spacing: 3px;
@@ -31,6 +30,23 @@
                     .slogan {
                         @include fs(6rem, 6.5rem);
                         padding: 25px 0 0 35px;
+                        text-transform: uppercase;
+                        @include ff(2);
+                    }
+                    .heading {
+                        margin-left: 35px;
+                        margin-top: 55px;
+                        padding-left: 25%;
+                        position: relative;
+                        &:before {
+                            content: "";
+                            display: block;
+                            @include size(calc(25% - 7px), 1px);
+                            background-color: $gold-reborn;
+                            left: 0;
+                            top: 10px;
+                            position: absolute;
+                        }
                     }
                 }
             }
