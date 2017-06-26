@@ -16,9 +16,31 @@
 </head>
 <body>
 <div id="evangelist-profil" class="wrapper wrapper-page">
+
+    {{--Nav profil--}}
+    <div id="nav-profil-container">
+        <p id="section-title">
+            About me
+        </p>
+        <ul id="nav-profil">
+            <li data-progress="0" class="current">
+                <a href="#section-about"></a>
+            </li>
+            <li data-progress="1">
+                <a href="#section-projects"></a>
+            </li>
+            <li data-progress="2">
+                <a href="#section-skills"></a>
+            </li>
+            <li data-progress="3">
+                <a href="#section-contact"></a>
+            </li>
+        </ul>
+    </div>
+
     {{--Logo reBorn--}}
     <h1 id="logo-reborn">
-        <a href="#" title="reBorn">
+        <a href="" title="reBorn">
             <img src="{{ asset('images/logo/icon_reborn.svg') }}" alt="reBorn" />
         </a>
     </h1>
@@ -50,12 +72,12 @@
         </ul>
     </div>
 
-    <section id="section-top" class="section full-height padding-top-big padding-bottom-big">
+    <section id="section-about" class="section full-height padding-top-big padding-bottom-big">
         <div class="bg" style="background-image: url({{ asset('images/pic/profil.jpg') }});"></div>
         <div class="container flex-full-height">
             <div class="row">
                 <div class="col-md-8 col-xs-12">
-                    <div class="chapter"><span>01.</span>Welcome on my page</div>
+                    <div class="chapter"><span>01.</span>About me</div>
                     <h1 class="slogan">reBorn founder & Lead Frontend Developper</h1>
                     <div class="heading">
                         <p>
@@ -63,14 +85,6 @@
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="link-container">
-                <button data-target="#section-evangelist-projects" class="btn-down">
-                    <div class="label-link">Our works</div>
-                    <p class="link-icon">
-                        <span class="reborn-icon-angle-double-down"></span>
-                    </p>
-                </button>
             </div>
         </div>
     </section>
