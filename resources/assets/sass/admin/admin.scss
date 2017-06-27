@@ -1,9 +1,17 @@
-
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+$font-path: '../fonts/';
+@import '../../fonts/reborn';
+@import '../../fonts/oldsansblack';
+@import '../../fonts/lemonmilk';
+
+// Reset
+@import "../reset";
 
 // Variables
-@import "variables";
+@import "../variables";
+
+// Mixins
+@import "../mixins";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
@@ -11,5 +19,23 @@
 
 // Admin style
 #admin-app {
+
+    // TAB CONTENT
+    .tab-content {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    // INPUT FILE
+    .form-group-preview {
+        @include flex($jc:flex-start, $ai:flex-end);
+        .previewImg {
+            @include size(100px, 100px);
+            background: $white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+    }
 
 }

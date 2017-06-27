@@ -78,10 +78,10 @@
             <div class="row">
                 <div class="col-md-8 col-xs-12">
                     <div class="chapter"><span>01.</span>About me</div>
-                    <h1 class="slogan">reBorn founder & Lead Frontend Developper</h1>
+                    <h1 class="slogan">reBorn founder & Frontend Developper</h1>
                     <div class="heading">
                         <p>
-                            Hi, my name is Van, I am the reBorn founder and <strong>Lead Frontend Developper</strong>. Specialized in <strong>Laravel</strong> for the backend and <strong>React JS</strong> for the frontend, I currently work for the daily <em>Les Echos</em>. I have worked previously for many firms like Air France, Vinci, LVMH or Axa Assurance.
+                            Hi, my name is Van, I am the reBorn founder and <strong>Frontend Developper</strong>. Specialized in <strong>Laravel</strong> for the backend and <strong>React JS</strong> for the frontend, I currently work for the daily <em>Les Echos</em>. I have worked previously for many firms like Air France, Vinci, LVMH or Axa Assurance.
                         </p>
                     </div>
                 </div>

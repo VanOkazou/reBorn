@@ -70,11 +70,13 @@
 /* 0 */
 /***/ (function(module, exports) {
 
+
 document.addEventListener('DOMContentLoaded', function () {
+
+    // Dropzone
     Dropzone.options.formupload2 = {
         maxFiles: 1,
         accept: function accept(file, done) {
-            console.log(file);
             done();
         },
         init: function init() {
@@ -83,6 +85,37 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     };
+
+    // Wysiwyg
+    var optionsCkEditor = {
+        language: 'fr'
+    };
+    CKEDITOR.replace('about', optionsCkEditor);
+    CKEDITOR.replace('description', optionsCkEditor);
+
+    // Input type file and preview
+    var readURL = function readURL(inputId, previewId) {
+
+        var input = document.getElementById(inputId);
+        var preview = document.getElementById(previewId);
+
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                console.log(preview);
+                preview.style.backgroundImage = "url(" + e.target.result + ")";
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+    var inputAvatar = document.getElementById("avatar");
+    inputAvatar.addEventListener('change', function () {
+        readURL("avatar", "previewAvatar");
+    });
 });
 
 /***/ }),

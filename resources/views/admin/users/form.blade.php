@@ -1,107 +1,153 @@
-<form class="form-horizontal" role="form" method="POST" action="{{ route('user.update', ['id' => $user->id]) }}">
-    {{ method_field('PUT') }}
-    {{csrf_field()}}
-    <div class="form-group">
-        <label for="username" class="col-md-2 control-label">Username</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="username" value="{{ $user->username }}" autofocus>
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        <a data-toggle="tab" href="#menu0">Infos perso</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#menu1">Description</a>
+    </li>
+    <li>
+        <a data-toggle="tab" href="#menu2">Socials</a>
+    </li>
+</ul>
+
+{{ Form::open([
+    'route' => ['user.update', $user->id],
+    'method' => 'put',
+    'class'=>'form-horizontal',
+    'role' => 'form',
+    'files' => true
+]) }}
+
+    <div class="tab-content">
+        <div id="menu0" class="tab-pane fade in active">
+            <div class="form-group row">
+                {{ Form::label('avatar', 'Avatar', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9 form-group-preview">
+                    <div id="previewAvatar" class="previewImg preview-small" style="background-size: cover; background-position: center center"></div>
+                    {{ Form::file('avatar', '', ['class' => 'form-control']) }}
+                </div>
+            </div>
+            <div class="form-group row">
+                {{ Form::label('username', 'Username', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::text('username', $user->username, ['class' => 'form-control', 'autofocus']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('slug', 'Slug', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::text('slug', $user->slug, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('lastname', 'Lastname', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::text('lastname', $user->lastname, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('firstname', 'Firstname', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::text('firstname', $user->firstname, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('job', 'Job', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::text('job', $user->job, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('city', 'City', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::text('city', $user->city, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('email', 'Email', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::email('email', $user->email, ['class' => 'form-control']) }}
+                </div>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <div class="form-group row">
+                {{ Form::label('slogan', 'Slogan', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::textarea('slogan', $user->slogan, ['class' => 'form-control', 'size' => '30x5']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('about', 'About', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::textarea('about', $user->about, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('description', 'Description', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::textarea('description', $user->description, ['class' => 'form-control']) }}
+                </div>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+            <div class="form-group row">
+                {{ Form::label('facebook', 'Facebook', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::url('facebook', $user->fb, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('twitter', 'Twitter', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::url('twitter', $user->tw, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('linkedin', 'Linkedin', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::url('linkedin', $user->ln, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('behance', 'Behance', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::url('behance', $user->bh, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('viadeo', 'Viadeo', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::url('viadeo', $user->viadeo, ['class' => 'form-control']) }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                {{ Form::label('dribble', 'Dribble', ['class' => 'col-md-2 control-label']) }}
+                <div class="col-md-9">
+                    {{ Form::url('dribble', $user->db, ['class' => 'form-control']) }}
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="lastname" class="col-md-2 control-label">Lastname</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="lastname" value="{{ $user->lastname }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="firstname" class="col-md-2 control-label">Firstname</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="firstname" value="{{ $user->firstname }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="job" class="col-md-2 control-label">Job</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="job" value="{{ $user->job }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="city" class="col-md-2 control-label">City</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="city" value="{{ $user->city }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="slug" class="col-md-2 control-label">Slug</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="slug" value="{{ $user->slug }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="email" class="col-md-2 control-label">email</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="email" value="{{ $user->email }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="facebook" class="col-md-2 control-label">Facebook</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="facebook" value="{{ $user->fb }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="twitter" class="col-md-2 control-label">Twitter</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="twitter" value="{{ $user->tw }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="linkedin" class="col-md-2 control-label">Linkedin</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="linkedin" value="{{ $user->ln }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="behance" class="col-md-2 control-label">Behance</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="behance" value="{{ $user->bh }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="dribble" class="col-md-2 control-label">Dribble</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="dribble" value="{{ $user->db }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="viadeo" class="col-md-2 control-label">Viadeo</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="viadeo" value="{{ $user->viadeo }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="about" class="col-md-2 control-label">About</label>
-        <div class="col-md-9">
-            <textarea type="text" class="form-control" name="about">{{ $user->about }}</textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="slogan" class="col-md-2 control-label">Slogan</label>
-        <div class="col-md-9">
-            <textarea type="text" class="form-control" name="slogan">{{ $user->slogan }}</textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="description" class="col-md-2 control-label">Description</label>
-        <div class="col-md-9">
-            <textarea type="text" class="form-control" name="description">{{ $user->description }}</textarea>
-        </div>
-    </div>
-    <div class="form-group">
+
+    <div class="form-group row">
         <div class="col-md-8 col-md-offset-2">
-            <button type="submit" class="btn btn-primary">
-                Update
-            </button>
+            {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
         </div>
     </div>
-</form>
+
+{{ Form::close() }}

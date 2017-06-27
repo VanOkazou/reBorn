@@ -14,15 +14,6 @@
         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
     @endif
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Mon compte</div>
-                    <div class="panel-body">
-                        @include('admin.users.form')
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('admin.users.form')
     </div>
 @endsection

@@ -13,12 +13,12 @@ const { mix } = require('laravel-mix');
 
 mix.combine([
         'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+        'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'
     ], 'public/js/vendor.js')
     .combine([
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-        'node_modules/dropzone/dist/min/dropzone.min.js',
+        'node_modules/dropzone/dist/min/dropzone.min.js'
     ], 'public/js/vendor-admin.js')
     .js('resources/assets/js/app-admin.js', 'public/js')
     .js('resources/assets/js/app.js', 'public/js')
@@ -31,5 +31,3 @@ mix.combine([
     .sass('resources/assets/sass/admin/admin.scss', 'public/css')
 
     .browserSync();
-
-

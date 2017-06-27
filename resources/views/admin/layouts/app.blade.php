@@ -75,6 +75,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/vendor-admin.js') }}"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script src="{{ asset('js/app-admin.js') }}"></script>
 </body>
 </html>

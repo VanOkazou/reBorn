@@ -19,7 +19,7 @@ html {
             overflow: hidden;
         }
         .flex-full-height {
-            @include flexFH;
+            @include flexFH();
         }
         .link-container {
             position: relative;
@@ -32,7 +32,7 @@ html {
                 left: 50%;
                 margin-left: -100px;
                 bottom: -100px;
-                opacity: .4;
+                opacity: .8;
                 transition: all .8s ease-in-out;
                 .label-link {
                     color: $dark-reborn;
