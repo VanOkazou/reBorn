@@ -37,6 +37,7 @@
                     </button>
                 </div>
             </section>
+
             <section id="section-evangelist-list" class="section full-height padding-top-big">
                 <div class="container flex-full-height">
                     <div class="row">
@@ -48,14 +49,15 @@
                         </div>
                         <div class="col-md-8 col-xs-12 right">
                             <ul class="evangelists oneByOne" data-interval="100">
+                                @foreach($users as $user)
                                 <li>
                                     <a href="" title="">
                                         <span class="pic">
-                                            <img src="https://www.villeroy-boch.be/fileadmin/upload/facelift2014/Bad_und_Wellness/Unser_Versprechen/Designer/Oliver_Schweizer/teaser-designer-oliverschweizer-01.jpg" alt="" />
+                                            <img src="{{ $user->avatar }}" alt="{{ $user->firstname . ' ' . $user->lastname }} }}" />
                                         </span>
                                         <span class="name">
-                                            <small>Phan</small>
-                                            <span>Van</span>
+                                            <small>{{ $user->lastname }}</small>
+                                            <span>{{ $user->firstname }}</span>
                                         </span>
                                         <span class="job">
                                             <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
@@ -67,7 +69,7 @@
                                         <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
                                     </ul>
                                 </li>
-
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -81,6 +83,7 @@
                     </div>
                 </div>
             </section>
+
             <section id="section-evangelist-projects" class="section full-height padding-top-big padding-bottom-big bg-light">
                 <div class="container flex-full-height">
                     <div class="row">
@@ -92,78 +95,17 @@
                         </div>
                         <div class="col-md-8 col-xs-12 right">
                             <ul class="projects oneByOne" data-interval="100">
+                                @foreach($projects as $project)
                                 <li>
                                     <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
+                                        <span class="pic" style="background-image: url({{ $project->une }});"></span>
                                         <ul class="cats">
                                             <li>Web</li>
                                             <li>Design</li>
                                         </ul>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url(http://www.webdesignertrends.com/wp-content/uploads/2014/06/psd-webdesign-3.jpg);"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>

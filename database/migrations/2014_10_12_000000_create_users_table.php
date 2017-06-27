@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('firstname');
             $table->string('job')->nullable();
             $table->longText('avatar')->nullable();
+            $table->longText('bgimg')->nullable();
             $table->string('city')->nullable();
             $table->boolean('status', '0');
             $table->string('email')->unique();

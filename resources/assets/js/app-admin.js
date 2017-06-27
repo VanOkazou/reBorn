@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Dropzone
-    Dropzone.options.formupload2 = {
+    Dropzone.options.formGalleryProject = {
         maxFiles: 1,
         accept: function(file, done) {
             done();
@@ -18,8 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let optionsCkEditor = {
         language : 'fr',
     }
-    CKEDITOR.replace( 'about', optionsCkEditor );
-    CKEDITOR.replace( 'description', optionsCkEditor );
+
+    const aboutTextarea = document.querySelector('textarea.about');
+    if(document.body.contains(aboutTextarea))
+        CKEDITOR.replace( 'about', optionsCkEditor );
+
+    const descriptionTextarea = document.querySelector('textarea.description');
+    if(document.body.contains(descriptionTextarea))
+        CKEDITOR.replace( 'description', optionsCkEditor );
 
 
     // Input type file and preview
@@ -42,9 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let inputAvatar = document.getElementById("avatar");
-    inputAvatar.addEventListener('change', () => {
-        readURL("avatar", "previewAvatar");
-    });
+    if(document.body.contains(inputAvatar))
+        inputAvatar.addEventListener('change', () => {
+            readURL("avatar", "previewAvatar");
+        });
+
+    let inputBgimg = document.getElementById("bgimg");
+    if(document.body.contains(inputBgimg))
+        inputBgimg.addEventListener('change', () => {
+            readURL("bgimg", "previewBgImg");
+        });
 
 
 

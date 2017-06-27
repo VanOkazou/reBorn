@@ -30,11 +30,16 @@ $font-path: '../fonts/';
     .form-group-preview {
         @include flex($jc:flex-start, $ai:flex-end);
         .previewImg {
-            @include size(100px, 100px);
             background: $white;
             border: 1px solid #ccc;
             border-radius: 4px;
             margin-right: 15px;
+            &.preview-small {
+                @include size(100px, 100px);
+            }
+            &.preview-medium {
+                @include size(300px, 150px);
+            }
         }
     }
 

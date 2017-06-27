@@ -14,15 +14,90 @@
         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
     @endif
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Mon compte</div>
-                    <div class="panel-body">
-                        @include('admin.projects.formEdit')
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#menu0">Infos project</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#menu1">Gallery</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="menu0" class="tab-pane fade in active">
+                {{ Form::open([
+                    'route' => ['projects.update', $project->id],
+                    'method' => 'put',
+                    'class'=>'form-horizontal',
+                    'role' => 'form',
+                    'files' => true
+                ]) }}
+
+                <div class="form-group row">
+                    {{ Form::label('une', 'Thumbnail', ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-9 form-group-preview">
+                        <div id="previewUne" class="previewImg preview-small" style="background-size: cover; background-position: center center"></div>
+                        {{ Form::file('une', '', ['class' => 'form-control']) }}
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    {{ Form::label('title', 'Title', ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-9">
+                        {{ Form::text('title', $project->title, ['class' => 'form-control', 'autofocus']) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ Form::label('description', 'Description', ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-9">
+                        {{ Form::textarea('description', $project->description, ['class' => 'form-control', 'size' => '30x5']) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {{ Form::label('date', 'Date of creation', ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-9">
+                        {{ Form::date('date', $project->date, ['class' => 'form-control']) }}
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-9 col-md-offset-2">
+                        @foreach($categories as $categorie)
+                            <label class="checkbox-inline">
+                                <input
+                                        type="checkbox"
+                                        value="{{ $categorie->id }}"
+                                        name="category[]"
+                                        {{ in_array($categorie->name, $cats) ? 'checked' : '' }}
+                                >{{ $categorie->name }}
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-8 col-md-offset-2">
+                        {{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+                    </div>
+                </div>
+                {{ Form::close() }}
+            </div>
+
+            <div id="menu1" class="tab-pane fade">
+                <form action="{{ route('projects.upload') }}" class="dropzone" id="formGalleryProject" method="post">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="file" name="file"/>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" /><br/>
+                </form>
+                <p>Return to the tab "Infos Project" to save your changes!</p>
             </div>
         </div>
+
+
+
+
+
     </div>
 @endsection

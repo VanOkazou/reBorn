@@ -27,6 +27,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public static function lists($string)
+    {
+    }
+
     /**
      * The users that belong to the project.
      */

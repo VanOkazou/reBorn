@@ -1,5 +1,6 @@
 <?php
 
+use \App\Models\Techno;
 use Illuminate\Database\Seeder;
 
 class TechnosTableSeeder extends Seeder
@@ -28,7 +29,7 @@ class TechnosTableSeeder extends Seeder
         ];
 
         foreach($technos as $techno) {
-            \App\Models\Techno::updateOrCreate(['name' => $techno['name'], 'type' => $techno['type']]);
+            Techno::updateOrCreate(['name' => $techno['name'], 'type' => $techno['type']]);
         }
     }
 }

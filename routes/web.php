@@ -8,9 +8,7 @@
 
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
+Route::get('/', 'Controller@index');
 
 // Route for Evangelist
 Route::get('/evangelist/{user}', 'UserController@show');
