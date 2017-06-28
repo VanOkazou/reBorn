@@ -193,8 +193,11 @@ class AdminProjectsController extends Controller
 
         //Link belongToMany
         if(isset($input['category'])){
+
             $project->categories()->sync($input['category']);
+
         }else{
+
             $project->categories()->sync([]);
         }
 
