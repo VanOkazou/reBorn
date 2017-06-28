@@ -108,7 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                console.log(preview);
                 preview.style.backgroundImage = "url(" + e.target.result + ")";
             };
 
@@ -124,6 +123,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var inputBgimg = document.getElementById("bgimg");
     if (document.body.contains(inputBgimg)) inputBgimg.addEventListener('change', function () {
         readURL("bgimg", "previewBgImg");
+    });
+
+    var inputUne = document.getElementById("une");
+    if (document.body.contains(inputUne)) inputUne.addEventListener('change', function () {
+        readURL("une", "previewUne");
     });
 
     // EVENTS

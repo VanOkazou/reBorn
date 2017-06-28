@@ -140,6 +140,8 @@ class AdminProjectsController extends Controller
     {
         //init
         $input = $request->input();
+        $files = $request->file();
+        $project = Project::find($id);
 
         $validator = $this->validateRules($request->all());
 
@@ -150,8 +152,15 @@ class AdminProjectsController extends Controller
                 ->withInput($input);
         }
 
-        //Create project
+        $une = $$project->une;
+        if(isset($files['une'])) {
+            $une = 'uploads/' . time().'-'.$files['une']->getClientOriginalName();
+        }
+        dd($une);
+
+        // Update project
         $project = Project::find($id);
+        $project->une = $une;
         $project->title = $input['title'];
         $project->description = $input['description'];
         $project->date = $input['date'];
@@ -184,7 +193,7 @@ class AdminProjectsController extends Controller
         //Link belongToMany
         $project->categories()->sync($input['category']);
 
-        Session::flash('message', 'Votre projet a été crée !');
+        Session::flash('message', 'Modifications have been saved!');
         return redirect()->back();
     }
 

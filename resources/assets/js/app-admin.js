@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let reader = new FileReader();
 
             reader.onload = function (e) {
-                console.log(preview);
                 preview.style.backgroundImage = "url("+ e.target.result + ")";
             }
 
@@ -58,6 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
         inputBgimg.addEventListener('change', () => {
             readURL("bgimg", "previewBgImg");
         });
+
+    let inputUne = document.getElementById("une");
+    if(document.body.contains(inputUne))
+        inputUne.addEventListener('change', () => {
+            readURL("une", "previewUne");
+    });
 
     // EVENTS
     // Delete projects

@@ -36,7 +36,7 @@
                 <div class="form-group row">
                     {{ Form::label('une', 'Thumbnail', ['class' => 'col-md-2 control-label']) }}
                     <div class="col-md-9 form-group-preview">
-                        <div id="previewUne" class="previewImg preview-small" style="background-size: cover; background-position: center center"></div>
+                        <div id="previewUne" class="previewImg preview-small" style="background-size: cover; background-position: center center; background-image: url({{ asset($project->une) }})"></div>
                         {{ Form::file('une', '', ['class' => 'form-control']) }}
                     </div>
                 </div>
