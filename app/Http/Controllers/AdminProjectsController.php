@@ -192,7 +192,11 @@ class AdminProjectsController extends Controller
         }
 
         //Link belongToMany
-        $project->categories()->sync($input['category']);
+        if(isset($input['category'])){
+            $project->categories()->sync($input['category']);
+        }else{
+            $project->categories()->sync([]);
+        }
 
         Session::flash('message', 'Modifications have been saved!');
         return redirect()->back();
