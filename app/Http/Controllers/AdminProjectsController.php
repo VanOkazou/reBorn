@@ -152,15 +152,16 @@ class AdminProjectsController extends Controller
                 ->withInput($input);
         }
 
-        $une = $$project->une;
+        $uneName = $project->une;
         if(isset($files['une'])) {
-            $une = 'uploads/' . time().'-'.$files['une']->getClientOriginalName();
+            $uneName = 'uploads/' . time().'-'.$files['une']->getClientOriginalName();
+            $files['une']->move(public_path('uploads'), $uneName);
         }
-        dd($une);
+
 
         // Update project
         $project = Project::find($id);
-        $project->une = $une;
+        $project->une = $uneName;
         $project->title = $input['title'];
         $project->description = $input['description'];
         $project->date = $input['date'];
