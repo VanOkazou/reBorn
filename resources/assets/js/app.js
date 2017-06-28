@@ -18,6 +18,7 @@ const scrollTo = (target) => {
 
 // One by One
 const oneByOne = (group, interval) => {
+
     let obj_ev = group.children;
     let arr_ev = Object.keys(obj_ev).map(key => obj_ev[key]);
     let length = arr_ev.lengthectorAll

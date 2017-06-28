@@ -159,7 +159,7 @@
                 <div class="form-group row">
                     {{ Form::label('avatar', 'Avatar', ['class' => 'col-md-2 control-label']) }}
                     <div class="col-md-9 form-group-preview">
-                        <div id="previewAvatar" class="previewImg preview-small" style="background-size: cover; background-position: center center"></div>
+                        <div id="previewAvatar" class="previewImg preview-small" style="background-size: cover; background-position: center center; background-image: url({{ $user->avatar }});"></div>
                         {{ Form::file('avatar', '', ['class' => 'form-control']) }}
                     </div>
                 </div>

@@ -104,12 +104,12 @@ class AdminUsersController extends Controller
         $avatarName = '';
         $bgimgName = '';
         if(isset($files['avatar'])) {
-            $avatarName = time().'.'.$files['avatar']->getClientOriginalName();
+            $avatarName = time().'-'.$files['avatar']->getClientOriginalName();
             $files['avatar']->move(public_path('uploads'), $avatarName);
         }
 
         if(isset($files['bgimg'])) {
-            $bgimgName = time().'.'.$files['bgimg']->getClientOriginalName();
+            $bgimgName = time().'-'.$files['bgimg']->getClientOriginalName();
             $files['bgimg']->move(public_path('uploads'), $bgimgName);
         }
 
@@ -119,8 +119,8 @@ class AdminUsersController extends Controller
           'slug' => $input['slug'],
           'about' => $input['about'],
           'slogan' => $input['slogan'],
-          'avatar' => 'uploads/' . $avatarName,
-          'bgimg' => 'uploads/' . $bgimgName,
+          'avatar' => public_path('uploads') . '/' . $avatarName,
+          'bgimg' => public_path('uploads') . '/' . $bgimgName,
           'description' => $input['description'],
           'lastname' => $input['lastname'],
           'firstname' => $input['firstname'],

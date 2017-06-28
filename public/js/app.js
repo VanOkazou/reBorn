@@ -90,6 +90,7 @@ var scrollTo = function scrollTo(target) {
 
 // One by One
 var oneByOne = function oneByOne(group, interval) {
+
     var obj_ev = group.children;
     var arr_ev = Object.keys(obj_ev).map(function (key) {
         return obj_ev[key];
