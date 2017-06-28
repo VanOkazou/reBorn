@@ -98,7 +98,7 @@
                                 @foreach($projects as $project)
                                 <li>
                                     <a href="" title="">
-                                        <span class="pic" style="background-image: url({{ $project->une }});"></span>
+                                        <span class="pic" style="background-image: url({{ asset($project->une) }});"></span>
                                         <ul class="cats">
                                             <li>Web</li>
                                             <li>Design</li>

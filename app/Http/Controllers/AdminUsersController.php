@@ -61,10 +61,7 @@ class AdminUsersController extends Controller
 
     public function show($id,Request $request)
     {
-        $user = User::find($id);
-
-        return View('admin.users.edit' , compact('user'));
-
+        //
     }
 
     /**
@@ -75,7 +72,8 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return View('admin.users.edit' , compact('user'));
     }
 
     /**
@@ -89,6 +87,7 @@ class AdminUsersController extends Controller
     {
         $input = $request->input();
         $files = $request->file();
+        $user = User::find($id);
 
         //Check with validator
         $validator = $this->validateRules($request->all());
@@ -101,15 +100,16 @@ class AdminUsersController extends Controller
         }
 
         // Prepare images
-        $avatarName = '';
-        $bgimgName = '';
+        $avatarName = $user->avatar;
+        $bgimgName = $user->bgimg;
+
         if(isset($files['avatar'])) {
-            $avatarName = time().'-'.$files['avatar']->getClientOriginalName();
+            $avatarName = 'uploads/' . time().'-'.$files['avatar']->getClientOriginalName();
             $files['avatar']->move(public_path('uploads'), $avatarName);
         }
 
         if(isset($files['bgimg'])) {
-            $bgimgName = time().'-'.$files['bgimg']->getClientOriginalName();
+            $bgimgName = 'uploads/' . time().'-'.$files['bgimg']->getClientOriginalName();
             $files['bgimg']->move(public_path('uploads'), $bgimgName);
         }
 
@@ -119,8 +119,8 @@ class AdminUsersController extends Controller
           'slug' => $input['slug'],
           'about' => $input['about'],
           'slogan' => $input['slogan'],
-          'avatar' => public_path('uploads') . '/' . $avatarName,
-          'bgimg' => public_path('uploads') . '/' . $bgimgName,
+          'avatar' =>  $avatarName,
+          'bgimg' => $bgimgName,
           'description' => $input['description'],
           'lastname' => $input['lastname'],
           'firstname' => $input['firstname'],

@@ -21,7 +21,7 @@ const oneByOne = (group, interval) => {
 
     let obj_ev = group.children;
     let arr_ev = Object.keys(obj_ev).map(key => obj_ev[key]);
-    let length = arr_ev.lengthectorAll
+    let length = arr_ev.length;
 
     for (let i = 0; i < length; i++) {
         setTimeout(() => {
@@ -29,6 +29,7 @@ const oneByOne = (group, interval) => {
             let random = Math.floor((Math.random() * max) + 0);
             arr_ev[random].classList.add('loaded');
             arr_ev.splice(random, 1);
+
         }, interval*i);
     }
 }
@@ -36,7 +37,6 @@ const oneByOne = (group, interval) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.querySelector('body');
-
     // Fadein content
     body.classList.add('loaded');
 

@@ -48,7 +48,7 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li>
-                                <a href="{{ route('user.show', ['id' => Auth::user()->id ] ) }}">Mon compte</a>
+                                <a href="{{ route('user.edit', ['id' => Auth::user()->id ] ) }}">Mon compte</a>
                             </li>
                             <li>
                                 <a href="{{ route('projects.index') }}">Mes projets</a>
