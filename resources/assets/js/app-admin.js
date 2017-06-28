@@ -59,6 +59,32 @@ document.addEventListener('DOMContentLoaded', () => {
             readURL("bgimg", "previewBgImg");
         });
 
+    // EVENTS
+    // Delete projects
+    [].forEach.call(document.querySelectorAll('.delete-project'), btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            e = e || window.event;
+            let src = e.target || e.srcElement;
+
+            while("undefined" === src.getAttribute('data-id') || !(src.getAttribute('data-id'))) {
+                src = src.parentElement;
+            }
+
+            let idproject = src.getAttribute('data-id');
+            let token = src.getAttribute('data-token');
+
+            var httpRequest = new XMLHttpRequest()
+            httpRequest.onreadystatechange = function (data) {
+                document.getElementById('project-'+idproject).style.display = 'none';
+            }
+            httpRequest.open('DELETE', 'projects/'+idproject )
+            httpRequest.send()
+
+        });
+    });
+
 
 
 

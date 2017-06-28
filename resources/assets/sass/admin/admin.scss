@@ -20,10 +20,36 @@ $font-path: '../fonts/';
 // Admin style
 #admin-app {
 
+    .glyphicon {
+        color: inherit;
+    }
+
     // TAB CONTENT
     .tab-content {
         padding-top: 25px;
         padding-bottom: 25px;
+    }
+
+    // PANEL
+    .panel {
+        .panel-heading {
+            @include flex($jc: flex-start);
+            padding: 15px;
+            h2 {
+                margin: 0;
+            }
+            .btn {
+                color: $white;
+                margin-left: auto;
+            }
+        }
+        .panel-body {
+            .preview {
+                @include size(50px, 50px);
+                border-radius: 5px;
+                @include bgImg();
+            }
+        }
     }
 
     // INPUT FILE

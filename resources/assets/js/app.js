@@ -20,7 +20,7 @@ const scrollTo = (target) => {
 const oneByOne = (group, interval) => {
     let obj_ev = group.children;
     let arr_ev = Object.keys(obj_ev).map(key => obj_ev[key]);
-    let length = arr_ev.length;
+    let length = arr_ev.lengthectorAll
 
     for (let i = 0; i < length; i++) {
         setTimeout(() => {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#homepage .slogan-container').classList.add('loaded');
             [].forEach.call(document.querySelectorAll('#homepage .link-container .btn-down'), btn => {
                 btn.classList.add('loaded');
-            })
+            });
         }, 400)
 
 

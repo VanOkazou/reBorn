@@ -125,6 +125,31 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.body.contains(inputBgimg)) inputBgimg.addEventListener('change', function () {
         readURL("bgimg", "previewBgImg");
     });
+
+    // EVENTS
+    // Delete projects
+    [].forEach.call(document.querySelectorAll('.delete-project'), function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            e = e || window.event;
+            var src = e.target || e.srcElement;
+
+            while ("undefined" === src.getAttribute('data-id') || !src.getAttribute('data-id')) {
+                src = src.parentElement;
+            }
+
+            var idproject = src.getAttribute('data-id');
+            var token = src.getAttribute('data-token');
+
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function (data) {
+                document.getElementById('project-' + idproject).style.display = 'none';
+            };
+            httpRequest.open('DELETE', 'projects/' + idproject);
+            httpRequest.send();
+        });
+    });
 });
 
 /***/ }),

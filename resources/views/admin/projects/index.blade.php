@@ -7,16 +7,16 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2>Mes projets</h2>
-                        <a href="{{ route('projects.create') }}" class="btn btn-primary btn-lg">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Plus
+                        <a href="{{ route('projects.create') }}" class="btn btn-primary btn-l">
+                            <span class="glyphicon glyphicon-plus-sign"></span> Add a project
                         </a>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped">
                             <thead>
                             <tr>
+                                <th></th>
                                 <th>Nom du projet</th>
-                                <th>Description</th>
                                 <th>Date de réalisation</th>
                                 <th>Categories</th>
                                 <th>Action</th>
@@ -24,9 +24,11 @@
                             </thead>
                             <tbody>
                             @foreach($user->projects as $project)
-                                <tr>
+                                <tr id="project-{{ $project->id }}">
+                                    <td>
+                                        <div class="preview" style="background-image: url({{ $project->une }});"></div>
+                                    </td>
                                     <td>{{ $project->title }}</td>
-                                    <td>{{ $project->description }}</td>
                                     <td>{{ $project->date }}</td>
                                     <td>
                                         @foreach($project->categories as $category)
@@ -34,10 +36,14 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <form action="{{ route('projects.delete' , ['id' => $project->id]) }}" class="btn btn-danger" method="post">
-                                            <input type="submit" value="Supprimer"/>
-                                        </form>
-                                        <a href="{{ route('projects.show' , ['id' => $project->id]) }}" class="btn btn-primary">
+
+                                        <a href="{{ route('projects.edit' , ['id' => $project->id]) }}" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </a>
+                                        <a href="#" class="btn btn-danger delete-project" data-id="{{ $project->id }}" data-token="{{ csrf_token() }}">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                        <a href="{{ route('projects.show' , ['id' => $project->id]) }}" class="btn btn-warning">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </a>
                                     </td>

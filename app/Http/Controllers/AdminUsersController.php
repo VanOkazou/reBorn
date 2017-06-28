@@ -15,6 +15,8 @@ class AdminUsersController extends Controller
         'slug' => 'required|filled',
         'about' => 'nullable|filled|string|',
         'slogan' => 'nullable|min:0|max:4294967295',
+        'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'bgimg' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'description' => 'nullable|min:0|max:4294967295',
         'email' => 'required|min:0|max:4294967295',
         'fb' => 'nullable|min:10|max:4294967295',
@@ -86,6 +88,7 @@ class AdminUsersController extends Controller
     public function update(Request $request,$id)
     {
         $input = $request->input();
+        $files = $request->file();
 
         //Check with validator
         $validator = $this->validateRules($request->all());
@@ -97,12 +100,27 @@ class AdminUsersController extends Controller
                 ->withInput($input);
         }
 
+        // Prepare images
+        $avatarName = '';
+        $bgimgName = '';
+        if(isset($files['avatar'])) {
+            $avatarName = time().'.'.$files['avatar']->getClientOriginalName();
+            $files['avatar']->move(public_path('uploads'), $avatarName);
+        }
+
+        if(isset($files['bgimg'])) {
+            $bgimgName = time().'.'.$files['bgimg']->getClientOriginalName();
+            $files['bgimg']->move(public_path('uploads'), $bgimgName);
+        }
+
         //Update if Ok
         $dataUpdate = [
           'username' => $input['username'],
           'slug' => $input['slug'],
           'about' => $input['about'],
           'slogan' => $input['slogan'],
+          'avatar' => 'uploads/' . $avatarName,
+          'bgimg' => 'uploads/' . $bgimgName,
           'description' => $input['description'],
           'lastname' => $input['lastname'],
           'firstname' => $input['firstname'],
@@ -118,6 +136,8 @@ class AdminUsersController extends Controller
         ];
         User::where('id', $id)
             ->update($dataUpdate);
+
+
 
         Session::flash('message', 'Votre profil a été modifié !');
         return redirect()->back();

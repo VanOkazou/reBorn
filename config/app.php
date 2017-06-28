@@ -13,7 +13,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-
+    'uploads' => env('APP_UPLOADS', public_path('uploads')),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

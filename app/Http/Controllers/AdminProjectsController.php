@@ -196,16 +196,13 @@ class AdminProjectsController extends Controller
      */
     public function destroy($id)
     {
-    }
-
-    public function delete($id){
-
         $project = Project::find($id);
         $project->delete();
 
         Session::flash('message', 'Votre projet a été supprimé !');
         return redirect()->back();
     }
+
 
     /**
      * @param array $attributes

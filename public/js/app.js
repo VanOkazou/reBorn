@@ -94,7 +94,7 @@ var oneByOne = function oneByOne(group, interval) {
     var arr_ev = Object.keys(obj_ev).map(function (key) {
         return obj_ev[key];
     });
-    var length = arr_ev.length;
+    var length = arr_ev.lengthectorAll;
 
     var _loop = function _loop(i) {
         setTimeout(function () {

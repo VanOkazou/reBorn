@@ -53,7 +53,7 @@
                                 <li>
                                     <a href="" title="">
                                         <span class="pic">
-                                            <img src="{{ $user->avatar }}" alt="{{ $user->firstname . ' ' . $user->lastname }} }}" />
+                                            <img src="{{ url($user->avatar) }}" alt="{{ $user->firstname . ' ' . $user->lastname }} }}" />
                                         </span>
                                         <span class="name">
                                             <small>{{ $user->lastname }}</small>
