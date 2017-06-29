@@ -19,14 +19,14 @@
                                 <th>Nom du projet</th>
                                 <th>Date de réalisation</th>
                                 <th>Categories</th>
-                                <th>Action</th>
+                                <th class="text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($user->projects as $project)
                                 <tr id="project-{{ $project->id }}">
                                     <td>
-                                        <div class="preview" style="background-image: url({{ $project->une }});"></div>
+                                        <div class="preview" style="background-image: url({{ asset($project->une) }});"></div>
                                     </td>
                                     <td>{{ $project->title }}</td>
                                     <td>{{ $project->date }}</td>
@@ -35,7 +35,7 @@
                                             <span>{{ $category->name }}</span>
                                         @endforeach
                                     </td>
-                                    <td>
+                                    <td class="text-right">
 
                                         <a href="{{ route('projects.edit' , ['id' => $project->id]) }}" class="btn btn-success">
                                             <span class="glyphicon glyphicon-pencil"></span>

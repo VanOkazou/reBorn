@@ -85,6 +85,10 @@
                 width: 100%;
                 .left {
                     justify-content: flex-end;
+                    .section-big-title {
+                        padding-top: 100px;
+                        text-align: right;
+                    }
                 }
                 .right {
                     padding-left: 55px;
@@ -99,7 +103,8 @@
                                 opacity: .85;
                                 .pic {
                                     display: block;
-                                    width: 100%;
+                                    @include size(100%, 250px);
+                                    @include bgImg();
                                     -webkit-clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
                                     clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
                                     overflow: hidden;
@@ -148,45 +153,76 @@
         }
     }
     #section-evangelist-projects {
-        display: flex;
-        &>.container {
-            flex-direction: column;
-            &>.row {
-                width: 100%;
-                .left {
-                    justify-content: flex-end;
-                }
-                .right {
-                    padding-left: 55px;
-                    .projects {
-                        width: 100%;
-                        @include flex($ai:flex-start, $jc:flex-start);
-                        &>li {
-                            width: calc(100% / 3);
-                            padding: 20px;
-                            a {
-                                box-shadow: 0 0 5px $light-grey;
-                                display: block;
+        &>div {
+            .section-big-title {
+                text-align: center;
+            }
+            #gallery-projects {
+                margin-top: 35px;
+                .projects {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    @include flex($ai:flex-start, $jc:flex-start);
+                    &>li {
+                        position: absolute;
+                        &:nth-child(12n+1) {
+                            width: 40%;
+                            left: 0;
+                        }
+                        &:nth-child(12n+2) {
+                            width: 20%;
+                        }
+                        &:nth-child(12n+3) {
+                            width: 20%;
+                        }
+                        &:nth-child(12n+4) {
+                            width: 40%;
+                        }
+                        &:nth-child(12n+5) {
+                            width: 40%;
+                        }
+                        &:nth-child(12n+6) {
+                            width: 40%;
+                        }
+                        &:nth-child(12n+7) {
+                            width: 20%;
+                        }
+                        &:nth-child(12n+8) {
+                            width: 20%;
+                        }
+                        &:nth-child(12n+9) {
+                            width: 40%;
+                        }
+                        &:nth-child(12n+10) {
+                            width: 20%;
+                        }
+                        &:nth-child(12n+11) {
+                            width: 20%;
+                        }
+                        &:nth-child(12n+12) {
+                            width: 20%;
+                        }
+                        a {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            .pic {
                                 width: 100%;
-                                padding: 10px;
-                                background-color: $white;
-                                .pic {
-                                    width: 100%;
-                                    height: 175px;
-                                    display: block;
-                                    @include bgImg();
-                                }
-                                .cats {
-                                    @include flex();
-                                    margin-top: 10px;
-                                    li {
-                                        @include fs(1.2rem, 1.6rem);
-                                        &:not(:last-child) {
-                                            &:after {
-                                                content: "|";
-                                                margin: 0 5px;
-                                                display: inline-block;
-                                            }
+                                height: 100%;
+                                display: block;
+                                @include bgImg();
+                            }
+                            .cats {
+                                @include flex();
+                                margin-top: 10px;
+                                li {
+                                    @include fs(1.2rem, 1.6rem);
+                                    &:not(:last-child) {
+                                        &:after {
+                                            content: "|";
+                                            margin: 0 5px;
+                                            display: inline-block;
                                         }
                                     }
                                 }

@@ -154,6 +154,31 @@ document.addEventListener('DOMContentLoaded', function () {
             httpRequest.send();
         });
     });
+
+    // Delete attachment
+    [].forEach.call(document.querySelectorAll('.delete-attachment'), function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            e = e || window.event;
+            var src = e.target || e.srcElement;
+
+            while ("undefined" === src.getAttribute('data-id') || !src.getAttribute('data-id')) {
+                src = src.parentElement;
+            }
+
+            var id = src.getAttribute('data-id');
+            var token = src.getAttribute('data-token');
+            var url = src.getAttribute('data-url');
+
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function (data) {
+                document.getElementById('attach-' + id).style.display = 'none';
+            };
+            httpRequest.open('POST', url);
+            httpRequest.send();
+        });
+    });
 });
 
 /***/ }),

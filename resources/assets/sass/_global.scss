@@ -143,9 +143,7 @@ html {
             @include ff(2);
             @include fs(6rem, 7rem);
             color: $dark-reborn;
-            text-align: right;
             text-transform: uppercase;
-            padding-top: 100px;
             small {
                 line-height: 6.7rem;
                 margin-top: -3px;

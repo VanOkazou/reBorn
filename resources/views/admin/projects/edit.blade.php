@@ -92,7 +92,18 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}" /><br/>
                 </form>
                 <p>Return to the tab "Infos Project" to save your changes!</p>
+                <div class="attachment-list-container">
+                    <ul class="attachment-list">
+                        @foreach($project->attachments as $attachment)
+                        <li id="attach-{{ $attachment->id }}">
+                            <img src="{{ asset($attachment->url) }}" alt="">
+                            <span class="glyphicon glyphicon-folder-close delete-attachment" data-token="{{ csrf_token() }}" data-id="{{ $attachment->id }}" data-url="{{ route('attachment.destroy', ['id' => $attachment->id]) }}"></span>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
+            
         </div>
 
 

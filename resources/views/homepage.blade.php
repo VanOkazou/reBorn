@@ -52,9 +52,7 @@
                                 @foreach($users as $user)
                                 <li>
                                     <a href="" title="">
-                                        <span class="pic">
-                                            <img src="{{ url($user->avatar) }}" alt="{{ $user->firstname . ' ' . $user->lastname }} }}" />
-                                        </span>
+                                        <span class="pic" style="background-image: url({{ url($user->avatar) }});"></span>
                                         <span class="name">
                                             <small>{{ $user->lastname }}</small>
                                             <span>{{ $user->firstname }}</span>
@@ -85,31 +83,25 @@
             </section>
 
             <section id="section-evangelist-projects" class="section full-height padding-top-big padding-bottom-big bg-light">
-                <div class="container flex-full-height">
-                    <div class="row">
-                        <div class="col-md-4 col-xs-12 left">
-                            <h4 class="section-big-title">
-                                Take a look at our
-                                <small>realisations</small>
-                            </h4>
-                        </div>
-                        <div class="col-md-8 col-xs-12 right">
+                    <div class="container">
+                        <h4 class="section-big-title">
+                            Take a look at our
+                            <small>realisations</small>
+                        </h4>
+                    </div>
+                    <div class="container-fluid">
+                        <div id="gallery-projects">
                             <ul class="projects oneByOne" data-interval="100">
-                                @foreach($projects as $project)
-                                <li>
-                                    <a href="" title="">
-                                        <span class="pic" style="background-image: url({{ asset($project->une) }});"></span>
-                                        <ul class="cats">
-                                            <li>Web</li>
-                                            <li>Design</li>
-                                        </ul>
-                                    </a>
-                                </li>
+                                @foreach($projects as $index=>$project)
+                                    <li data-item="{{ $index + 1 }}">
+                                        <a href="" title="">
+                                            <span class="pic" style="background-image: url({{ asset($project->une) }});"></span>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
-                </div>
             </section>
         </div>
     </body>

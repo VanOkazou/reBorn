@@ -69,4 +69,17 @@ $font-path: '../fonts/';
         }
     }
 
+    // MOSAIC IMAGE
+    .attachment-list-container {
+        ul.attachment-list {
+            @include flex($jc:flex-start,$ai:flex-start);
+            li{
+                max-width: 15%;
+                padding: 5px;
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

@@ -87,7 +87,7 @@ class AdminProjectsController extends Controller
             // Save image in database
             $newFile = explode('/', $file);
             $attachment = new Attachment();
-            $attachment->url = end($newFile);
+            $attachment->url = str_replace(' ', '', end($newFile));
             $attachment->project_id = $project->id;
             $attachment->save();
 
@@ -103,6 +103,17 @@ class AdminProjectsController extends Controller
         Session::flash('message', 'Votre projet a été crée !');
         return redirect()->back();
 
+    }
+
+    /**
+     * Delete attachments
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAttachment($id){
+        $attachment = Attachment::find($id);
+        $attachment->delete();
     }
 
     /**
@@ -168,26 +179,23 @@ class AdminProjectsController extends Controller
         $project->save();
 
         if (count(scandir(storage_path('app/public/tmp'))) > 2 ) {
-            $attachments = Attachment::all();
-            foreach ($attachments as $attachment){
-                if($attachment->project_id == $id){
-                    $attachment->delete();
-                }
-            }
 
             //Create attachment
             $files = Storage::files('public/tmp');
             foreach ($files as $file){
                 // Save image in database
-                $newFile = explode('/', $file);
+                $fileName = explode('/', $file);
+                $fileName = end($fileName);
+                $filePath = 'uploads/' . $fileName;
+
                 $attachment = new Attachment();
-                $attachment->url = end($newFile);
+                $attachment->url = $filePath;
                 $attachment->project_id = $project->id;
                 $attachment->save();
 
                 // Copy and delete attachment to public/uploads folder
-                copy(storage_path('app/public/tmp/' . $attachment->url), public_path('uploads/'. $attachment->url));
-                unlink(storage_path('app/public/tmp/' . $attachment->url));
+                copy(storage_path('app/public/tmp/' . $fileName), public_path('uploads/'. $fileName));
+                unlink(storage_path('app/public/tmp/' . $fileName));
             }
         }
 
