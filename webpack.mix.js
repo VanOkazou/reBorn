@@ -14,6 +14,7 @@ const { mix } = require('laravel-mix');
 mix.combine([
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'
+        'node_modules/slick-carousel/slick/slick.min.js'
     ], 'public/js/vendor.js')
     .combine([
         'node_modules/jquery/dist/jquery.min.js',
@@ -29,5 +30,8 @@ mix.combine([
     // Style
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/admin/admin.scss', 'public/css')
+
+    // Import Image
+    .copy('node_modules/slick-carousel/slick/ajax-loader.gif', 'public/css')
 
     .browserSync();

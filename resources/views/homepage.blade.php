@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>reBorn - the Digital Evangelists Community</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/logo/favicon.png') }}" />
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,600" rel="stylesheet" type="text/css">
@@ -51,7 +52,7 @@
                             <ul class="evangelists oneByOne" data-interval="100">
                                 @foreach($users as $user)
                                 <li>
-                                    <a href="" title="">
+                                    <a href="{{ route('evangelist', ['user'=>$user->slug]) }}" title="{{ $user->firstname }}">
                                         <span class="pic" style="background-image: url({{ url($user->avatar) }});"></span>
                                         <span class="name">
                                             <small>{{ $user->lastname }}</small>
@@ -90,13 +91,24 @@
                         </h4>
                     </div>
                     <div class="container-fluid">
+                        <div id="gallery-filter">
+                            <ul>
+                                @foreach($cats as $cat)
+                                    <li id="{{ $cat->name }}" class="cat-filter">{{ $cat->name }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                         <div id="gallery-projects">
-                            <ul class="projects oneByOne" data-interval="100">
+                            <ul class="projects oneByOne" data-interval="50">
                                 @foreach($projects as $index=>$project)
-                                    <li data-item="{{ $index + 1 }}">
-                                        <a href="" title="">
-                                            <span class="pic" style="background-image: url({{ asset($project->une) }});"></span>
-                                        </a>
+                                    <li data-item="{{ $index + 1 }}" data-cats="{{ $project->stringCats }}">
+                                        <div>
+                                            <div class="pic" style="background-image: url({{ asset($project->une) }});"></div>
+                                            <div class="infos">
+                                                <p class="title">{{ $project->title }}</p>
+                                                <p class="cats">{{ $project->stringCats }}</p>
+                                            </div>
+                                        </div>
                                     </li>
                                 @endforeach
                             </ul>

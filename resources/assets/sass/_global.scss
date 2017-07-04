@@ -25,6 +25,9 @@ html {
             position: relative;
             margin-top: auto;
             padding-top: 55px;
+            @media screen and (max-width: $breakpt-xs) {
+                display: none;
+            }
             .btn-down {
                 position: absolute;
                 width: 200px;
@@ -114,7 +117,7 @@ html {
                 padding-top: 60px;
             }
             @media screen and (max-width: $breakpt-sm) {
-                padding-top: 30px;
+                padding-top: 40px;
             }
         }
         .padding-bottom-big {
@@ -123,7 +126,7 @@ html {
                 padding-bottom: 60px;
             }
             @media screen and (max-width: $breakpt-sm) {
-                padding-bottom: 30px;
+                padding-bottom: 40px;
             }
         }
 
@@ -144,11 +147,17 @@ html {
             @include fs(6rem, 7rem);
             color: $dark-reborn;
             text-transform: uppercase;
+            @media screen and (max-width: $breakpt-sm) {
+                @include fs(3rem, 3.5rem);
+            }
             small {
                 line-height: 6.7rem;
                 margin-top: -3px;
                 display: block;
                 color: $light-reborn;
+                @media screen and (max-width: $breakpt-sm) {
+                    @include fs(3rem, 3.7rem);
+                }
             }
         }
 

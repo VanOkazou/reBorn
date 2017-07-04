@@ -8,10 +8,10 @@
 
 */
 
-Route::get('/', 'Controller@index');
+Route::get('/', 'HomeController@index');
 
 // Route for Evangelist
-Route::get('/evangelist/{user}', 'UserController@show');
+Route::get('/evangelist/{user}', 'UserController@show')->name('evangelist');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,8 +17,21 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::all();
-        $projects = Project::all();
-        return View('homepage', compact('users','projects'));
+        $projects = Project::with('categories')->get();
+        $cats = Category::all();
+
+        foreach ($projects as $project) {
+            $arr_cats = [];
+
+            foreach ($project->categories as $cat) {
+                array_push($arr_cats, ucfirst($cat->name));
+            }
+
+            $stringCats = implode(' | ', $arr_cats);
+            $project['stringCats'] = $stringCats;
+        }
+
+        return View('homepage', compact('users','projects', 'cats'));
     }
 
     /**

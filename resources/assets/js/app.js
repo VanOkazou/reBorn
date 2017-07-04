@@ -124,6 +124,28 @@ const gallery = (gallery, items) => {
         }
     })
 }
+
+// Filter by cats
+let arrayFilters = [];
+const filterGallery = () => {
+    let elts = document.querySelectorAll('#gallery-projects ul li');
+    [].forEach.call(elts, elt => {
+        if(arrayFilters.length == 0) {
+            elt.classList.add('on');
+        } else {
+            let stringCats = elt.dataset.cats.replace(/\s/g,'').toLowerCase();
+            let arrayCats = stringCats.split('|');
+
+            if(arrayFilters.some(v=> arrayCats.indexOf(v) >= 0)){
+                elt.classList.add('on');
+            }else{
+                elt.classList.remove('on');
+            }
+        }
+    });
+}
+
+
 /* ===============
 * ===== ON LOAD
 =============== */
@@ -168,6 +190,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if(document.body.contains(galleryProject)) {
         gallery('gallery-projects', document.querySelectorAll('#gallery-projects ul li'));
     }
+
+    // Filter gallery
+    filterGallery();
+    const filters = document.querySelectorAll('#gallery-filter ul li');
+    [].forEach.call(filters, filter => {
+        filter.addEventListener('click', e => {
+            let elt = e.target;
+            let cat = elt.id;
+
+            elt.classList.toggle('on');
+
+            if (arrayFilters.indexOf(cat) === -1) {
+                arrayFilters.push(cat);
+            }
+            else {
+                let index = arrayFilters.indexOf(cat);
+                if(index!=-1){
+                    arrayFilters.splice(index, 1);
+                }
+            }
+            filterGallery(cat);
+        });
+    });
 
 });
 

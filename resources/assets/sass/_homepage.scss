@@ -12,6 +12,9 @@
                 position: relative;
                 margin: auto;
                 transition: all .8s ease-in-out;
+                @media screen and (max-width: $breakpt-xs) {
+                    width: 60px;
+                }
                 &:before, &:after {
                     content: "";
                     width: calc(50% - 2px);
@@ -51,8 +54,11 @@
                     font-weight: 100;
                     position: relative;
                     z-index: 1;
-                    background-color: #fcfcfc;
+                    background-color: $light-grey-1;
                     padding: 0 15px;
+                    @media screen and (max-width: $breakpt-xs) {
+                        @include fs(1.4rem);
+                    }
                 }
                 &:before {
                     content: "";
@@ -82,22 +88,31 @@
         &>.container {
             flex-direction: column;
             &>.row {
-                width: 100%;
                 .left {
                     justify-content: flex-end;
                     .section-big-title {
                         padding-top: 100px;
                         text-align: right;
+                        @media screen and (max-width: $breakpt-sm) {
+                            padding-top: 0;
+                            text-align: center;
+                        }
                     }
                 }
                 .right {
-                    padding-left: 55px;
+
+                    @media screen and (min-width: $breakpt-xs+1) {
+                        padding-left: 55px;
+                    }
                     ul.evangelists {
                         width: 100%;
                         @include flex($jc:flex-start, $ai:flex-start);
                         &>li {
                             width: 50%;
                             padding: 15px 25px;
+                            @media screen and (max-width: $breakpt-xs) {
+                                width: 100%;
+                            }
                             &>a {
                                 @include flex($dir:column, $ai:flex-end);
                                 opacity: .85;
@@ -105,9 +120,11 @@
                                     display: block;
                                     @include size(100%, 250px);
                                     @include bgImg();
-                                    -webkit-clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
-                                    clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
                                     overflow: hidden;
+                                    @media screen and (min-width: $breakpt-xs + 1) {
+                                        -webkit-clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+                                        clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+                                    }
                                     img {
                                         width: 100%;
                                         height: auto;
@@ -157,8 +174,29 @@
             .section-big-title {
                 text-align: center;
             }
+            #gallery-filter {
+                ul {
+                    width: 100%;
+                    @include flex();
+                    margin: 55px 0;
+                    li {
+                        @include ff(2);
+                        text-transform: uppercase;
+                        padding: 3px 25px;
+                        color: $light-reborn;
+                        &.on {
+                            color: $dark-reborn;
+                        }
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
             #gallery-projects {
-                margin-top: 35px;
+                @media screen and (max-width: $breakpt-sm) {
+                    height: auto!important;
+                }
                 .projects {
                     width: 100%;
                     height: 100%;
@@ -166,6 +204,18 @@
                     @include flex($ai:flex-start, $jc:flex-start);
                     &>li {
                         position: absolute;
+                        display: none;
+                        @media screen and (min-width: $breakpt-sm + 1) {
+                            opacity: .1;
+                            display: block;
+                        }
+                        &.on {
+                            opacity: 1;
+                            display: block;
+                            &:hover {
+                                cursor: pointer;
+                            }
+                        }
                         &:nth-child(12n+1) {
                             width: 40%;
                             left: 0;
@@ -203,27 +253,55 @@
                         &:nth-child(12n+12) {
                             width: 20%;
                         }
-                        a {
+                        @media screen and (max-width: $breakpt-sm) {
+                            position: static;
+                            padding: 5px 0;
+                            width: 100%!important;
+                            height: 200px!important;
+                        }
+                        @media screen and (max-width: $breakpt-xs) {
+                            height: 150px!important;
+                        }
+                        &>div {
                             display: block;
                             width: 100%;
                             height: 100%;
+                            position: relative;
+                            overflow: hidden;
+                            &:hover {
+                                .pic {
+                                    -webkit-filter: grayscale(0%);
+                                    filter: grayscale(0%);
+                                    transform: scale(1.1);
+                                }
+                            }
                             .pic {
                                 width: 100%;
                                 height: 100%;
                                 display: block;
                                 @include bgImg();
+                                -webkit-filter: grayscale(90%);
+                                filter: grayscale(90%);
+                                transition: all .4s ease-in;
+                                transform: scale(1);
                             }
-                            .cats {
-                                @include flex();
-                                margin-top: 10px;
-                                li {
-                                    @include fs(1.2rem, 1.6rem);
-                                    &:not(:last-child) {
-                                        &:after {
-                                            content: "|";
-                                            margin: 0 5px;
-                                            display: inline-block;
-                                        }
+                            .infos {
+                                position: absolute;
+                                z-index: 10;
+                                bottom: 0;
+                                left: 0;
+                                width: 100%;
+                                padding: 10px 25px 10px 10px;
+                                p {
+                                    color: $white;
+                                    text-shadow: 0 0 .3 $black;
+                                    &.title {
+                                        @include fs(2rem);
+                                        margin-bottom: 7px;
+                                    }
+                                    &.cats {
+                                        font-weight: 100;
+                                        @include fs(1.3rem);
                                     }
                                 }
                             }

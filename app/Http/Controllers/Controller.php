@@ -14,9 +14,5 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function index() {
-        $users = User::all();
-        $projects = Project::all();
-
-        return View('homepage' , compact('users', 'projects'));
     }
 }
