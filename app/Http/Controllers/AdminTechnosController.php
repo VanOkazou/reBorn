@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdminTechnosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,12 +40,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return View('pages.evangelist', compact('user'));
+        //
     }
 
     /**

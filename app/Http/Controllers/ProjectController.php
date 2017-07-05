@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,12 +41,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        return View('pages.evangelist', compact('user'));
+        $project = Project::findOrFail($id)->load('attachments', 'users');
+        $arr_cats = [];
+
+        foreach ($project->categories as $cat) {
+            array_push($arr_cats, ucfirst($cat->name));
+        }
+        $stringCats = implode(' | ', $arr_cats);
+        $project['stringCats'] = $stringCats;
+
+        return View('pages.project', compact('project'));
     }
 
     /**

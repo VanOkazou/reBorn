@@ -13,6 +13,9 @@ Route::get('/', 'HomeController@index');
 // Route for Evangelist
 Route::get('/evangelist/{user}', 'UserController@show')->name('evangelist');
 
+// Route for Project
+Route::get('/project/{id}', 'ProjectController@show')->name('project');
+
 
 
 /*

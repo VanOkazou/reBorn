@@ -1,9 +1,6 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-// Slick
-@import "node_modules/slick-carousel/slick/slick.scss";
-
 // Fonts
 $font-path: '../fonts/';
 @import '../fonts/reborn';
@@ -27,3 +24,6 @@ $font-path: '../fonts/';
 
 // Evangelist Profil
 @import "evangelist";
+
+// Project
+@import "project";

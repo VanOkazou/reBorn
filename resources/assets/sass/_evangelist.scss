@@ -48,56 +48,6 @@
         }
     }
 
-
-    // Logo reBorn
-    #logo-reborn {
-        width: 50px;
-        position: fixed;
-        top: 0;
-        left: 50%;
-        margin-left: -20px;
-        z-index: 100;
-        a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            padding-top: 30px;
-            position: relative;
-            &:before, &:after {
-                content: "";
-                display: block;
-                background-color: $dark-reborn;
-                width: 15px;
-                height: 25px;
-                position: absolute;
-                top: 0;
-            }
-            &:before {
-                right: calc(50% + 1px);
-            }
-            &:after {
-                left: calc(50% + 1px);
-            }
-            img {
-                width: 100%;
-            }
-        }
-    }
-
-    // Logo Evangelist
-    #logo-evangelist {
-        @include flex($dir:column);
-        position: fixed;
-        right: 0;
-        top: 0;
-        padding: 10px 10px 0 0;
-        span {
-            @include ff(3);
-            @include fs(5rem);
-            font-weight: bold;
-        }
-    }
-
     // Socials
     #socials {
         position: fixed;

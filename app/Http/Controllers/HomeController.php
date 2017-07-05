@@ -31,7 +31,7 @@ class HomeController extends Controller
             $project['stringCats'] = $stringCats;
         }
 
-        return View('homepage', compact('users','projects', 'cats'));
+        return View('pages.homepage', compact('users','projects', 'cats'));
     }
 
     /**

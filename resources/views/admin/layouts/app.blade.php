@@ -54,6 +54,9 @@
                                 <a href="{{ route('projects.index') }}">Mes projets</a>
                             </li>
                             <li>
+                                <a href="{{ route('technos.index') }}">Technos</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

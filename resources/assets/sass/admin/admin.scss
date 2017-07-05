@@ -24,6 +24,11 @@ $font-path: '../fonts/';
         color: inherit;
     }
 
+    // FORMS
+    .control-label {
+        font-weight: bold;
+    }
+
     // TAB CONTENT
     .tab-content {
         padding-top: 25px;

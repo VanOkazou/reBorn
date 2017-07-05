@@ -1,0 +1,83 @@
+#project-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $light-grey-1;
+    padding: 125px 100px 55px;
+    &>.container-fluid {
+        padding: 0;
+        border-radius: 3px;
+        position: relative;
+        .pictures {
+            background-color: $white;
+            width: calc(100% - 300px);
+            padding: 50px;
+            border: 1px solid $light-grey;
+            img {
+                width: 100%;
+                display: block;
+                &+img {
+                    margin-top: 50px;
+                }
+            }
+        }
+        .infos {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            .infos-content {
+                @include size(300px, calc(100vh - 175px));
+
+                background-color: $light-grey-2;
+                border: 1px solid $light-grey;
+                border-left: none;
+                position: fixed;
+                .info-bloc {
+                    padding: 25px;
+                    border-bottom: 1px solid $light-grey;
+                    .evangelists {
+                        display: flex;
+                        justify-content: flex-end;
+                        li {
+                            width: calc(100% / 3);
+                            a {
+                                @include flex($dir: column, $ai: flex-end);
+                                .avatar {
+                                    display: inline-block;
+                                    @include size(60px);
+                                    @include bgImg();
+                                    border-radius: 50%;
+                                }
+                                .name {
+                                    @include fs(1.3rem, 1.7rem);
+                                    margin-top: 7px;
+                                    width: 60px;
+                                    text-align: center;
+                                    .lastname {
+                                        text-transform: uppercase;
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .title {
+                        @include ff(2);
+                        @include fs(1.7rem, 2.1rem);
+                        text-transform: uppercase;
+                    }
+                    .cats {
+                        @include fs(1.4rem, 1.7rem);
+                        margin-top: 7px;
+                    }
+                    .date {
+                        @include fs(1.2rem);
+                        margin-top: 7px;
+                        opacity: .5;
+                    }
+                }
+            }
+
+        }
+    }
+}

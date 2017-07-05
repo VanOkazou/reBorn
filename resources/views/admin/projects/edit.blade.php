@@ -63,16 +63,71 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-md-9 col-md-offset-2">
+                    <div class="col-md-2 control-label">Catégories</div>
+                    <div class="col-md-9">
                         @foreach($categories as $categorie)
                             <label class="checkbox-inline">
                                 <input
                                         type="checkbox"
                                         value="{{ $categorie->id }}"
                                         name="category[]"
-                                        {{ in_array($categorie->name, $cats) ? 'checked' : '' }}
+                                        {{ in_array($categorie->name, $projectCats) ? 'checked' : '' }}
                                 >{{ $categorie->name }}
                             </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2 control-label">Langages</div>
+                    <div class="col-md-9">
+                        @foreach($technos as $techno)
+                            @if($techno->type == 'lang')
+                                <label class="checkbox-inline">
+                                    <input
+                                            type="checkbox"
+                                            value="{{ $techno->id }}"
+                                            name="techno[]"
+                                            {{ in_array($techno->name, $projectTechnos) ? 'checked' : '' }}
+                                    >{{ $techno->name }}
+                                </label>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2 control-label">Framework / CMS</div>
+                    <div class="col-md-9">
+                        @foreach($technos as $techno)
+                            @if($techno->type == 'fram' || $techno->type == 'cms')
+                                <label class="checkbox-inline">
+                                    <input
+                                            type="checkbox"
+                                            value="{{ $techno->id }}"
+                                            name="techno[]"
+                                            {{ in_array($techno->name, $projectTechnos) ? 'checked' : '' }}
+                                    >{{ $techno->name }}
+                                </label>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-md-2 control-label">Logiciels</div>
+                    <div class="col-md-9">
+                        @foreach($technos as $techno)
+                            @if($techno->type == 'soft')
+                                <label class="checkbox-inline">
+                                    <input
+                                            type="checkbox"
+                                            value="{{ $techno->id }}"
+                                            name="techno[]"
+                                            {{ in_array($techno->name, $projectTechnos) ? 'checked' : '' }}
+                                    >{{ $techno->name }}
+                                </label>
+                            @endif
                         @endforeach
                     </div>
                 </div>

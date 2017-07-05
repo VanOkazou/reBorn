@@ -17,7 +17,6 @@ class ProjectsTableSeeder extends Seeder
 
         foreach(range(1, 15 ) as $index) {
             $project = [
-                'id'            => $index,
                 'title'         => $faker->sentence($nbWords = 6, $variableNbWords = true),
                 'une'           => $faker->imageUrl(),
                 'description'   => $faker->text($maxNbChars = 200),

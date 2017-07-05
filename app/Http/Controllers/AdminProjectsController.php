@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attachment;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\Techno;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -83,7 +84,6 @@ class AdminProjectsController extends Controller
         $files = Storage::files('public/tmp');
         foreach ($files as $file){
 
-
             // Save image in database
             $newFile = explode('/', $file);
             $attachment = new Attachment();
@@ -98,6 +98,7 @@ class AdminProjectsController extends Controller
 
         //Link belongToMany
         $project->categories()->attach($input['category']);
+        $project->technos()->attach($input['techno']);
         $project->users()->attach(Auth::id());
 
         Session::flash('message', 'Votre projet a été crée !');
@@ -138,13 +139,20 @@ class AdminProjectsController extends Controller
     public function edit($id)
     {
         $project = Project::find($id);
-        $cats = [];
+        $projectCats = [];
         $categories = Category::all();
+        $projectTechnos = [];
+        $technos = Techno::all();
 
         foreach($project->categories as $cat) {
-            array_push($cats, $cat->name);
+            array_push($projectCats, $cat->name);
         }
-        return View('admin.projects.edit' , compact('project','categories','cats'));
+
+        foreach($project->technos as $techno) {
+            array_push($projectTechnos, $techno->name);
+        }
+
+        return View('admin.projects.edit' , compact('project','categories','projectCats', 'technos', 'projectTechnos'));
     }
 
     public function update(Request $request, $id)
@@ -200,13 +208,16 @@ class AdminProjectsController extends Controller
         }
 
         //Link belongToMany
-        if(isset($input['category'])){
-
+        if(isset($input['category'])) {
             $project->categories()->sync($input['category']);
-
-        }else{
-
+        } else {
             $project->categories()->sync([]);
+        }
+
+        if(isset($input['techno'])) {
+            $project->technos()->sync($input['techno']);
+        } else {
+            $project->technos()->sync([]);
         }
 
         Session::flash('message', 'Modifications have been saved!');

@@ -206,7 +206,7 @@
                         position: absolute;
                         display: none;
                         @media screen and (min-width: $breakpt-sm + 1) {
-                            opacity: .1;
+                            opacity: .2;
                             display: block;
                         }
                         &.on {
@@ -262,7 +262,7 @@
                         @media screen and (max-width: $breakpt-xs) {
                             height: 150px!important;
                         }
-                        &>div {
+                        &>a {
                             display: block;
                             width: 100%;
                             height: 100%;
