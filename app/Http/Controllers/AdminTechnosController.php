@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Techno;
 
 class AdminTechnosController extends Controller
 {
@@ -13,7 +14,9 @@ class AdminTechnosController extends Controller
      */
     public function index()
     {
-        //
+        $technos = Techno::all();
+        
+        return View('Admin.technos.index', compact('technos'));
     }
 
     /**

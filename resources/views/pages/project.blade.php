@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
     {{--Logo reBorn--}}
     <h1 id="logo-reborn">
-        <a href="" title="reBorn">
+        <a href="{{ route('homepage') }}" title="reBorn">
             <img src="{{ asset('images/logo/icon_reborn.svg') }}" alt="reBorn" />
         </a>
     </h1>
@@ -49,6 +49,13 @@ use Carbon\Carbon;
                         <p class="title">{{ $project->title }}</p>
                         <p class="cats">{{ $project->stringCats }}</p>
                         <p class="date">Réalisé le : {{ Carbon::parse($project->date)->format('d M Y') }}</p>
+                    </div>
+
+                    {{--Cats--}}
+                    <div class="info-bloc">
+                        @foreach($project->technos as $techno)
+                            {{ $techno->name }}
+                        @endforeach
                     </div>
 
                 </div>

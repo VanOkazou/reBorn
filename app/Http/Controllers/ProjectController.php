@@ -47,8 +47,9 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::findOrFail($id)->load('attachments', 'users');
-        $arr_cats = [];
 
+        // Categories
+        $arr_cats = [];
         foreach ($project->categories as $cat) {
             array_push($arr_cats, ucfirst($cat->name));
         }

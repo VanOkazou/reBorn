@@ -10,5 +10,2055 @@ null==d?void 0:d))},attrHooks:{type:{set:function(a,b){if(!o.radioValue&&"radio"
  */
 if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires jQuery");+function(a){"use strict";var b=a.fn.jquery.split(" ")[0].split(".");if(b[0]<2&&b[1]<9||1==b[0]&&9==b[1]&&b[2]<1||b[0]>3)throw new Error("Bootstrap's JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4")}(jQuery),+function(a){"use strict";function b(){var a=document.createElement("bootstrap"),b={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(var c in b)if(void 0!==a.style[c])return{end:b[c]};return!1}a.fn.emulateTransitionEnd=function(b){var c=!1,d=this;a(this).one("bsTransitionEnd",function(){c=!0});var e=function(){c||a(d).trigger(a.support.transition.end)};return setTimeout(e,b),this},a(function(){a.support.transition=b(),a.support.transition&&(a.event.special.bsTransitionEnd={bindType:a.support.transition.end,delegateType:a.support.transition.end,handle:function(b){if(a(b.target).is(this))return b.handleObj.handler.apply(this,arguments)}})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var c=a(this),e=c.data("bs.alert");e||c.data("bs.alert",e=new d(this)),"string"==typeof b&&e[b].call(c)})}var c='[data-dismiss="alert"]',d=function(b){a(b).on("click",c,this.close)};d.VERSION="3.3.7",d.TRANSITION_DURATION=150,d.prototype.close=function(b){function c(){g.detach().trigger("closed.bs.alert").remove()}var e=a(this),f=e.attr("data-target");f||(f=e.attr("href"),f=f&&f.replace(/.*(?=#[^\s]*$)/,""));var g=a("#"===f?[]:f);b&&b.preventDefault(),g.length||(g=e.closest(".alert")),g.trigger(b=a.Event("close.bs.alert")),b.isDefaultPrevented()||(g.removeClass("in"),a.support.transition&&g.hasClass("fade")?g.one("bsTransitionEnd",c).emulateTransitionEnd(d.TRANSITION_DURATION):c())};var e=a.fn.alert;a.fn.alert=b,a.fn.alert.Constructor=d,a.fn.alert.noConflict=function(){return a.fn.alert=e,this},a(document).on("click.bs.alert.data-api",c,d.prototype.close)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.button"),f="object"==typeof b&&b;e||d.data("bs.button",e=new c(this,f)),"toggle"==b?e.toggle():b&&e.setState(b)})}var c=function(b,d){this.$element=a(b),this.options=a.extend({},c.DEFAULTS,d),this.isLoading=!1};c.VERSION="3.3.7",c.DEFAULTS={loadingText:"loading..."},c.prototype.setState=function(b){var c="disabled",d=this.$element,e=d.is("input")?"val":"html",f=d.data();b+="Text",null==f.resetText&&d.data("resetText",d[e]()),setTimeout(a.proxy(function(){d[e](null==f[b]?this.options[b]:f[b]),"loadingText"==b?(this.isLoading=!0,d.addClass(c).attr(c,c).prop(c,!0)):this.isLoading&&(this.isLoading=!1,d.removeClass(c).removeAttr(c).prop(c,!1))},this),0)},c.prototype.toggle=function(){var a=!0,b=this.$element.closest('[data-toggle="buttons"]');if(b.length){var c=this.$element.find("input");"radio"==c.prop("type")?(c.prop("checked")&&(a=!1),b.find(".active").removeClass("active"),this.$element.addClass("active")):"checkbox"==c.prop("type")&&(c.prop("checked")!==this.$element.hasClass("active")&&(a=!1),this.$element.toggleClass("active")),c.prop("checked",this.$element.hasClass("active")),a&&c.trigger("change")}else this.$element.attr("aria-pressed",!this.$element.hasClass("active")),this.$element.toggleClass("active")};var d=a.fn.button;a.fn.button=b,a.fn.button.Constructor=c,a.fn.button.noConflict=function(){return a.fn.button=d,this},a(document).on("click.bs.button.data-api",'[data-toggle^="button"]',function(c){var d=a(c.target).closest(".btn");b.call(d,"toggle"),a(c.target).is('input[type="radio"], input[type="checkbox"]')||(c.preventDefault(),d.is("input,button")?d.trigger("focus"):d.find("input:visible,button:visible").first().trigger("focus"))}).on("focus.bs.button.data-api blur.bs.button.data-api",'[data-toggle^="button"]',function(b){a(b.target).closest(".btn").toggleClass("focus",/^focus(in)?$/.test(b.type))})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.carousel"),f=a.extend({},c.DEFAULTS,d.data(),"object"==typeof b&&b),g="string"==typeof b?b:f.slide;e||d.data("bs.carousel",e=new c(this,f)),"number"==typeof b?e.to(b):g?e[g]():f.interval&&e.pause().cycle()})}var c=function(b,c){this.$element=a(b),this.$indicators=this.$element.find(".carousel-indicators"),this.options=c,this.paused=null,this.sliding=null,this.interval=null,this.$active=null,this.$items=null,this.options.keyboard&&this.$element.on("keydown.bs.carousel",a.proxy(this.keydown,this)),"hover"==this.options.pause&&!("ontouchstart"in document.documentElement)&&this.$element.on("mouseenter.bs.carousel",a.proxy(this.pause,this)).on("mouseleave.bs.carousel",a.proxy(this.cycle,this))};c.VERSION="3.3.7",c.TRANSITION_DURATION=600,c.DEFAULTS={interval:5e3,pause:"hover",wrap:!0,keyboard:!0},c.prototype.keydown=function(a){if(!/input|textarea/i.test(a.target.tagName)){switch(a.which){case 37:this.prev();break;case 39:this.next();break;default:return}a.preventDefault()}},c.prototype.cycle=function(b){return b||(this.paused=!1),this.interval&&clearInterval(this.interval),this.options.interval&&!this.paused&&(this.interval=setInterval(a.proxy(this.next,this),this.options.interval)),this},c.prototype.getItemIndex=function(a){return this.$items=a.parent().children(".item"),this.$items.index(a||this.$active)},c.prototype.getItemForDirection=function(a,b){var c=this.getItemIndex(b),d="prev"==a&&0===c||"next"==a&&c==this.$items.length-1;if(d&&!this.options.wrap)return b;var e="prev"==a?-1:1,f=(c+e)%this.$items.length;return this.$items.eq(f)},c.prototype.to=function(a){var b=this,c=this.getItemIndex(this.$active=this.$element.find(".item.active"));if(!(a>this.$items.length-1||a<0))return this.sliding?this.$element.one("slid.bs.carousel",function(){b.to(a)}):c==a?this.pause().cycle():this.slide(a>c?"next":"prev",this.$items.eq(a))},c.prototype.pause=function(b){return b||(this.paused=!0),this.$element.find(".next, .prev").length&&a.support.transition&&(this.$element.trigger(a.support.transition.end),this.cycle(!0)),this.interval=clearInterval(this.interval),this},c.prototype.next=function(){if(!this.sliding)return this.slide("next")},c.prototype.prev=function(){if(!this.sliding)return this.slide("prev")},c.prototype.slide=function(b,d){var e=this.$element.find(".item.active"),f=d||this.getItemForDirection(b,e),g=this.interval,h="next"==b?"left":"right",i=this;if(f.hasClass("active"))return this.sliding=!1;var j=f[0],k=a.Event("slide.bs.carousel",{relatedTarget:j,direction:h});if(this.$element.trigger(k),!k.isDefaultPrevented()){if(this.sliding=!0,g&&this.pause(),this.$indicators.length){this.$indicators.find(".active").removeClass("active");var l=a(this.$indicators.children()[this.getItemIndex(f)]);l&&l.addClass("active")}var m=a.Event("slid.bs.carousel",{relatedTarget:j,direction:h});return a.support.transition&&this.$element.hasClass("slide")?(f.addClass(b),f[0].offsetWidth,e.addClass(h),f.addClass(h),e.one("bsTransitionEnd",function(){f.removeClass([b,h].join(" ")).addClass("active"),e.removeClass(["active",h].join(" ")),i.sliding=!1,setTimeout(function(){i.$element.trigger(m)},0)}).emulateTransitionEnd(c.TRANSITION_DURATION)):(e.removeClass("active"),f.addClass("active"),this.sliding=!1,this.$element.trigger(m)),g&&this.cycle(),this}};var d=a.fn.carousel;a.fn.carousel=b,a.fn.carousel.Constructor=c,a.fn.carousel.noConflict=function(){return a.fn.carousel=d,this};var e=function(c){var d,e=a(this),f=a(e.attr("data-target")||(d=e.attr("href"))&&d.replace(/.*(?=#[^\s]+$)/,""));if(f.hasClass("carousel")){var g=a.extend({},f.data(),e.data()),h=e.attr("data-slide-to");h&&(g.interval=!1),b.call(f,g),h&&f.data("bs.carousel").to(h),c.preventDefault()}};a(document).on("click.bs.carousel.data-api","[data-slide]",e).on("click.bs.carousel.data-api","[data-slide-to]",e),a(window).on("load",function(){a('[data-ride="carousel"]').each(function(){var c=a(this);b.call(c,c.data())})})}(jQuery),+function(a){"use strict";function b(b){var c,d=b.attr("data-target")||(c=b.attr("href"))&&c.replace(/.*(?=#[^\s]+$)/,"");return a(d)}function c(b){return this.each(function(){var c=a(this),e=c.data("bs.collapse"),f=a.extend({},d.DEFAULTS,c.data(),"object"==typeof b&&b);!e&&f.toggle&&/show|hide/.test(b)&&(f.toggle=!1),e||c.data("bs.collapse",e=new d(this,f)),"string"==typeof b&&e[b]()})}var d=function(b,c){this.$element=a(b),this.options=a.extend({},d.DEFAULTS,c),this.$trigger=a('[data-toggle="collapse"][href="#'+b.id+'"],[data-toggle="collapse"][data-target="#'+b.id+'"]'),this.transitioning=null,this.options.parent?this.$parent=this.getParent():this.addAriaAndCollapsedClass(this.$element,this.$trigger),this.options.toggle&&this.toggle()};d.VERSION="3.3.7",d.TRANSITION_DURATION=350,d.DEFAULTS={toggle:!0},d.prototype.dimension=function(){var a=this.$element.hasClass("width");return a?"width":"height"},d.prototype.show=function(){if(!this.transitioning&&!this.$element.hasClass("in")){var b,e=this.$parent&&this.$parent.children(".panel").children(".in, .collapsing");if(!(e&&e.length&&(b=e.data("bs.collapse"),b&&b.transitioning))){var f=a.Event("show.bs.collapse");if(this.$element.trigger(f),!f.isDefaultPrevented()){e&&e.length&&(c.call(e,"hide"),b||e.data("bs.collapse",null));var g=this.dimension();this.$element.removeClass("collapse").addClass("collapsing")[g](0).attr("aria-expanded",!0),this.$trigger.removeClass("collapsed").attr("aria-expanded",!0),this.transitioning=1;var h=function(){this.$element.removeClass("collapsing").addClass("collapse in")[g](""),this.transitioning=0,this.$element.trigger("shown.bs.collapse")};if(!a.support.transition)return h.call(this);var i=a.camelCase(["scroll",g].join("-"));this.$element.one("bsTransitionEnd",a.proxy(h,this)).emulateTransitionEnd(d.TRANSITION_DURATION)[g](this.$element[0][i])}}}},d.prototype.hide=function(){if(!this.transitioning&&this.$element.hasClass("in")){var b=a.Event("hide.bs.collapse");if(this.$element.trigger(b),!b.isDefaultPrevented()){var c=this.dimension();this.$element[c](this.$element[c]())[0].offsetHeight,this.$element.addClass("collapsing").removeClass("collapse in").attr("aria-expanded",!1),this.$trigger.addClass("collapsed").attr("aria-expanded",!1),this.transitioning=1;var e=function(){this.transitioning=0,this.$element.removeClass("collapsing").addClass("collapse").trigger("hidden.bs.collapse")};return a.support.transition?void this.$element[c](0).one("bsTransitionEnd",a.proxy(e,this)).emulateTransitionEnd(d.TRANSITION_DURATION):e.call(this)}}},d.prototype.toggle=function(){this[this.$element.hasClass("in")?"hide":"show"]()},d.prototype.getParent=function(){return a(this.options.parent).find('[data-toggle="collapse"][data-parent="'+this.options.parent+'"]').each(a.proxy(function(c,d){var e=a(d);this.addAriaAndCollapsedClass(b(e),e)},this)).end()},d.prototype.addAriaAndCollapsedClass=function(a,b){var c=a.hasClass("in");a.attr("aria-expanded",c),b.toggleClass("collapsed",!c).attr("aria-expanded",c)};var e=a.fn.collapse;a.fn.collapse=c,a.fn.collapse.Constructor=d,a.fn.collapse.noConflict=function(){return a.fn.collapse=e,this},a(document).on("click.bs.collapse.data-api",'[data-toggle="collapse"]',function(d){var e=a(this);e.attr("data-target")||d.preventDefault();var f=b(e),g=f.data("bs.collapse"),h=g?"toggle":e.data();c.call(f,h)})}(jQuery),+function(a){"use strict";function b(b){var c=b.attr("data-target");c||(c=b.attr("href"),c=c&&/#[A-Za-z]/.test(c)&&c.replace(/.*(?=#[^\s]*$)/,""));var d=c&&a(c);return d&&d.length?d:b.parent()}function c(c){c&&3===c.which||(a(e).remove(),a(f).each(function(){var d=a(this),e=b(d),f={relatedTarget:this};e.hasClass("open")&&(c&&"click"==c.type&&/input|textarea/i.test(c.target.tagName)&&a.contains(e[0],c.target)||(e.trigger(c=a.Event("hide.bs.dropdown",f)),c.isDefaultPrevented()||(d.attr("aria-expanded","false"),e.removeClass("open").trigger(a.Event("hidden.bs.dropdown",f)))))}))}function d(b){return this.each(function(){var c=a(this),d=c.data("bs.dropdown");d||c.data("bs.dropdown",d=new g(this)),"string"==typeof b&&d[b].call(c)})}var e=".dropdown-backdrop",f='[data-toggle="dropdown"]',g=function(b){a(b).on("click.bs.dropdown",this.toggle)};g.VERSION="3.3.7",g.prototype.toggle=function(d){var e=a(this);if(!e.is(".disabled, :disabled")){var f=b(e),g=f.hasClass("open");if(c(),!g){"ontouchstart"in document.documentElement&&!f.closest(".navbar-nav").length&&a(document.createElement("div")).addClass("dropdown-backdrop").insertAfter(a(this)).on("click",c);var h={relatedTarget:this};if(f.trigger(d=a.Event("show.bs.dropdown",h)),d.isDefaultPrevented())return;e.trigger("focus").attr("aria-expanded","true"),f.toggleClass("open").trigger(a.Event("shown.bs.dropdown",h))}return!1}},g.prototype.keydown=function(c){if(/(38|40|27|32)/.test(c.which)&&!/input|textarea/i.test(c.target.tagName)){var d=a(this);if(c.preventDefault(),c.stopPropagation(),!d.is(".disabled, :disabled")){var e=b(d),g=e.hasClass("open");if(!g&&27!=c.which||g&&27==c.which)return 27==c.which&&e.find(f).trigger("focus"),d.trigger("click");var h=" li:not(.disabled):visible a",i=e.find(".dropdown-menu"+h);if(i.length){var j=i.index(c.target);38==c.which&&j>0&&j--,40==c.which&&j<i.length-1&&j++,~j||(j=0),i.eq(j).trigger("focus")}}}};var h=a.fn.dropdown;a.fn.dropdown=d,a.fn.dropdown.Constructor=g,a.fn.dropdown.noConflict=function(){return a.fn.dropdown=h,this},a(document).on("click.bs.dropdown.data-api",c).on("click.bs.dropdown.data-api",".dropdown form",function(a){a.stopPropagation()}).on("click.bs.dropdown.data-api",f,g.prototype.toggle).on("keydown.bs.dropdown.data-api",f,g.prototype.keydown).on("keydown.bs.dropdown.data-api",".dropdown-menu",g.prototype.keydown)}(jQuery),+function(a){"use strict";function b(b,d){return this.each(function(){var e=a(this),f=e.data("bs.modal"),g=a.extend({},c.DEFAULTS,e.data(),"object"==typeof b&&b);f||e.data("bs.modal",f=new c(this,g)),"string"==typeof b?f[b](d):g.show&&f.show(d)})}var c=function(b,c){this.options=c,this.$body=a(document.body),this.$element=a(b),this.$dialog=this.$element.find(".modal-dialog"),this.$backdrop=null,this.isShown=null,this.originalBodyPad=null,this.scrollbarWidth=0,this.ignoreBackdropClick=!1,this.options.remote&&this.$element.find(".modal-content").load(this.options.remote,a.proxy(function(){this.$element.trigger("loaded.bs.modal")},this))};c.VERSION="3.3.7",c.TRANSITION_DURATION=300,c.BACKDROP_TRANSITION_DURATION=150,c.DEFAULTS={backdrop:!0,keyboard:!0,show:!0},c.prototype.toggle=function(a){return this.isShown?this.hide():this.show(a)},c.prototype.show=function(b){var d=this,e=a.Event("show.bs.modal",{relatedTarget:b});this.$element.trigger(e),this.isShown||e.isDefaultPrevented()||(this.isShown=!0,this.checkScrollbar(),this.setScrollbar(),this.$body.addClass("modal-open"),this.escape(),this.resize(),this.$element.on("click.dismiss.bs.modal",'[data-dismiss="modal"]',a.proxy(this.hide,this)),this.$dialog.on("mousedown.dismiss.bs.modal",function(){d.$element.one("mouseup.dismiss.bs.modal",function(b){a(b.target).is(d.$element)&&(d.ignoreBackdropClick=!0)})}),this.backdrop(function(){var e=a.support.transition&&d.$element.hasClass("fade");d.$element.parent().length||d.$element.appendTo(d.$body),d.$element.show().scrollTop(0),d.adjustDialog(),e&&d.$element[0].offsetWidth,d.$element.addClass("in"),d.enforceFocus();var f=a.Event("shown.bs.modal",{relatedTarget:b});e?d.$dialog.one("bsTransitionEnd",function(){d.$element.trigger("focus").trigger(f)}).emulateTransitionEnd(c.TRANSITION_DURATION):d.$element.trigger("focus").trigger(f)}))},c.prototype.hide=function(b){b&&b.preventDefault(),b=a.Event("hide.bs.modal"),this.$element.trigger(b),this.isShown&&!b.isDefaultPrevented()&&(this.isShown=!1,this.escape(),this.resize(),a(document).off("focusin.bs.modal"),this.$element.removeClass("in").off("click.dismiss.bs.modal").off("mouseup.dismiss.bs.modal"),this.$dialog.off("mousedown.dismiss.bs.modal"),a.support.transition&&this.$element.hasClass("fade")?this.$element.one("bsTransitionEnd",a.proxy(this.hideModal,this)).emulateTransitionEnd(c.TRANSITION_DURATION):this.hideModal())},c.prototype.enforceFocus=function(){a(document).off("focusin.bs.modal").on("focusin.bs.modal",a.proxy(function(a){document===a.target||this.$element[0]===a.target||this.$element.has(a.target).length||this.$element.trigger("focus")},this))},c.prototype.escape=function(){this.isShown&&this.options.keyboard?this.$element.on("keydown.dismiss.bs.modal",a.proxy(function(a){27==a.which&&this.hide()},this)):this.isShown||this.$element.off("keydown.dismiss.bs.modal")},c.prototype.resize=function(){this.isShown?a(window).on("resize.bs.modal",a.proxy(this.handleUpdate,this)):a(window).off("resize.bs.modal")},c.prototype.hideModal=function(){var a=this;this.$element.hide(),this.backdrop(function(){a.$body.removeClass("modal-open"),a.resetAdjustments(),a.resetScrollbar(),a.$element.trigger("hidden.bs.modal")})},c.prototype.removeBackdrop=function(){this.$backdrop&&this.$backdrop.remove(),this.$backdrop=null},c.prototype.backdrop=function(b){var d=this,e=this.$element.hasClass("fade")?"fade":"";if(this.isShown&&this.options.backdrop){var f=a.support.transition&&e;if(this.$backdrop=a(document.createElement("div")).addClass("modal-backdrop "+e).appendTo(this.$body),this.$element.on("click.dismiss.bs.modal",a.proxy(function(a){return this.ignoreBackdropClick?void(this.ignoreBackdropClick=!1):void(a.target===a.currentTarget&&("static"==this.options.backdrop?this.$element[0].focus():this.hide()))},this)),f&&this.$backdrop[0].offsetWidth,this.$backdrop.addClass("in"),!b)return;f?this.$backdrop.one("bsTransitionEnd",b).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION):b()}else if(!this.isShown&&this.$backdrop){this.$backdrop.removeClass("in");var g=function(){d.removeBackdrop(),b&&b()};a.support.transition&&this.$element.hasClass("fade")?this.$backdrop.one("bsTransitionEnd",g).emulateTransitionEnd(c.BACKDROP_TRANSITION_DURATION):g()}else b&&b()},c.prototype.handleUpdate=function(){this.adjustDialog()},c.prototype.adjustDialog=function(){var a=this.$element[0].scrollHeight>document.documentElement.clientHeight;this.$element.css({paddingLeft:!this.bodyIsOverflowing&&a?this.scrollbarWidth:"",paddingRight:this.bodyIsOverflowing&&!a?this.scrollbarWidth:""})},c.prototype.resetAdjustments=function(){this.$element.css({paddingLeft:"",paddingRight:""})},c.prototype.checkScrollbar=function(){var a=window.innerWidth;if(!a){var b=document.documentElement.getBoundingClientRect();a=b.right-Math.abs(b.left)}this.bodyIsOverflowing=document.body.clientWidth<a,this.scrollbarWidth=this.measureScrollbar()},c.prototype.setScrollbar=function(){var a=parseInt(this.$body.css("padding-right")||0,10);this.originalBodyPad=document.body.style.paddingRight||"",this.bodyIsOverflowing&&this.$body.css("padding-right",a+this.scrollbarWidth)},c.prototype.resetScrollbar=function(){this.$body.css("padding-right",this.originalBodyPad)},c.prototype.measureScrollbar=function(){var a=document.createElement("div");a.className="modal-scrollbar-measure",this.$body.append(a);var b=a.offsetWidth-a.clientWidth;return this.$body[0].removeChild(a),b};var d=a.fn.modal;a.fn.modal=b,a.fn.modal.Constructor=c,a.fn.modal.noConflict=function(){return a.fn.modal=d,this},a(document).on("click.bs.modal.data-api",'[data-toggle="modal"]',function(c){var d=a(this),e=d.attr("href"),f=a(d.attr("data-target")||e&&e.replace(/.*(?=#[^\s]+$)/,"")),g=f.data("bs.modal")?"toggle":a.extend({remote:!/#/.test(e)&&e},f.data(),d.data());d.is("a")&&c.preventDefault(),f.one("show.bs.modal",function(a){a.isDefaultPrevented()||f.one("hidden.bs.modal",function(){d.is(":visible")&&d.trigger("focus")})}),b.call(f,g,this)})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.tooltip"),f="object"==typeof b&&b;!e&&/destroy|hide/.test(b)||(e||d.data("bs.tooltip",e=new c(this,f)),"string"==typeof b&&e[b]())})}var c=function(a,b){this.type=null,this.options=null,this.enabled=null,this.timeout=null,this.hoverState=null,this.$element=null,this.inState=null,this.init("tooltip",a,b)};c.VERSION="3.3.7",c.TRANSITION_DURATION=150,c.DEFAULTS={animation:!0,placement:"top",selector:!1,template:'<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',trigger:"hover focus",title:"",delay:0,html:!1,container:!1,viewport:{selector:"body",padding:0}},c.prototype.init=function(b,c,d){if(this.enabled=!0,this.type=b,this.$element=a(c),this.options=this.getOptions(d),this.$viewport=this.options.viewport&&a(a.isFunction(this.options.viewport)?this.options.viewport.call(this,this.$element):this.options.viewport.selector||this.options.viewport),this.inState={click:!1,hover:!1,focus:!1},this.$element[0]instanceof document.constructor&&!this.options.selector)throw new Error("`selector` option must be specified when initializing "+this.type+" on the window.document object!");for(var e=this.options.trigger.split(" "),f=e.length;f--;){var g=e[f];if("click"==g)this.$element.on("click."+this.type,this.options.selector,a.proxy(this.toggle,this));else if("manual"!=g){var h="hover"==g?"mouseenter":"focusin",i="hover"==g?"mouseleave":"focusout";this.$element.on(h+"."+this.type,this.options.selector,a.proxy(this.enter,this)),this.$element.on(i+"."+this.type,this.options.selector,a.proxy(this.leave,this))}}this.options.selector?this._options=a.extend({},this.options,{trigger:"manual",selector:""}):this.fixTitle()},c.prototype.getDefaults=function(){return c.DEFAULTS},c.prototype.getOptions=function(b){return b=a.extend({},this.getDefaults(),this.$element.data(),b),b.delay&&"number"==typeof b.delay&&(b.delay={show:b.delay,hide:b.delay}),b},c.prototype.getDelegateOptions=function(){var b={},c=this.getDefaults();return this._options&&a.each(this._options,function(a,d){c[a]!=d&&(b[a]=d)}),b},c.prototype.enter=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);return c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),b instanceof a.Event&&(c.inState["focusin"==b.type?"focus":"hover"]=!0),c.tip().hasClass("in")||"in"==c.hoverState?void(c.hoverState="in"):(clearTimeout(c.timeout),c.hoverState="in",c.options.delay&&c.options.delay.show?void(c.timeout=setTimeout(function(){"in"==c.hoverState&&c.show()},c.options.delay.show)):c.show())},c.prototype.isInStateTrue=function(){for(var a in this.inState)if(this.inState[a])return!0;return!1},c.prototype.leave=function(b){var c=b instanceof this.constructor?b:a(b.currentTarget).data("bs."+this.type);if(c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c)),b instanceof a.Event&&(c.inState["focusout"==b.type?"focus":"hover"]=!1),!c.isInStateTrue())return clearTimeout(c.timeout),c.hoverState="out",c.options.delay&&c.options.delay.hide?void(c.timeout=setTimeout(function(){"out"==c.hoverState&&c.hide()},c.options.delay.hide)):c.hide()},c.prototype.show=function(){var b=a.Event("show.bs."+this.type);if(this.hasContent()&&this.enabled){this.$element.trigger(b);var d=a.contains(this.$element[0].ownerDocument.documentElement,this.$element[0]);if(b.isDefaultPrevented()||!d)return;var e=this,f=this.tip(),g=this.getUID(this.type);this.setContent(),f.attr("id",g),this.$element.attr("aria-describedby",g),this.options.animation&&f.addClass("fade");var h="function"==typeof this.options.placement?this.options.placement.call(this,f[0],this.$element[0]):this.options.placement,i=/\s?auto?\s?/i,j=i.test(h);j&&(h=h.replace(i,"")||"top"),f.detach().css({top:0,left:0,display:"block"}).addClass(h).data("bs."+this.type,this),this.options.container?f.appendTo(this.options.container):f.insertAfter(this.$element),this.$element.trigger("inserted.bs."+this.type);var k=this.getPosition(),l=f[0].offsetWidth,m=f[0].offsetHeight;if(j){var n=h,o=this.getPosition(this.$viewport);h="bottom"==h&&k.bottom+m>o.bottom?"top":"top"==h&&k.top-m<o.top?"bottom":"right"==h&&k.right+l>o.width?"left":"left"==h&&k.left-l<o.left?"right":h,f.removeClass(n).addClass(h)}var p=this.getCalculatedOffset(h,k,l,m);this.applyPlacement(p,h);var q=function(){var a=e.hoverState;e.$element.trigger("shown.bs."+e.type),e.hoverState=null,"out"==a&&e.leave(e)};a.support.transition&&this.$tip.hasClass("fade")?f.one("bsTransitionEnd",q).emulateTransitionEnd(c.TRANSITION_DURATION):q()}},c.prototype.applyPlacement=function(b,c){var d=this.tip(),e=d[0].offsetWidth,f=d[0].offsetHeight,g=parseInt(d.css("margin-top"),10),h=parseInt(d.css("margin-left"),10);isNaN(g)&&(g=0),isNaN(h)&&(h=0),b.top+=g,b.left+=h,a.offset.setOffset(d[0],a.extend({using:function(a){d.css({top:Math.round(a.top),left:Math.round(a.left)})}},b),0),d.addClass("in");var i=d[0].offsetWidth,j=d[0].offsetHeight;"top"==c&&j!=f&&(b.top=b.top+f-j);var k=this.getViewportAdjustedDelta(c,b,i,j);k.left?b.left+=k.left:b.top+=k.top;var l=/top|bottom/.test(c),m=l?2*k.left-e+i:2*k.top-f+j,n=l?"offsetWidth":"offsetHeight";d.offset(b),this.replaceArrow(m,d[0][n],l)},c.prototype.replaceArrow=function(a,b,c){this.arrow().css(c?"left":"top",50*(1-a/b)+"%").css(c?"top":"left","")},c.prototype.setContent=function(){var a=this.tip(),b=this.getTitle();a.find(".tooltip-inner")[this.options.html?"html":"text"](b),a.removeClass("fade in top bottom left right")},c.prototype.hide=function(b){function d(){"in"!=e.hoverState&&f.detach(),e.$element&&e.$element.removeAttr("aria-describedby").trigger("hidden.bs."+e.type),b&&b()}var e=this,f=a(this.$tip),g=a.Event("hide.bs."+this.type);if(this.$element.trigger(g),!g.isDefaultPrevented())return f.removeClass("in"),a.support.transition&&f.hasClass("fade")?f.one("bsTransitionEnd",d).emulateTransitionEnd(c.TRANSITION_DURATION):d(),this.hoverState=null,this},c.prototype.fixTitle=function(){var a=this.$element;(a.attr("title")||"string"!=typeof a.attr("data-original-title"))&&a.attr("data-original-title",a.attr("title")||"").attr("title","")},c.prototype.hasContent=function(){return this.getTitle()},c.prototype.getPosition=function(b){b=b||this.$element;var c=b[0],d="BODY"==c.tagName,e=c.getBoundingClientRect();null==e.width&&(e=a.extend({},e,{width:e.right-e.left,height:e.bottom-e.top}));var f=window.SVGElement&&c instanceof window.SVGElement,g=d?{top:0,left:0}:f?null:b.offset(),h={scroll:d?document.documentElement.scrollTop||document.body.scrollTop:b.scrollTop()},i=d?{width:a(window).width(),height:a(window).height()}:null;return a.extend({},e,h,i,g)},c.prototype.getCalculatedOffset=function(a,b,c,d){return"bottom"==a?{top:b.top+b.height,left:b.left+b.width/2-c/2}:"top"==a?{top:b.top-d,left:b.left+b.width/2-c/2}:"left"==a?{top:b.top+b.height/2-d/2,left:b.left-c}:{top:b.top+b.height/2-d/2,left:b.left+b.width}},c.prototype.getViewportAdjustedDelta=function(a,b,c,d){var e={top:0,left:0};if(!this.$viewport)return e;var f=this.options.viewport&&this.options.viewport.padding||0,g=this.getPosition(this.$viewport);if(/right|left/.test(a)){var h=b.top-f-g.scroll,i=b.top+f-g.scroll+d;h<g.top?e.top=g.top-h:i>g.top+g.height&&(e.top=g.top+g.height-i)}else{var j=b.left-f,k=b.left+f+c;j<g.left?e.left=g.left-j:k>g.right&&(e.left=g.left+g.width-k)}return e},c.prototype.getTitle=function(){var a,b=this.$element,c=this.options;return a=b.attr("data-original-title")||("function"==typeof c.title?c.title.call(b[0]):c.title)},c.prototype.getUID=function(a){do a+=~~(1e6*Math.random());while(document.getElementById(a));return a},c.prototype.tip=function(){if(!this.$tip&&(this.$tip=a(this.options.template),1!=this.$tip.length))throw new Error(this.type+" `template` option must consist of exactly 1 top-level element!");return this.$tip},c.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find(".tooltip-arrow")},c.prototype.enable=function(){this.enabled=!0},c.prototype.disable=function(){this.enabled=!1},c.prototype.toggleEnabled=function(){this.enabled=!this.enabled},c.prototype.toggle=function(b){var c=this;b&&(c=a(b.currentTarget).data("bs."+this.type),c||(c=new this.constructor(b.currentTarget,this.getDelegateOptions()),a(b.currentTarget).data("bs."+this.type,c))),b?(c.inState.click=!c.inState.click,c.isInStateTrue()?c.enter(c):c.leave(c)):c.tip().hasClass("in")?c.leave(c):c.enter(c)},c.prototype.destroy=function(){var a=this;clearTimeout(this.timeout),this.hide(function(){a.$element.off("."+a.type).removeData("bs."+a.type),a.$tip&&a.$tip.detach(),a.$tip=null,a.$arrow=null,a.$viewport=null,a.$element=null})};var d=a.fn.tooltip;a.fn.tooltip=b,a.fn.tooltip.Constructor=c,a.fn.tooltip.noConflict=function(){return a.fn.tooltip=d,this}}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.popover"),f="object"==typeof b&&b;!e&&/destroy|hide/.test(b)||(e||d.data("bs.popover",e=new c(this,f)),"string"==typeof b&&e[b]())})}var c=function(a,b){this.init("popover",a,b)};if(!a.fn.tooltip)throw new Error("Popover requires tooltip.js");c.VERSION="3.3.7",c.DEFAULTS=a.extend({},a.fn.tooltip.Constructor.DEFAULTS,{placement:"right",trigger:"click",content:"",template:'<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'}),c.prototype=a.extend({},a.fn.tooltip.Constructor.prototype),c.prototype.constructor=c,c.prototype.getDefaults=function(){return c.DEFAULTS},c.prototype.setContent=function(){var a=this.tip(),b=this.getTitle(),c=this.getContent();a.find(".popover-title")[this.options.html?"html":"text"](b),a.find(".popover-content").children().detach().end()[this.options.html?"string"==typeof c?"html":"append":"text"](c),a.removeClass("fade top bottom left right in"),a.find(".popover-title").html()||a.find(".popover-title").hide()},c.prototype.hasContent=function(){return this.getTitle()||this.getContent()},c.prototype.getContent=function(){var a=this.$element,b=this.options;return a.attr("data-content")||("function"==typeof b.content?b.content.call(a[0]):b.content)},c.prototype.arrow=function(){return this.$arrow=this.$arrow||this.tip().find(".arrow")};var d=a.fn.popover;a.fn.popover=b,a.fn.popover.Constructor=c,a.fn.popover.noConflict=function(){return a.fn.popover=d,this}}(jQuery),+function(a){"use strict";function b(c,d){this.$body=a(document.body),this.$scrollElement=a(a(c).is(document.body)?window:c),this.options=a.extend({},b.DEFAULTS,d),this.selector=(this.options.target||"")+" .nav li > a",this.offsets=[],this.targets=[],this.activeTarget=null,this.scrollHeight=0,this.$scrollElement.on("scroll.bs.scrollspy",a.proxy(this.process,this)),this.refresh(),this.process()}function c(c){return this.each(function(){var d=a(this),e=d.data("bs.scrollspy"),f="object"==typeof c&&c;e||d.data("bs.scrollspy",e=new b(this,f)),"string"==typeof c&&e[c]()})}b.VERSION="3.3.7",b.DEFAULTS={offset:10},b.prototype.getScrollHeight=function(){return this.$scrollElement[0].scrollHeight||Math.max(this.$body[0].scrollHeight,document.documentElement.scrollHeight)},b.prototype.refresh=function(){var b=this,c="offset",d=0;this.offsets=[],this.targets=[],this.scrollHeight=this.getScrollHeight(),a.isWindow(this.$scrollElement[0])||(c="position",d=this.$scrollElement.scrollTop()),this.$body.find(this.selector).map(function(){var b=a(this),e=b.data("target")||b.attr("href"),f=/^#./.test(e)&&a(e);return f&&f.length&&f.is(":visible")&&[[f[c]().top+d,e]]||null}).sort(function(a,b){return a[0]-b[0]}).each(function(){b.offsets.push(this[0]),b.targets.push(this[1])})},b.prototype.process=function(){var a,b=this.$scrollElement.scrollTop()+this.options.offset,c=this.getScrollHeight(),d=this.options.offset+c-this.$scrollElement.height(),e=this.offsets,f=this.targets,g=this.activeTarget;if(this.scrollHeight!=c&&this.refresh(),b>=d)return g!=(a=f[f.length-1])&&this.activate(a);if(g&&b<e[0])return this.activeTarget=null,this.clear();for(a=e.length;a--;)g!=f[a]&&b>=e[a]&&(void 0===e[a+1]||b<e[a+1])&&this.activate(f[a])},b.prototype.activate=function(b){
 this.activeTarget=b,this.clear();var c=this.selector+'[data-target="'+b+'"],'+this.selector+'[href="'+b+'"]',d=a(c).parents("li").addClass("active");d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active")),d.trigger("activate.bs.scrollspy")},b.prototype.clear=function(){a(this.selector).parentsUntil(this.options.target,".active").removeClass("active")};var d=a.fn.scrollspy;a.fn.scrollspy=c,a.fn.scrollspy.Constructor=b,a.fn.scrollspy.noConflict=function(){return a.fn.scrollspy=d,this},a(window).on("load.bs.scrollspy.data-api",function(){a('[data-spy="scroll"]').each(function(){var b=a(this);c.call(b,b.data())})})}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.tab");e||d.data("bs.tab",e=new c(this)),"string"==typeof b&&e[b]()})}var c=function(b){this.element=a(b)};c.VERSION="3.3.7",c.TRANSITION_DURATION=150,c.prototype.show=function(){var b=this.element,c=b.closest("ul:not(.dropdown-menu)"),d=b.data("target");if(d||(d=b.attr("href"),d=d&&d.replace(/.*(?=#[^\s]*$)/,"")),!b.parent("li").hasClass("active")){var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a.Event("show.bs.tab",{relatedTarget:e[0]});if(e.trigger(f),b.trigger(g),!g.isDefaultPrevented()&&!f.isDefaultPrevented()){var h=a(d);this.activate(b.closest("li"),c),this.activate(h,h.parent(),function(){e.trigger({type:"hidden.bs.tab",relatedTarget:b[0]}),b.trigger({type:"shown.bs.tab",relatedTarget:e[0]})})}}},c.prototype.activate=function(b,d,e){function f(){g.removeClass("active").find("> .dropdown-menu > .active").removeClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded",!1),b.addClass("active").find('[data-toggle="tab"]').attr("aria-expanded",!0),h?(b[0].offsetWidth,b.addClass("in")):b.removeClass("fade"),b.parent(".dropdown-menu").length&&b.closest("li.dropdown").addClass("active").end().find('[data-toggle="tab"]').attr("aria-expanded",!0),e&&e()}var g=d.find("> .active"),h=e&&a.support.transition&&(g.length&&g.hasClass("fade")||!!d.find("> .fade").length);g.length&&h?g.one("bsTransitionEnd",f).emulateTransitionEnd(c.TRANSITION_DURATION):f(),g.removeClass("in")};var d=a.fn.tab;a.fn.tab=b,a.fn.tab.Constructor=c,a.fn.tab.noConflict=function(){return a.fn.tab=d,this};var e=function(c){c.preventDefault(),b.call(a(this),"show")};a(document).on("click.bs.tab.data-api",'[data-toggle="tab"]',e).on("click.bs.tab.data-api",'[data-toggle="pill"]',e)}(jQuery),+function(a){"use strict";function b(b){return this.each(function(){var d=a(this),e=d.data("bs.affix"),f="object"==typeof b&&b;e||d.data("bs.affix",e=new c(this,f)),"string"==typeof b&&e[b]()})}var c=function(b,d){this.options=a.extend({},c.DEFAULTS,d),this.$target=a(this.options.target).on("scroll.bs.affix.data-api",a.proxy(this.checkPosition,this)).on("click.bs.affix.data-api",a.proxy(this.checkPositionWithEventLoop,this)),this.$element=a(b),this.affixed=null,this.unpin=null,this.pinnedOffset=null,this.checkPosition()};c.VERSION="3.3.7",c.RESET="affix affix-top affix-bottom",c.DEFAULTS={offset:0,target:window},c.prototype.getState=function(a,b,c,d){var e=this.$target.scrollTop(),f=this.$element.offset(),g=this.$target.height();if(null!=c&&"top"==this.affixed)return e<c&&"top";if("bottom"==this.affixed)return null!=c?!(e+this.unpin<=f.top)&&"bottom":!(e+g<=a-d)&&"bottom";var h=null==this.affixed,i=h?e:f.top,j=h?g:b;return null!=c&&e<=c?"top":null!=d&&i+j>=a-d&&"bottom"},c.prototype.getPinnedOffset=function(){if(this.pinnedOffset)return this.pinnedOffset;this.$element.removeClass(c.RESET).addClass("affix");var a=this.$target.scrollTop(),b=this.$element.offset();return this.pinnedOffset=b.top-a},c.prototype.checkPositionWithEventLoop=function(){setTimeout(a.proxy(this.checkPosition,this),1)},c.prototype.checkPosition=function(){if(this.$element.is(":visible")){var b=this.$element.height(),d=this.options.offset,e=d.top,f=d.bottom,g=Math.max(a(document).height(),a(document.body).height());"object"!=typeof d&&(f=e=d),"function"==typeof e&&(e=d.top(this.$element)),"function"==typeof f&&(f=d.bottom(this.$element));var h=this.getState(g,b,e,f);if(this.affixed!=h){null!=this.unpin&&this.$element.css("top","");var i="affix"+(h?"-"+h:""),j=a.Event(i+".bs.affix");if(this.$element.trigger(j),j.isDefaultPrevented())return;this.affixed=h,this.unpin="bottom"==h?this.getPinnedOffset():null,this.$element.removeClass(c.RESET).addClass(i).trigger(i.replace("affix","affixed")+".bs.affix")}"bottom"==h&&this.$element.offset({top:g-b-f})}};var d=a.fn.affix;a.fn.affix=b,a.fn.affix.Constructor=c,a.fn.affix.noConflict=function(){return a.fn.affix=d,this},a(window).on("load",function(){a('[data-spy="affix"]').each(function(){var c=a(this),d=c.data();d.offset=d.offset||{},null!=d.offsetBottom&&(d.offset.bottom=d.offsetBottom),null!=d.offsetTop&&(d.offset.top=d.offsetTop),b.call(c,d)})})}(jQuery);
-(function(){var a,b,c,d,e,f,g,h,i,j=[].slice,k=function(a,b){function c(){this.constructor=a}for(var d in b)l.call(b,d)&&(a[d]=b[d]);return c.prototype=b.prototype,a.prototype=new c,a.__super__=b.prototype,a},l={}.hasOwnProperty;h=function(){},b=function(){function a(){}return a.prototype.addEventListener=a.prototype.on,a.prototype.on=function(a,b){return this._callbacks=this._callbacks||{},this._callbacks[a]||(this._callbacks[a]=[]),this._callbacks[a].push(b),this},a.prototype.emit=function(){var a,b,c,d,e,f;if(d=arguments[0],a=2<=arguments.length?j.call(arguments,1):[],this._callbacks=this._callbacks||{},c=this._callbacks[d])for(e=0,f=c.length;e<f;e++)b=c[e],b.apply(this,a);return this},a.prototype.removeListener=a.prototype.off,a.prototype.removeAllListeners=a.prototype.off,a.prototype.removeEventListener=a.prototype.off,a.prototype.off=function(a,b){var c,d,e,f,g;if(!this._callbacks||0===arguments.length)return this._callbacks={},this;if(d=this._callbacks[a],!d)return this;if(1===arguments.length)return delete this._callbacks[a],this;for(e=f=0,g=d.length;f<g;e=++f)if(c=d[e],c===b){d.splice(e,1);break}return this},a}(),a=function(a){function d(a,b){var c,f,g;if(this.element=a,this.version=d.version,this.defaultOptions.previewTemplate=this.defaultOptions.previewTemplate.replace(/\n*/g,""),this.clickableElements=[],this.listeners=[],this.files=[],"string"==typeof this.element&&(this.element=document.querySelector(this.element)),!this.element||null==this.element.nodeType)throw new Error("Invalid dropzone element.");if(this.element.dropzone)throw new Error("Dropzone already attached.");if(d.instances.push(this),this.element.dropzone=this,c=null!=(g=d.optionsForElement(this.element))?g:{},this.options=e({},this.defaultOptions,c,null!=b?b:{}),this.options.forceFallback||!d.isBrowserSupported())return this.options.fallback.call(this);if(null==this.options.url&&(this.options.url=this.element.getAttribute("action")),!this.options.url)throw new Error("No URL provided.");if(this.options.acceptedFiles&&this.options.acceptedMimeTypes)throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");this.options.acceptedMimeTypes&&(this.options.acceptedFiles=this.options.acceptedMimeTypes,delete this.options.acceptedMimeTypes),null!=this.options.renameFilename&&(this.options.renameFile=function(a){return function(b){return a.options.renameFilename.call(a,b.name,b)}}(this)),this.options.method=this.options.method.toUpperCase(),(f=this.getExistingFallback())&&f.parentNode&&f.parentNode.removeChild(f),this.options.previewsContainer!==!1&&(this.options.previewsContainer?this.previewsContainer=d.getElement(this.options.previewsContainer,"previewsContainer"):this.previewsContainer=this.element),this.options.clickable&&(this.options.clickable===!0?this.clickableElements=[this.element]:this.clickableElements=d.getElements(this.options.clickable,"clickable")),this.init()}var e,f;return k(d,a),d.prototype.Emitter=b,d.prototype.events=["drop","dragstart","dragend","dragenter","dragover","dragleave","addedfile","addedfiles","removedfile","thumbnail","error","errormultiple","processing","processingmultiple","uploadprogress","totaluploadprogress","sending","sendingmultiple","success","successmultiple","canceled","canceledmultiple","complete","completemultiple","reset","maxfilesexceeded","maxfilesreached","queuecomplete"],d.prototype.defaultOptions={url:null,method:"post",withCredentials:!1,timeout:3e4,parallelUploads:2,uploadMultiple:!1,maxFilesize:256,paramName:"file",createImageThumbnails:!0,maxThumbnailFilesize:10,thumbnailWidth:120,thumbnailHeight:120,thumbnailMethod:"crop",resizeWidth:null,resizeHeight:null,resizeMimeType:null,resizeQuality:.8,resizeMethod:"contain",filesizeBase:1e3,maxFiles:null,params:{},headers:null,clickable:!0,ignoreHiddenFiles:!0,acceptedFiles:null,acceptedMimeTypes:null,autoProcessQueue:!0,autoQueue:!0,addRemoveLinks:!1,previewsContainer:null,hiddenInputContainer:"body",capture:null,renameFilename:null,renameFile:null,forceFallback:!1,dictDefaultMessage:"Drop files here to upload",dictFallbackMessage:"Your browser does not support drag'n'drop file uploads.",dictFallbackText:"Please use the fallback form below to upload your files like in the olden days.",dictFileTooBig:"File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",dictInvalidFileType:"You can't upload files of this type.",dictResponseError:"Server responded with {{statusCode}} code.",dictCancelUpload:"Cancel upload",dictCancelUploadConfirmation:"Are you sure you want to cancel this upload?",dictRemoveFile:"Remove file",dictRemoveFileConfirmation:null,dictMaxFilesExceeded:"You can not upload any more files.",dictFileSizeUnits:{tb:"TB",gb:"GB",mb:"MB",kb:"KB",b:"b"},init:function(){return h},accept:function(a,b){return b()},fallback:function(){var a,b,c,e,f,g;for(this.element.className=this.element.className+" dz-browser-not-supported",f=this.element.getElementsByTagName("div"),b=0,c=f.length;b<c;b++)a=f[b],/(^| )dz-message($| )/.test(a.className)&&(e=a,a.className="dz-message");return e||(e=d.createElement('<div class="dz-message"><span></span></div>'),this.element.appendChild(e)),g=e.getElementsByTagName("span")[0],g&&(null!=g.textContent?g.textContent=this.options.dictFallbackMessage:null!=g.innerText&&(g.innerText=this.options.dictFallbackMessage)),this.element.appendChild(this.getFallbackForm())},resize:function(a,b,c,d){var e,f,g;if(e={srcX:0,srcY:0,srcWidth:a.width,srcHeight:a.height},f=a.width/a.height,null==b&&null==c?(b=e.srcWidth,c=e.srcHeight):null==b?b=c*f:null==c&&(c=b/f),b=Math.min(b,e.srcWidth),c=Math.min(c,e.srcHeight),g=b/c,e.srcWidth>b||e.srcHeight>c)if("crop"===d)f>g?(e.srcHeight=a.height,e.srcWidth=e.srcHeight*g):(e.srcWidth=a.width,e.srcHeight=e.srcWidth/g);else{if("contain"!==d)throw new Error("Unknown resizeMethod '"+d+"'");f>g?c=b/f:b=c*f}return e.srcX=(a.width-e.srcWidth)/2,e.srcY=(a.height-e.srcHeight)/2,e.trgWidth=b,e.trgHeight=c,e},transformFile:function(a,b){return(this.options.resizeWidth||this.options.resizeHeight)&&a.type.match(/image.*/)?this.resizeImage(a,this.options.resizeWidth,this.options.resizeHeight,this.options.resizeMethod,b):b(a)},previewTemplate:'<div class="dz-preview dz-file-preview">\n  <div class="dz-image"><img data-dz-thumbnail /></div>\n  <div class="dz-details">\n    <div class="dz-size"><span data-dz-size></span></div>\n    <div class="dz-filename"><span data-dz-name></span></div>\n  </div>\n  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>\n  <div class="dz-error-message"><span data-dz-errormessage></span></div>\n  <div class="dz-success-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Check</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <path d="M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" stroke-opacity="0.198794158" stroke="#747474" fill-opacity="0.816519475" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>\n      </g>\n    </svg>\n  </div>\n  <div class="dz-error-mark">\n    <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">\n      <title>Error</title>\n      <defs></defs>\n      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">\n        <g id="Check-+-Oval-2" sketch:type="MSLayerGroup" stroke="#747474" stroke-opacity="0.198794158" fill="#FFFFFF" fill-opacity="0.816519475">\n          <path d="M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" id="Oval-2" sketch:type="MSShapeGroup"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>',drop:function(a){return this.element.classList.remove("dz-drag-hover")},dragstart:h,dragend:function(a){return this.element.classList.remove("dz-drag-hover")},dragenter:function(a){return this.element.classList.add("dz-drag-hover")},dragover:function(a){return this.element.classList.add("dz-drag-hover")},dragleave:function(a){return this.element.classList.remove("dz-drag-hover")},paste:h,reset:function(){return this.element.classList.remove("dz-started")},addedfile:function(a){var b,c,e,f,g,h,i,j,k,l,m,n,o;if(this.element===this.previewsContainer&&this.element.classList.add("dz-started"),this.previewsContainer){for(a.previewElement=d.createElement(this.options.previewTemplate.trim()),a.previewTemplate=a.previewElement,this.previewsContainer.appendChild(a.previewElement),j=a.previewElement.querySelectorAll("[data-dz-name]"),b=0,f=j.length;b<f;b++)i=j[b],i.textContent=a.upload.filename;for(k=a.previewElement.querySelectorAll("[data-dz-size]"),c=0,g=k.length;c<g;c++)i=k[c],i.innerHTML=this.filesize(a.size);for(this.options.addRemoveLinks&&(a._removeLink=d.createElement('<a class="dz-remove" href="javascript:undefined;" data-dz-remove>'+this.options.dictRemoveFile+"</a>"),a.previewElement.appendChild(a._removeLink)),m=function(b){return function(c){return c.preventDefault(),c.stopPropagation(),a.status===d.UPLOADING?d.confirm(b.options.dictCancelUploadConfirmation,function(){return b.removeFile(a)}):b.options.dictRemoveFileConfirmation?d.confirm(b.options.dictRemoveFileConfirmation,function(){return b.removeFile(a)}):b.removeFile(a)}}(this),l=a.previewElement.querySelectorAll("[data-dz-remove]"),o=[],e=0,h=l.length;e<h;e++)n=l[e],o.push(n.addEventListener("click",m));return o}},removedfile:function(a){var b;return a.previewElement&&null!=(b=a.previewElement)&&b.parentNode.removeChild(a.previewElement),this._updateMaxFilesReachedClass()},thumbnail:function(a,b){var c,d,e,f;if(a.previewElement){for(a.previewElement.classList.remove("dz-file-preview"),e=a.previewElement.querySelectorAll("[data-dz-thumbnail]"),c=0,d=e.length;c<d;c++)f=e[c],f.alt=a.name,f.src=b;return setTimeout(function(b){return function(){return a.previewElement.classList.add("dz-image-preview")}}(this),1)}},error:function(a,b){var c,d,e,f,g;if(a.previewElement){for(a.previewElement.classList.add("dz-error"),"String"!=typeof b&&b.error&&(b=b.error),f=a.previewElement.querySelectorAll("[data-dz-errormessage]"),g=[],c=0,d=f.length;c<d;c++)e=f[c],g.push(e.textContent=b);return g}},errormultiple:h,processing:function(a){if(a.previewElement&&(a.previewElement.classList.add("dz-processing"),a._removeLink))return a._removeLink.textContent=this.options.dictCancelUpload},processingmultiple:h,uploadprogress:function(a,b,c){var d,e,f,g,h;if(a.previewElement){for(g=a.previewElement.querySelectorAll("[data-dz-uploadprogress]"),h=[],d=0,e=g.length;d<e;d++)f=g[d],"PROGRESS"===f.nodeName?h.push(f.value=b):h.push(f.style.width=b+"%");return h}},totaluploadprogress:h,sending:h,sendingmultiple:h,success:function(a){if(a.previewElement)return a.previewElement.classList.add("dz-success")},successmultiple:h,canceled:function(a){return this.emit("error",a,"Upload canceled.")},canceledmultiple:h,complete:function(a){if(a._removeLink&&(a._removeLink.textContent=this.options.dictRemoveFile),a.previewElement)return a.previewElement.classList.add("dz-complete")},completemultiple:h,maxfilesexceeded:h,maxfilesreached:h,queuecomplete:h,addedfiles:h},e=function(){var a,b,c,d,e,f,g;for(f=arguments[0],e=2<=arguments.length?j.call(arguments,1):[],a=0,c=e.length;a<c;a++){d=e[a];for(b in d)g=d[b],f[b]=g}return f},d.prototype.getAcceptedFiles=function(){var a,b,c,d,e;for(d=this.files,e=[],b=0,c=d.length;b<c;b++)a=d[b],a.accepted&&e.push(a);return e},d.prototype.getRejectedFiles=function(){var a,b,c,d,e;for(d=this.files,e=[],b=0,c=d.length;b<c;b++)a=d[b],a.accepted||e.push(a);return e},d.prototype.getFilesWithStatus=function(a){var b,c,d,e,f;for(e=this.files,f=[],c=0,d=e.length;c<d;c++)b=e[c],b.status===a&&f.push(b);return f},d.prototype.getQueuedFiles=function(){return this.getFilesWithStatus(d.QUEUED)},d.prototype.getUploadingFiles=function(){return this.getFilesWithStatus(d.UPLOADING)},d.prototype.getAddedFiles=function(){return this.getFilesWithStatus(d.ADDED)},d.prototype.getActiveFiles=function(){var a,b,c,e,f;for(e=this.files,f=[],b=0,c=e.length;b<c;b++)a=e[b],a.status!==d.UPLOADING&&a.status!==d.QUEUED||f.push(a);return f},d.prototype.init=function(){var a,b,c,e,f,g,h;for("form"===this.element.tagName&&this.element.setAttribute("enctype","multipart/form-data"),this.element.classList.contains("dropzone")&&!this.element.querySelector(".dz-message")&&this.element.appendChild(d.createElement('<div class="dz-default dz-message"><span>'+this.options.dictDefaultMessage+"</span></div>")),this.clickableElements.length&&(h=function(a){return function(){return a.hiddenFileInput&&a.hiddenFileInput.parentNode.removeChild(a.hiddenFileInput),a.hiddenFileInput=document.createElement("input"),a.hiddenFileInput.setAttribute("type","file"),(null==a.options.maxFiles||a.options.maxFiles>1)&&a.hiddenFileInput.setAttribute("multiple","multiple"),a.hiddenFileInput.className="dz-hidden-input",null!=a.options.acceptedFiles&&a.hiddenFileInput.setAttribute("accept",a.options.acceptedFiles),null!=a.options.capture&&a.hiddenFileInput.setAttribute("capture",a.options.capture),a.hiddenFileInput.style.visibility="hidden",a.hiddenFileInput.style.position="absolute",a.hiddenFileInput.style.top="0",a.hiddenFileInput.style.left="0",a.hiddenFileInput.style.height="0",a.hiddenFileInput.style.width="0",document.querySelector(a.options.hiddenInputContainer).appendChild(a.hiddenFileInput),a.hiddenFileInput.addEventListener("change",function(){var b,c,d,e;if(c=a.hiddenFileInput.files,c.length)for(d=0,e=c.length;d<e;d++)b=c[d],a.addFile(b);return a.emit("addedfiles",c),h()})}}(this))(),this.URL=null!=(f=window.URL)?f:window.webkitURL,g=this.events,b=0,c=g.length;b<c;b++)a=g[b],this.on(a,this.options[a]);return this.on("uploadprogress",function(a){return function(){return a.updateTotalUploadProgress()}}(this)),this.on("removedfile",function(a){return function(){return a.updateTotalUploadProgress()}}(this)),this.on("canceled",function(a){return function(b){return a.emit("complete",b)}}(this)),this.on("complete",function(a){return function(b){if(0===a.getAddedFiles().length&&0===a.getUploadingFiles().length&&0===a.getQueuedFiles().length)return setTimeout(function(){return a.emit("queuecomplete")},0)}}(this)),e=function(a){return a.stopPropagation(),a.preventDefault?a.preventDefault():a.returnValue=!1},this.listeners=[{element:this.element,events:{dragstart:function(a){return function(b){return a.emit("dragstart",b)}}(this),dragenter:function(a){return function(b){return e(b),a.emit("dragenter",b)}}(this),dragover:function(a){return function(b){var c;try{c=b.dataTransfer.effectAllowed}catch(a){}return b.dataTransfer.dropEffect="move"===c||"linkMove"===c?"move":"copy",e(b),a.emit("dragover",b)}}(this),dragleave:function(a){return function(b){return a.emit("dragleave",b)}}(this),drop:function(a){return function(b){return e(b),a.drop(b)}}(this),dragend:function(a){return function(b){return a.emit("dragend",b)}}(this)}}],this.clickableElements.forEach(function(a){return function(b){return a.listeners.push({element:b,events:{click:function(c){return(b!==a.element||c.target===a.element||d.elementInside(c.target,a.element.querySelector(".dz-message")))&&a.hiddenFileInput.click(),!0}}})}}(this)),this.enable(),this.options.init.call(this)},d.prototype.destroy=function(){var a;return this.disable(),this.removeAllFiles(!0),(null!=(a=this.hiddenFileInput)?a.parentNode:void 0)&&(this.hiddenFileInput.parentNode.removeChild(this.hiddenFileInput),this.hiddenFileInput=null),delete this.element.dropzone,d.instances.splice(d.instances.indexOf(this),1)},d.prototype.updateTotalUploadProgress=function(){var a,b,c,d,e,f,g,h;if(g=0,f=0,a=this.getActiveFiles(),a.length){for(e=this.getActiveFiles(),c=0,d=e.length;c<d;c++)b=e[c],g+=b.upload.bytesSent,f+=b.upload.total;h=100*g/f}else h=100;return this.emit("totaluploadprogress",h,f,g)},d.prototype._getParamName=function(a){return"function"==typeof this.options.paramName?this.options.paramName(a):""+this.options.paramName+(this.options.uploadMultiple?"["+a+"]":"")},d.prototype._renameFile=function(a){return"function"!=typeof this.options.renameFile?a.name:this.options.renameFile(a)},d.prototype.getFallbackForm=function(){var a,b,c,e;return(a=this.getExistingFallback())?a:(c='<div class="dz-fallback">',this.options.dictFallbackText&&(c+="<p>"+this.options.dictFallbackText+"</p>"),c+='<input type="file" name="'+this._getParamName(0)+'" '+(this.options.uploadMultiple?'multiple="multiple"':void 0)+' /><input type="submit" value="Upload!"></div>',b=d.createElement(c),"FORM"!==this.element.tagName?(e=d.createElement('<form action="'+this.options.url+'" enctype="multipart/form-data" method="'+this.options.method+'"></form>'),e.appendChild(b)):(this.element.setAttribute("enctype","multipart/form-data"),this.element.setAttribute("method",this.options.method)),null!=e?e:b)},d.prototype.getExistingFallback=function(){var a,b,c,d,e,f;for(b=function(a){var b,c,d;for(c=0,d=a.length;c<d;c++)if(b=a[c],/(^| )fallback($| )/.test(b.className))return b},e=["div","form"],c=0,d=e.length;c<d;c++)if(f=e[c],a=b(this.element.getElementsByTagName(f)))return a},d.prototype.setupEventListeners=function(){var a,b,c,d,e,f,g;for(f=this.listeners,g=[],c=0,d=f.length;c<d;c++)a=f[c],g.push(function(){var c,d;c=a.events,d=[];for(b in c)e=c[b],d.push(a.element.addEventListener(b,e,!1));return d}());return g},d.prototype.removeEventListeners=function(){var a,b,c,d,e,f,g;for(f=this.listeners,g=[],c=0,d=f.length;c<d;c++)a=f[c],g.push(function(){var c,d;c=a.events,d=[];for(b in c)e=c[b],d.push(a.element.removeEventListener(b,e,!1));return d}());return g},d.prototype.disable=function(){var a,b,c,d,e;for(this.clickableElements.forEach(function(a){return a.classList.remove("dz-clickable")}),this.removeEventListeners(),d=this.files,e=[],b=0,c=d.length;b<c;b++)a=d[b],e.push(this.cancelUpload(a));return e},d.prototype.enable=function(){return this.clickableElements.forEach(function(a){return a.classList.add("dz-clickable")}),this.setupEventListeners()},d.prototype.filesize=function(a){var b,c,d,e,f,g,h,i;if(f=0,g="b",a>0){for(i=["tb","gb","mb","kb","b"],c=d=0,e=i.length;d<e;c=++d)if(h=i[c],b=Math.pow(this.options.filesizeBase,4-c)/10,a>=b){f=a/Math.pow(this.options.filesizeBase,4-c),g=h;break}f=Math.round(10*f)/10}return"<strong>"+f+"</strong> "+this.options.dictFileSizeUnits[g]},d.prototype._updateMaxFilesReachedClass=function(){return null!=this.options.maxFiles&&this.getAcceptedFiles().length>=this.options.maxFiles?(this.getAcceptedFiles().length===this.options.maxFiles&&this.emit("maxfilesreached",this.files),this.element.classList.add("dz-max-files-reached")):this.element.classList.remove("dz-max-files-reached")},d.prototype.drop=function(a){var b,c;a.dataTransfer&&(this.emit("drop",a),b=a.dataTransfer.files,this.emit("addedfiles",b),b.length&&(c=a.dataTransfer.items,c&&c.length&&null!=c[0].webkitGetAsEntry?this._addFilesFromItems(c):this.handleFiles(b)))},d.prototype.paste=function(a){var b,c;if(null!=(null!=a&&null!=(c=a.clipboardData)?c.items:void 0))return this.emit("paste",a),b=a.clipboardData.items,b.length?this._addFilesFromItems(b):void 0},d.prototype.handleFiles=function(a){var b,c,d,e;for(e=[],c=0,d=a.length;c<d;c++)b=a[c],e.push(this.addFile(b));return e},d.prototype._addFilesFromItems=function(a){var b,c,d,e,f;for(f=[],d=0,e=a.length;d<e;d++)c=a[d],null!=c.webkitGetAsEntry&&(b=c.webkitGetAsEntry())?b.isFile?f.push(this.addFile(c.getAsFile())):b.isDirectory?f.push(this._addFilesFromDirectory(b,b.name)):f.push(void 0):null!=c.getAsFile&&(null==c.kind||"file"===c.kind)?f.push(this.addFile(c.getAsFile())):f.push(void 0);return f},d.prototype._addFilesFromDirectory=function(a,b){var c,d,e;return c=a.createReader(),d=function(a){return"undefined"!=typeof console&&null!==console&&"function"==typeof console.log?console.log(a):void 0},(e=function(a){return function(){return c.readEntries(function(c){var d,f,g;if(c.length>0){for(f=0,g=c.length;f<g;f++)d=c[f],d.isFile?d.file(function(c){if(!a.options.ignoreHiddenFiles||"."!==c.name.substring(0,1))return c.fullPath=b+"/"+c.name,a.addFile(c)}):d.isDirectory&&a._addFilesFromDirectory(d,b+"/"+d.name);e()}return null},d)}}(this))()},d.prototype.accept=function(a,b){return a.size>1024*this.options.maxFilesize*1024?b(this.options.dictFileTooBig.replace("{{filesize}}",Math.round(a.size/1024/10.24)/100).replace("{{maxFilesize}}",this.options.maxFilesize)):d.isValidFile(a,this.options.acceptedFiles)?null!=this.options.maxFiles&&this.getAcceptedFiles().length>=this.options.maxFiles?(b(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}",this.options.maxFiles)),this.emit("maxfilesexceeded",a)):this.options.accept.call(this,a,b):b(this.options.dictInvalidFileType)},d.prototype.addFile=function(a){return a.upload={progress:0,total:a.size,bytesSent:0,filename:this._renameFile(a)},this.files.push(a),a.status=d.ADDED,this.emit("addedfile",a),this._enqueueThumbnail(a),this.accept(a,function(b){return function(c){return c?(a.accepted=!1,b._errorProcessing([a],c)):(a.accepted=!0,b.options.autoQueue&&b.enqueueFile(a)),b._updateMaxFilesReachedClass()}}(this))},d.prototype.enqueueFiles=function(a){var b,c,d;for(c=0,d=a.length;c<d;c++)b=a[c],this.enqueueFile(b);return null},d.prototype.enqueueFile=function(a){if(a.status!==d.ADDED||a.accepted!==!0)throw new Error("This file can't be queued because it has already been processed or was rejected.");if(a.status=d.QUEUED,this.options.autoProcessQueue)return setTimeout(function(a){return function(){return a.processQueue()}}(this),0)},d.prototype._thumbnailQueue=[],d.prototype._processingThumbnail=!1,d.prototype._enqueueThumbnail=function(a){if(this.options.createImageThumbnails&&a.type.match(/image.*/)&&a.size<=1024*this.options.maxThumbnailFilesize*1024)return this._thumbnailQueue.push(a),setTimeout(function(a){return function(){return a._processThumbnailQueue()}}(this),0)},d.prototype._processThumbnailQueue=function(){var a;if(!this._processingThumbnail&&0!==this._thumbnailQueue.length)return this._processingThumbnail=!0,a=this._thumbnailQueue.shift(),this.createThumbnail(a,this.options.thumbnailWidth,this.options.thumbnailHeight,this.options.thumbnailMethod,!0,function(b){return function(c){return b.emit("thumbnail",a,c),b._processingThumbnail=!1,b._processThumbnailQueue()}}(this))},d.prototype.removeFile=function(a){if(a.status===d.UPLOADING&&this.cancelUpload(a),this.files=i(this.files,a),this.emit("removedfile",a),0===this.files.length)return this.emit("reset")},d.prototype.removeAllFiles=function(a){var b,c,e,f;for(null==a&&(a=!1),f=this.files.slice(),c=0,e=f.length;c<e;c++)b=f[c],(b.status!==d.UPLOADING||a)&&this.removeFile(b);return null},d.prototype.resizeImage=function(a,b,e,f,g){return this.createThumbnail(a,b,e,f,!1,function(b){return function(e,f){var h,i;return null===f?g(a):(h=b.options.resizeMimeType,null==h&&(h=a.type),i=f.toDataURL(h,b.options.resizeQuality),"image/jpeg"!==h&&"image/jpg"!==h||(i=c.restore(a.dataURL,i)),g(d.dataURItoBlob(i)))}}(this))},d.prototype.createThumbnail=function(a,b,c,d,e,f){var g;return g=new FileReader,g.onload=function(h){return function(){return a.dataURL=g.result,"image/svg+xml"===a.type?void(null!=f&&f(g.result)):h.createThumbnailFromUrl(a,b,c,d,e,f)}}(this),g.readAsDataURL(a)},d.prototype.createThumbnailFromUrl=function(a,b,c,d,e,f,h){var i;return i=document.createElement("img"),h&&(i.crossOrigin=h),i.onload=function(h){return function(){var j;return j=function(a){return a(1)},"undefined"!=typeof EXIF&&null!==EXIF&&e&&(j=function(a){return EXIF.getData(i,function(){return a(EXIF.getTag(this,"Orientation"))})}),j(function(e){var j,k,l,m,n,o,p,q;switch(a.width=i.width,a.height=i.height,p=h.options.resize.call(h,a,b,c,d),j=document.createElement("canvas"),k=j.getContext("2d"),j.width=p.trgWidth,j.height=p.trgHeight,e>4&&(j.width=p.trgHeight,j.height=p.trgWidth),e){case 2:k.translate(j.width,0),k.scale(-1,1);break;case 3:k.translate(j.width,j.height),k.rotate(Math.PI);break;case 4:k.translate(0,j.height),k.scale(1,-1);break;case 5:k.rotate(.5*Math.PI),k.scale(1,-1);break;case 6:k.rotate(.5*Math.PI),k.translate(0,-j.height);break;case 7:k.rotate(.5*Math.PI),k.translate(j.width,-j.height),k.scale(-1,1);break;case 8:k.rotate(-.5*Math.PI),k.translate(-j.width,0)}if(g(k,i,null!=(l=p.srcX)?l:0,null!=(m=p.srcY)?m:0,p.srcWidth,p.srcHeight,null!=(n=p.trgX)?n:0,null!=(o=p.trgY)?o:0,p.trgWidth,p.trgHeight),q=j.toDataURL("image/png"),null!=f)return f(q,j)})}}(this),null!=f&&(i.onerror=f),i.src=a.dataURL},d.prototype.processQueue=function(){var a,b,c,d;if(b=this.options.parallelUploads,c=this.getUploadingFiles().length,a=c,!(c>=b)&&(d=this.getQueuedFiles(),d.length>0)){if(this.options.uploadMultiple)return this.processFiles(d.slice(0,b-c));for(;a<b;){if(!d.length)return;this.processFile(d.shift()),a++}}},d.prototype.processFile=function(a){return this.processFiles([a])},d.prototype.processFiles=function(a){var b,c,e;for(c=0,e=a.length;c<e;c++)b=a[c],b.processing=!0,b.status=d.UPLOADING,this.emit("processing",b);return this.options.uploadMultiple&&this.emit("processingmultiple",a),this.uploadFiles(a)},d.prototype._getFilesWithXhr=function(a){var b,c;return c=function(){var c,d,e,f;for(e=this.files,f=[],c=0,d=e.length;c<d;c++)b=e[c],b.xhr===a&&f.push(b);return f}.call(this)},d.prototype.cancelUpload=function(a){var b,c,e,f,g,h,i;if(a.status===d.UPLOADING){for(c=this._getFilesWithXhr(a.xhr),e=0,g=c.length;e<g;e++)b=c[e],b.status=d.CANCELED;for(a.xhr.abort(),f=0,h=c.length;f<h;f++)b=c[f],this.emit("canceled",b);this.options.uploadMultiple&&this.emit("canceledmultiple",c)}else(i=a.status)!==d.ADDED&&i!==d.QUEUED||(a.status=d.CANCELED,this.emit("canceled",a),this.options.uploadMultiple&&this.emit("canceledmultiple",[a]));if(this.options.autoProcessQueue)return this.processQueue()},f=function(){var a,b;return b=arguments[0],a=2<=arguments.length?j.call(arguments,1):[],"function"==typeof b?b.apply(this,a):b},d.prototype.uploadFile=function(a){return this.uploadFiles([a])},d.prototype.uploadFiles=function(a){var b,c,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O;for(O=new XMLHttpRequest,q=0,u=a.length;q<u;q++)g=a[q],g.xhr=O;z=f(this.options.method,a),M=f(this.options.url,a),O.open(z,M,!0),O.timeout=f(this.options.timeout,a),O.withCredentials=!!this.options.withCredentials,J=null,i=function(b){return function(){var c,d,e;for(e=[],c=0,d=a.length;c<d;c++)g=a[c],e.push(b._errorProcessing(a,J||b.options.dictResponseError.replace("{{statusCode}}",O.status),O));return e}}(this),L=function(b){return function(c){var d,e,f,h,i,j,k,l,m;if(null!=c)for(l=100*c.loaded/c.total,e=0,h=a.length;e<h;e++)g=a[e],g.upload={progress:l,total:c.total,bytesSent:c.loaded};else{for(d=!0,l=100,f=0,i=a.length;f<i;f++)g=a[f],100===g.upload.progress&&g.upload.bytesSent===g.upload.total||(d=!1),g.upload.progress=l,g.upload.bytesSent=g.upload.total;if(d)return}for(m=[],k=0,j=a.length;k<j;k++)g=a[k],m.push(b.emit("uploadprogress",g,l,g.upload.bytesSent));return m}}(this),O.onload=function(b){return function(c){var e;if(a[0].status!==d.CANCELED&&4===O.readyState){if(J=O.responseText,O.getResponseHeader("content-type")&&~O.getResponseHeader("content-type").indexOf("application/json"))try{J=JSON.parse(J)}catch(a){c=a,J="Invalid JSON response from server."}return L(),200<=(e=O.status)&&e<300?b._finished(a,J,c):i()}}}(this),O.onerror=function(b){return function(){if(a[0].status!==d.CANCELED)return i()}}(this),C=null!=(D=O.upload)?D:O,C.onprogress=L,l={Accept:"application/json","Cache-Control":"no-cache","X-Requested-With":"XMLHttpRequest"},this.options.headers&&e(l,this.options.headers);for(j in l)k=l[j],k&&O.setRequestHeader(j,k);if(h=new FormData,this.options.params){E=this.options.params;for(s in E)N=E[s],h.append(s,N)}for(r=0,v=a.length;r<v;r++)g=a[r],this.emit("sending",g,O,h);if(this.options.uploadMultiple&&this.emit("sendingmultiple",a,O,h),"FORM"===this.element.tagName)for(F=this.element.querySelectorAll("input, textarea, select, button"),t=0,w=F.length;t<w;t++)if(n=F[t],o=n.getAttribute("name"),p=n.getAttribute("type"),"SELECT"===n.tagName&&n.hasAttribute("multiple"))for(G=n.options,y=0,x=G.length;y<x;y++)B=G[y],B.selected&&h.append(o,B.value);else(!p||"checkbox"!==(H=p.toLowerCase())&&"radio"!==H||n.checked)&&h.append(o,n.value);for(b=0,K=[],m=A=0,I=a.length-1;0<=I?A<=I:A>=I;m=0<=I?++A:--A)c=function(c){return function(d,e,f){return function(d){if(h.append(e,d,f),++b===a.length)return c.submitRequest(O,h,a)}}}(this),K.push(this.options.transformFile.call(this,a[m],c(a[m],this._getParamName(m),a[m].upload.filename)));return K},d.prototype.submitRequest=function(a,b,c){return a.send(b)},d.prototype._finished=function(a,b,c){var e,f,g;for(f=0,g=a.length;f<g;f++)e=a[f],e.status=d.SUCCESS,this.emit("success",e,b,c),this.emit("complete",e);if(this.options.uploadMultiple&&(this.emit("successmultiple",a,b,c),this.emit("completemultiple",a)),this.options.autoProcessQueue)return this.processQueue()},d.prototype._errorProcessing=function(a,b,c){var e,f,g;for(f=0,g=a.length;f<g;f++)e=a[f],e.status=d.ERROR,this.emit("error",e,b,c),this.emit("complete",e);if(this.options.uploadMultiple&&(this.emit("errormultiple",a,b,c),this.emit("completemultiple",a)),this.options.autoProcessQueue)return this.processQueue()},d}(b),a.version="5.1.0",a.options={},a.optionsForElement=function(b){return b.getAttribute("id")?a.options[d(b.getAttribute("id"))]:void 0},a.instances=[],a.forElement=function(a){if("string"==typeof a&&(a=document.querySelector(a)),null==(null!=a?a.dropzone:void 0))throw new Error("No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone.");return a.dropzone},a.autoDiscover=!0,a.discover=function(){var b,c,d,e,f,g;for(document.querySelectorAll?d=document.querySelectorAll(".dropzone"):(d=[],b=function(a){var b,c,e,f;for(f=[],c=0,e=a.length;c<e;c++)b=a[c],/(^| )dropzone($| )/.test(b.className)?f.push(d.push(b)):f.push(void 0);return f},b(document.getElementsByTagName("div")),b(document.getElementsByTagName("form"))),g=[],e=0,f=d.length;e<f;e++)c=d[e],a.optionsForElement(c)!==!1?g.push(new a(c)):g.push(void 0);return g},a.blacklistedBrowsers=[/opera.*Macintosh.*version\/12/i],
-a.isBrowserSupported=function(){var b,c,d,e,f;if(b=!0,window.File&&window.FileReader&&window.FileList&&window.Blob&&window.FormData&&document.querySelector)if("classList"in document.createElement("a"))for(e=a.blacklistedBrowsers,c=0,d=e.length;c<d;c++)f=e[c],f.test(navigator.userAgent)&&(b=!1);else b=!1;else b=!1;return b},a.dataURItoBlob=function(a){var b,c,d,e,f,g,h;for(c=atob(a.split(",")[1]),g=a.split(",")[0].split(":")[1].split(";")[0],b=new ArrayBuffer(c.length),e=new Uint8Array(b),d=f=0,h=c.length;0<=h?f<=h:f>=h;d=0<=h?++f:--f)e[d]=c.charCodeAt(d);return new Blob([b],{type:g})},i=function(a,b){var c,d,e,f;for(f=[],d=0,e=a.length;d<e;d++)c=a[d],c!==b&&f.push(c);return f},d=function(a){return a.replace(/[\-_](\w)/g,function(a){return a.charAt(1).toUpperCase()})},a.createElement=function(a){var b;return b=document.createElement("div"),b.innerHTML=a,b.childNodes[0]},a.elementInside=function(a,b){if(a===b)return!0;for(;a=a.parentNode;)if(a===b)return!0;return!1},a.getElement=function(a,b){var c;if("string"==typeof a?c=document.querySelector(a):null!=a.nodeType&&(c=a),null==c)throw new Error("Invalid `"+b+"` option provided. Please provide a CSS selector or a plain HTML element.");return c},a.getElements=function(a,b){var c,d,e,f,g,h,i,j;if(a instanceof Array){e=[];try{for(f=0,h=a.length;f<h;f++)d=a[f],e.push(this.getElement(d,b))}catch(a){c=a,e=null}}else if("string"==typeof a)for(e=[],j=document.querySelectorAll(a),g=0,i=j.length;g<i;g++)d=j[g],e.push(d);else null!=a.nodeType&&(e=[a]);if(null==e||!e.length)throw new Error("Invalid `"+b+"` option provided. Please provide a CSS selector, a plain HTML element or a list of those.");return e},a.confirm=function(a,b,c){return window.confirm(a)?b():null!=c?c():void 0},a.isValidFile=function(a,b){var c,d,e,f,g;if(!b)return!0;for(b=b.split(","),f=a.type,c=f.replace(/\/.*$/,""),d=0,e=b.length;d<e;d++)if(g=b[d],g=g.trim(),"."===g.charAt(0)){if(a.name.toLowerCase().indexOf(g.toLowerCase(),a.name.length-g.length)!==-1)return!0}else if(/\/\*$/.test(g)){if(c===g.replace(/\/.*$/,""))return!0}else if(f===g)return!0;return!1},"undefined"!=typeof jQuery&&null!==jQuery&&(jQuery.fn.dropzone=function(b){return this.each(function(){return new a(this,b)})}),"undefined"!=typeof module&&null!==module?module.exports=a:window.Dropzone=a,a.ADDED="added",a.QUEUED="queued",a.ACCEPTED=a.QUEUED,a.UPLOADING="uploading",a.PROCESSING=a.UPLOADING,a.CANCELED="canceled",a.ERROR="error",a.SUCCESS="success",f=function(a){var b,c,d,e,f,g,h,i,j,k;for(h=a.naturalWidth,g=a.naturalHeight,c=document.createElement("canvas"),c.width=1,c.height=g,d=c.getContext("2d"),d.drawImage(a,0,0),e=d.getImageData(1,0,1,g).data,k=0,f=g,i=g;i>k;)b=e[4*(i-1)+3],0===b?f=i:k=i,i=f+k>>1;return j=i/g,0===j?1:j},g=function(a,b,c,d,e,g,h,i,j,k){var l;return l=f(b),a.drawImage(b,c,d,e,g,h,i,j,k/l)},c=function(){function a(){}return a.KEY_STR="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",a.encode64=function(a){var b,c,d,e,f,g,h,i,j;for(j="",b=void 0,c=void 0,d="",e=void 0,f=void 0,g=void 0,h="",i=0;;)if(b=a[i++],c=a[i++],d=a[i++],e=b>>2,f=(3&b)<<4|c>>4,g=(15&c)<<2|d>>6,h=63&d,isNaN(c)?g=h=64:isNaN(d)&&(h=64),j=j+this.KEY_STR.charAt(e)+this.KEY_STR.charAt(f)+this.KEY_STR.charAt(g)+this.KEY_STR.charAt(h),b=c=d="",e=f=g=h="",!(i<a.length))break;return j},a.restore=function(a,b){var c,d,e;return a.match("data:image/jpeg;base64,")?(d=this.decode64(a.replace("data:image/jpeg;base64,","")),e=this.slice2Segments(d),c=this.exifManipulation(b,e),"data:image/jpeg;base64,"+this.encode64(c)):b},a.exifManipulation=function(a,b){var c,d,e;return d=this.getExifArray(b),e=this.insertExif(a,d),c=new Uint8Array(e)},a.getExifArray=function(a){var b,c;for(b=void 0,c=0;c<a.length;){if(b=a[c],255===b[0]&225===b[1])return b;c++}return[]},a.insertExif=function(a,b){var c,d,e,f,g,h;return f=a.replace("data:image/jpeg;base64,",""),e=this.decode64(f),h=e.indexOf(255,3),g=e.slice(0,h),d=e.slice(h),c=g,c=c.concat(b),c=c.concat(d)},a.slice2Segments=function(a){var b,c,d,e,f;for(c=0,f=[];;){if(255===a[c]&218===a[c+1])break;if(255===a[c]&216===a[c+1]?c+=2:(d=256*a[c+2]+a[c+3],b=c+d+2,e=a.slice(c,b),f.push(e),c=b),c>a.length)break}return f},a.decode64=function(a){var b,c,d,e,f,g,h,i,j,k,l;for(l="",d=void 0,e=void 0,f="",g=void 0,h=void 0,i=void 0,j="",k=0,c=[],b=/[^A-Za-z0-9\+\/\=]/g,b.exec(a)&&console.warning("There were invalid base64 characters in the input text.\nValid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\nExpect errors in decoding."),a=a.replace(/[^A-Za-z0-9\+\/\=]/g,"");;)if(g=this.KEY_STR.indexOf(a.charAt(k++)),h=this.KEY_STR.indexOf(a.charAt(k++)),i=this.KEY_STR.indexOf(a.charAt(k++)),j=this.KEY_STR.indexOf(a.charAt(k++)),d=g<<2|h>>4,e=(15&h)<<4|i>>2,f=(3&i)<<6|j,c.push(d),64!==i&&c.push(e),64!==j&&c.push(f),d=e=f="",g=h=i=j="",!(k<a.length))break;return c},a}(),e=function(a,b){var c,d,e,f,g,h,i,j,k;if(e=!1,k=!0,d=a.document,j=d.documentElement,c=d.addEventListener?"addEventListener":"attachEvent",i=d.addEventListener?"removeEventListener":"detachEvent",h=d.addEventListener?"":"on",f=function(c){if("readystatechange"!==c.type||"complete"===d.readyState)return("load"===c.type?a:d)[i](h+c.type,f,!1),!e&&(e=!0)?b.call(a,c.type||c):void 0},g=function(){var a;try{j.doScroll("left")}catch(b){return a=b,void setTimeout(g,50)}return f("poll")},"complete"!==d.readyState){if(d.createEventObject&&j.doScroll){try{k=!a.frameElement}catch(a){}k&&g()}return d[c](h+"DOMContentLoaded",f,!1),d[c](h+"readystatechange",f,!1),a[c](h+"load",f,!1)}},a._autoDiscoverFunction=function(){if(a.autoDiscover)return a.discover()},e(window,a._autoDiscoverFunction)}).call(this);
+
+/*
+ *
+ * More info at [www.dropzonejs.com](http://www.dropzonejs.com)
+ *
+ * Copyright (c) 2012, Matias Meno
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+(function() {
+  var Dropzone, Emitter, ExifRestore, camelize, contentLoaded, detectVerticalSquash, drawImageIOSFix, noop, without,
+    slice = [].slice,
+    extend1 = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  noop = function() {};
+
+  Emitter = (function() {
+    function Emitter() {}
+
+    Emitter.prototype.addEventListener = Emitter.prototype.on;
+
+    Emitter.prototype.on = function(event, fn) {
+      this._callbacks = this._callbacks || {};
+      if (!this._callbacks[event]) {
+        this._callbacks[event] = [];
+      }
+      this._callbacks[event].push(fn);
+      return this;
+    };
+
+    Emitter.prototype.emit = function() {
+      var args, callback, callbacks, event, j, len;
+      event = arguments[0], args = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      this._callbacks = this._callbacks || {};
+      callbacks = this._callbacks[event];
+      if (callbacks) {
+        for (j = 0, len = callbacks.length; j < len; j++) {
+          callback = callbacks[j];
+          callback.apply(this, args);
+        }
+      }
+      return this;
+    };
+
+    Emitter.prototype.removeListener = Emitter.prototype.off;
+
+    Emitter.prototype.removeAllListeners = Emitter.prototype.off;
+
+    Emitter.prototype.removeEventListener = Emitter.prototype.off;
+
+    Emitter.prototype.off = function(event, fn) {
+      var callback, callbacks, i, j, len;
+      if (!this._callbacks || arguments.length === 0) {
+        this._callbacks = {};
+        return this;
+      }
+      callbacks = this._callbacks[event];
+      if (!callbacks) {
+        return this;
+      }
+      if (arguments.length === 1) {
+        delete this._callbacks[event];
+        return this;
+      }
+      for (i = j = 0, len = callbacks.length; j < len; i = ++j) {
+        callback = callbacks[i];
+        if (callback === fn) {
+          callbacks.splice(i, 1);
+          break;
+        }
+      }
+      return this;
+    };
+
+    return Emitter;
+
+  })();
+
+  Dropzone = (function(superClass) {
+    var extend, resolveOption;
+
+    extend1(Dropzone, superClass);
+
+    Dropzone.prototype.Emitter = Emitter;
+
+
+    /*
+    This is a list of all available events you can register on a dropzone object.
+    
+    You can register an event handler like this:
+    
+        dropzone.on("dragEnter", function() { });
+     */
+
+    Dropzone.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
+
+    Dropzone.prototype.defaultOptions = {
+      url: null,
+      method: "post",
+      withCredentials: false,
+      timeout: 30000,
+      parallelUploads: 2,
+      uploadMultiple: false,
+      maxFilesize: 256,
+      paramName: "file",
+      createImageThumbnails: true,
+      maxThumbnailFilesize: 10,
+      thumbnailWidth: 120,
+      thumbnailHeight: 120,
+      thumbnailMethod: 'crop',
+      resizeWidth: null,
+      resizeHeight: null,
+      resizeMimeType: null,
+      resizeQuality: 0.8,
+      resizeMethod: 'contain',
+      filesizeBase: 1000,
+      maxFiles: null,
+      params: {},
+      headers: null,
+      clickable: true,
+      ignoreHiddenFiles: true,
+      acceptedFiles: null,
+      acceptedMimeTypes: null,
+      autoProcessQueue: true,
+      autoQueue: true,
+      addRemoveLinks: false,
+      previewsContainer: null,
+      hiddenInputContainer: "body",
+      capture: null,
+      renameFilename: null,
+      renameFile: null,
+      forceFallback: false,
+      dictDefaultMessage: "Drop files here to upload",
+      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+      dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+      dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+      dictInvalidFileType: "You can't upload files of this type.",
+      dictResponseError: "Server responded with {{statusCode}} code.",
+      dictCancelUpload: "Cancel upload",
+      dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+      dictRemoveFile: "Remove file",
+      dictRemoveFileConfirmation: null,
+      dictMaxFilesExceeded: "You can not upload any more files.",
+      dictFileSizeUnits: {
+        tb: "TB",
+        gb: "GB",
+        mb: "MB",
+        kb: "KB",
+        b: "b"
+      },
+      init: function() {
+        return noop;
+      },
+      accept: function(file, done) {
+        return done();
+      },
+      fallback: function() {
+        var child, j, len, messageElement, ref, span;
+        this.element.className = this.element.className + " dz-browser-not-supported";
+        ref = this.element.getElementsByTagName("div");
+        for (j = 0, len = ref.length; j < len; j++) {
+          child = ref[j];
+          if (/(^| )dz-message($| )/.test(child.className)) {
+            messageElement = child;
+            child.className = "dz-message";
+            continue;
+          }
+        }
+        if (!messageElement) {
+          messageElement = Dropzone.createElement("<div class=\"dz-message\"><span></span></div>");
+          this.element.appendChild(messageElement);
+        }
+        span = messageElement.getElementsByTagName("span")[0];
+        if (span) {
+          if (span.textContent != null) {
+            span.textContent = this.options.dictFallbackMessage;
+          } else if (span.innerText != null) {
+            span.innerText = this.options.dictFallbackMessage;
+          }
+        }
+        return this.element.appendChild(this.getFallbackForm());
+      },
+      resize: function(file, width, height, resizeMethod) {
+        var info, srcRatio, trgRatio;
+        info = {
+          srcX: 0,
+          srcY: 0,
+          srcWidth: file.width,
+          srcHeight: file.height
+        };
+        srcRatio = file.width / file.height;
+        if ((width == null) && (height == null)) {
+          width = info.srcWidth;
+          height = info.srcHeight;
+        } else if (width == null) {
+          width = height * srcRatio;
+        } else if (height == null) {
+          height = width / srcRatio;
+        }
+        width = Math.min(width, info.srcWidth);
+        height = Math.min(height, info.srcHeight);
+        trgRatio = width / height;
+        if (info.srcWidth > width || info.srcHeight > height) {
+          if (resizeMethod === 'crop') {
+            if (srcRatio > trgRatio) {
+              info.srcHeight = file.height;
+              info.srcWidth = info.srcHeight * trgRatio;
+            } else {
+              info.srcWidth = file.width;
+              info.srcHeight = info.srcWidth / trgRatio;
+            }
+          } else if (resizeMethod === 'contain') {
+            if (srcRatio > trgRatio) {
+              height = width / srcRatio;
+            } else {
+              width = height * srcRatio;
+            }
+          } else {
+            throw new Error("Unknown resizeMethod '" + resizeMethod + "'");
+          }
+        }
+        info.srcX = (file.width - info.srcWidth) / 2;
+        info.srcY = (file.height - info.srcHeight) / 2;
+        info.trgWidth = width;
+        info.trgHeight = height;
+        return info;
+      },
+      transformFile: function(file, done) {
+        if ((this.options.resizeWidth || this.options.resizeHeight) && file.type.match(/image.*/)) {
+          return this.resizeImage(file, this.options.resizeWidth, this.options.resizeHeight, this.options.resizeMethod, done);
+        } else {
+          return done(file);
+        }
+      },
+      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-image\"><img data-dz-thumbnail /></div>\n  <div class=\"dz-details\">\n    <div class=\"dz-size\"><span data-dz-size></span></div>\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n  <div class=\"dz-success-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Check</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <path d=\"M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" stroke-opacity=\"0.198794158\" stroke=\"#747474\" fill-opacity=\"0.816519475\" fill=\"#FFFFFF\" sketch:type=\"MSShapeGroup\"></path>\n      </g>\n    </svg>\n  </div>\n  <div class=\"dz-error-mark\">\n    <svg width=\"54px\" height=\"54px\" viewBox=\"0 0 54 54\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:sketch=\"http://www.bohemiancoding.com/sketch/ns\">\n      <title>Error</title>\n      <defs></defs>\n      <g id=\"Page-1\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\" sketch:type=\"MSPage\">\n        <g id=\"Check-+-Oval-2\" sketch:type=\"MSLayerGroup\" stroke=\"#747474\" stroke-opacity=\"0.198794158\" fill=\"#FFFFFF\" fill-opacity=\"0.816519475\">\n          <path d=\"M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z\" id=\"Oval-2\" sketch:type=\"MSShapeGroup\"></path>\n        </g>\n      </g>\n    </svg>\n  </div>\n</div>",
+
+      /*
+      Those functions register themselves to the events on init and handle all
+      the user interface specific stuff. Overwriting them won't break the upload
+      but can break the way it's displayed.
+      You can overwrite them if you don't like the default behavior. If you just
+      want to add an additional event handler, register it on the dropzone object
+      and don't overwrite those options.
+       */
+      drop: function(e) {
+        return this.element.classList.remove("dz-drag-hover");
+      },
+      dragstart: noop,
+      dragend: function(e) {
+        return this.element.classList.remove("dz-drag-hover");
+      },
+      dragenter: function(e) {
+        return this.element.classList.add("dz-drag-hover");
+      },
+      dragover: function(e) {
+        return this.element.classList.add("dz-drag-hover");
+      },
+      dragleave: function(e) {
+        return this.element.classList.remove("dz-drag-hover");
+      },
+      paste: noop,
+      reset: function() {
+        return this.element.classList.remove("dz-started");
+      },
+      addedfile: function(file) {
+        var j, k, l, len, len1, len2, node, ref, ref1, ref2, removeFileEvent, removeLink, results;
+        if (this.element === this.previewsContainer) {
+          this.element.classList.add("dz-started");
+        }
+        if (this.previewsContainer) {
+          file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
+          file.previewTemplate = file.previewElement;
+          this.previewsContainer.appendChild(file.previewElement);
+          ref = file.previewElement.querySelectorAll("[data-dz-name]");
+          for (j = 0, len = ref.length; j < len; j++) {
+            node = ref[j];
+            node.textContent = file.name;
+          }
+          ref1 = file.previewElement.querySelectorAll("[data-dz-size]");
+          for (k = 0, len1 = ref1.length; k < len1; k++) {
+            node = ref1[k];
+            node.innerHTML = this.filesize(file.size);
+          }
+          if (this.options.addRemoveLinks) {
+            file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+            file.previewElement.appendChild(file._removeLink);
+          }
+          removeFileEvent = (function(_this) {
+            return function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              if (file.status === Dropzone.UPLOADING) {
+                return Dropzone.confirm(_this.options.dictCancelUploadConfirmation, function() {
+                  return _this.removeFile(file);
+                });
+              } else {
+                if (_this.options.dictRemoveFileConfirmation) {
+                  return Dropzone.confirm(_this.options.dictRemoveFileConfirmation, function() {
+                    return _this.removeFile(file);
+                  });
+                } else {
+                  return _this.removeFile(file);
+                }
+              }
+            };
+          })(this);
+          ref2 = file.previewElement.querySelectorAll("[data-dz-remove]");
+          results = [];
+          for (l = 0, len2 = ref2.length; l < len2; l++) {
+            removeLink = ref2[l];
+            results.push(removeLink.addEventListener("click", removeFileEvent));
+          }
+          return results;
+        }
+      },
+      removedfile: function(file) {
+        var ref;
+        if (file.previewElement) {
+          if ((ref = file.previewElement) != null) {
+            ref.parentNode.removeChild(file.previewElement);
+          }
+        }
+        return this._updateMaxFilesReachedClass();
+      },
+      thumbnail: function(file, dataUrl) {
+        var j, len, ref, thumbnailElement;
+        if (file.previewElement) {
+          file.previewElement.classList.remove("dz-file-preview");
+          ref = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+          for (j = 0, len = ref.length; j < len; j++) {
+            thumbnailElement = ref[j];
+            thumbnailElement.alt = file.name;
+            thumbnailElement.src = dataUrl;
+          }
+          return setTimeout(((function(_this) {
+            return function() {
+              return file.previewElement.classList.add("dz-image-preview");
+            };
+          })(this)), 1);
+        }
+      },
+      error: function(file, message) {
+        var j, len, node, ref, results;
+        if (file.previewElement) {
+          file.previewElement.classList.add("dz-error");
+          if (typeof message !== "String" && message.error) {
+            message = message.error;
+          }
+          ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            node = ref[j];
+            results.push(node.textContent = message);
+          }
+          return results;
+        }
+      },
+      errormultiple: noop,
+      processing: function(file) {
+        if (file.previewElement) {
+          file.previewElement.classList.add("dz-processing");
+          if (file._removeLink) {
+            return file._removeLink.textContent = this.options.dictCancelUpload;
+          }
+        }
+      },
+      processingmultiple: noop,
+      uploadprogress: function(file, progress, bytesSent) {
+        var j, len, node, ref, results;
+        if (file.previewElement) {
+          ref = file.previewElement.querySelectorAll("[data-dz-uploadprogress]");
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            node = ref[j];
+            if (node.nodeName === 'PROGRESS') {
+              results.push(node.value = progress);
+            } else {
+              results.push(node.style.width = progress + "%");
+            }
+          }
+          return results;
+        }
+      },
+      totaluploadprogress: noop,
+      sending: noop,
+      sendingmultiple: noop,
+      success: function(file) {
+        if (file.previewElement) {
+          return file.previewElement.classList.add("dz-success");
+        }
+      },
+      successmultiple: noop,
+      canceled: function(file) {
+        return this.emit("error", file, "Upload canceled.");
+      },
+      canceledmultiple: noop,
+      complete: function(file) {
+        if (file._removeLink) {
+          file._removeLink.textContent = this.options.dictRemoveFile;
+        }
+        if (file.previewElement) {
+          return file.previewElement.classList.add("dz-complete");
+        }
+      },
+      completemultiple: noop,
+      maxfilesexceeded: noop,
+      maxfilesreached: noop,
+      queuecomplete: noop,
+      addedfiles: noop
+    };
+
+    extend = function() {
+      var j, key, len, object, objects, target, val;
+      target = arguments[0], objects = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      for (j = 0, len = objects.length; j < len; j++) {
+        object = objects[j];
+        for (key in object) {
+          val = object[key];
+          target[key] = val;
+        }
+      }
+      return target;
+    };
+
+    function Dropzone(element1, options) {
+      var elementOptions, fallback, ref;
+      this.element = element1;
+      this.version = Dropzone.version;
+      this.defaultOptions.previewTemplate = this.defaultOptions.previewTemplate.replace(/\n*/g, "");
+      this.clickableElements = [];
+      this.listeners = [];
+      this.files = [];
+      if (typeof this.element === "string") {
+        this.element = document.querySelector(this.element);
+      }
+      if (!(this.element && (this.element.nodeType != null))) {
+        throw new Error("Invalid dropzone element.");
+      }
+      if (this.element.dropzone) {
+        throw new Error("Dropzone already attached.");
+      }
+      Dropzone.instances.push(this);
+      this.element.dropzone = this;
+      elementOptions = (ref = Dropzone.optionsForElement(this.element)) != null ? ref : {};
+      this.options = extend({}, this.defaultOptions, elementOptions, options != null ? options : {});
+      if (this.options.forceFallback || !Dropzone.isBrowserSupported()) {
+        return this.options.fallback.call(this);
+      }
+      if (this.options.url == null) {
+        this.options.url = this.element.getAttribute("action");
+      }
+      if (!this.options.url) {
+        throw new Error("No URL provided.");
+      }
+      if (this.options.acceptedFiles && this.options.acceptedMimeTypes) {
+        throw new Error("You can't provide both 'acceptedFiles' and 'acceptedMimeTypes'. 'acceptedMimeTypes' is deprecated.");
+      }
+      if (this.options.acceptedMimeTypes) {
+        this.options.acceptedFiles = this.options.acceptedMimeTypes;
+        delete this.options.acceptedMimeTypes;
+      }
+      if (this.options.renameFilename != null) {
+        this.options.renameFile = (function(_this) {
+          return function(file) {
+            return _this.options.renameFilename.call(_this, file.name, file);
+          };
+        })(this);
+      }
+      this.options.method = this.options.method.toUpperCase();
+      if ((fallback = this.getExistingFallback()) && fallback.parentNode) {
+        fallback.parentNode.removeChild(fallback);
+      }
+      if (this.options.previewsContainer !== false) {
+        if (this.options.previewsContainer) {
+          this.previewsContainer = Dropzone.getElement(this.options.previewsContainer, "previewsContainer");
+        } else {
+          this.previewsContainer = this.element;
+        }
+      }
+      if (this.options.clickable) {
+        if (this.options.clickable === true) {
+          this.clickableElements = [this.element];
+        } else {
+          this.clickableElements = Dropzone.getElements(this.options.clickable, "clickable");
+        }
+      }
+      this.init();
+    }
+
+    Dropzone.prototype.getAcceptedFiles = function() {
+      var file, j, len, ref, results;
+      ref = this.files;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        file = ref[j];
+        if (file.accepted) {
+          results.push(file);
+        }
+      }
+      return results;
+    };
+
+    Dropzone.prototype.getRejectedFiles = function() {
+      var file, j, len, ref, results;
+      ref = this.files;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        file = ref[j];
+        if (!file.accepted) {
+          results.push(file);
+        }
+      }
+      return results;
+    };
+
+    Dropzone.prototype.getFilesWithStatus = function(status) {
+      var file, j, len, ref, results;
+      ref = this.files;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        file = ref[j];
+        if (file.status === status) {
+          results.push(file);
+        }
+      }
+      return results;
+    };
+
+    Dropzone.prototype.getQueuedFiles = function() {
+      return this.getFilesWithStatus(Dropzone.QUEUED);
+    };
+
+    Dropzone.prototype.getUploadingFiles = function() {
+      return this.getFilesWithStatus(Dropzone.UPLOADING);
+    };
+
+    Dropzone.prototype.getAddedFiles = function() {
+      return this.getFilesWithStatus(Dropzone.ADDED);
+    };
+
+    Dropzone.prototype.getActiveFiles = function() {
+      var file, j, len, ref, results;
+      ref = this.files;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        file = ref[j];
+        if (file.status === Dropzone.UPLOADING || file.status === Dropzone.QUEUED) {
+          results.push(file);
+        }
+      }
+      return results;
+    };
+
+    Dropzone.prototype.init = function() {
+      var eventName, j, len, noPropagation, ref, ref1, setupHiddenFileInput;
+      if (this.element.tagName === "form") {
+        this.element.setAttribute("enctype", "multipart/form-data");
+      }
+      if (this.element.classList.contains("dropzone") && !this.element.querySelector(".dz-message")) {
+        this.element.appendChild(Dropzone.createElement("<div class=\"dz-default dz-message\"><span>" + this.options.dictDefaultMessage + "</span></div>"));
+      }
+      if (this.clickableElements.length) {
+        setupHiddenFileInput = (function(_this) {
+          return function() {
+            if (_this.hiddenFileInput) {
+              _this.hiddenFileInput.parentNode.removeChild(_this.hiddenFileInput);
+            }
+            _this.hiddenFileInput = document.createElement("input");
+            _this.hiddenFileInput.setAttribute("type", "file");
+            if ((_this.options.maxFiles == null) || _this.options.maxFiles > 1) {
+              _this.hiddenFileInput.setAttribute("multiple", "multiple");
+            }
+            _this.hiddenFileInput.className = "dz-hidden-input";
+            if (_this.options.acceptedFiles != null) {
+              _this.hiddenFileInput.setAttribute("accept", _this.options.acceptedFiles);
+            }
+            if (_this.options.capture != null) {
+              _this.hiddenFileInput.setAttribute("capture", _this.options.capture);
+            }
+            _this.hiddenFileInput.style.visibility = "hidden";
+            _this.hiddenFileInput.style.position = "absolute";
+            _this.hiddenFileInput.style.top = "0";
+            _this.hiddenFileInput.style.left = "0";
+            _this.hiddenFileInput.style.height = "0";
+            _this.hiddenFileInput.style.width = "0";
+            document.querySelector(_this.options.hiddenInputContainer).appendChild(_this.hiddenFileInput);
+            return _this.hiddenFileInput.addEventListener("change", function() {
+              var file, files, j, len;
+              files = _this.hiddenFileInput.files;
+              if (files.length) {
+                for (j = 0, len = files.length; j < len; j++) {
+                  file = files[j];
+                  _this.addFile(file);
+                }
+              }
+              _this.emit("addedfiles", files);
+              return setupHiddenFileInput();
+            });
+          };
+        })(this);
+        setupHiddenFileInput();
+      }
+      this.URL = (ref = window.URL) != null ? ref : window.webkitURL;
+      ref1 = this.events;
+      for (j = 0, len = ref1.length; j < len; j++) {
+        eventName = ref1[j];
+        this.on(eventName, this.options[eventName]);
+      }
+      this.on("uploadprogress", (function(_this) {
+        return function() {
+          return _this.updateTotalUploadProgress();
+        };
+      })(this));
+      this.on("removedfile", (function(_this) {
+        return function() {
+          return _this.updateTotalUploadProgress();
+        };
+      })(this));
+      this.on("canceled", (function(_this) {
+        return function(file) {
+          return _this.emit("complete", file);
+        };
+      })(this));
+      this.on("complete", (function(_this) {
+        return function(file) {
+          if (_this.getAddedFiles().length === 0 && _this.getUploadingFiles().length === 0 && _this.getQueuedFiles().length === 0) {
+            return setTimeout((function() {
+              return _this.emit("queuecomplete");
+            }), 0);
+          }
+        };
+      })(this));
+      noPropagation = function(e) {
+        e.stopPropagation();
+        if (e.preventDefault) {
+          return e.preventDefault();
+        } else {
+          return e.returnValue = false;
+        }
+      };
+      this.listeners = [
+        {
+          element: this.element,
+          events: {
+            "dragstart": (function(_this) {
+              return function(e) {
+                return _this.emit("dragstart", e);
+              };
+            })(this),
+            "dragenter": (function(_this) {
+              return function(e) {
+                noPropagation(e);
+                return _this.emit("dragenter", e);
+              };
+            })(this),
+            "dragover": (function(_this) {
+              return function(e) {
+                var efct;
+                try {
+                  efct = e.dataTransfer.effectAllowed;
+                } catch (undefined) {}
+                e.dataTransfer.dropEffect = 'move' === efct || 'linkMove' === efct ? 'move' : 'copy';
+                noPropagation(e);
+                return _this.emit("dragover", e);
+              };
+            })(this),
+            "dragleave": (function(_this) {
+              return function(e) {
+                return _this.emit("dragleave", e);
+              };
+            })(this),
+            "drop": (function(_this) {
+              return function(e) {
+                noPropagation(e);
+                return _this.drop(e);
+              };
+            })(this),
+            "dragend": (function(_this) {
+              return function(e) {
+                return _this.emit("dragend", e);
+              };
+            })(this)
+          }
+        }
+      ];
+      this.clickableElements.forEach((function(_this) {
+        return function(clickableElement) {
+          return _this.listeners.push({
+            element: clickableElement,
+            events: {
+              "click": function(evt) {
+                if ((clickableElement !== _this.element) || (evt.target === _this.element || Dropzone.elementInside(evt.target, _this.element.querySelector(".dz-message")))) {
+                  _this.hiddenFileInput.click();
+                }
+                return true;
+              }
+            }
+          });
+        };
+      })(this));
+      this.enable();
+      return this.options.init.call(this);
+    };
+
+    Dropzone.prototype.destroy = function() {
+      var ref;
+      this.disable();
+      this.removeAllFiles(true);
+      if ((ref = this.hiddenFileInput) != null ? ref.parentNode : void 0) {
+        this.hiddenFileInput.parentNode.removeChild(this.hiddenFileInput);
+        this.hiddenFileInput = null;
+      }
+      delete this.element.dropzone;
+      return Dropzone.instances.splice(Dropzone.instances.indexOf(this), 1);
+    };
+
+    Dropzone.prototype.updateTotalUploadProgress = function() {
+      var activeFiles, file, j, len, ref, totalBytes, totalBytesSent, totalUploadProgress;
+      totalBytesSent = 0;
+      totalBytes = 0;
+      activeFiles = this.getActiveFiles();
+      if (activeFiles.length) {
+        ref = this.getActiveFiles();
+        for (j = 0, len = ref.length; j < len; j++) {
+          file = ref[j];
+          totalBytesSent += file.upload.bytesSent;
+          totalBytes += file.upload.total;
+        }
+        totalUploadProgress = 100 * totalBytesSent / totalBytes;
+      } else {
+        totalUploadProgress = 100;
+      }
+      return this.emit("totaluploadprogress", totalUploadProgress, totalBytes, totalBytesSent);
+    };
+
+    Dropzone.prototype._getParamName = function(n) {
+      if (typeof this.options.paramName === "function") {
+        return this.options.paramName(n);
+      } else {
+        return "" + this.options.paramName + (this.options.uploadMultiple ? "[" + n + "]" : "");
+      }
+    };
+
+    Dropzone.prototype._renameFile = function(file) {
+      if (typeof this.options.renameFile !== "function") {
+        return file.name;
+      }
+      return this.options.renameFile(file);
+    };
+
+    Dropzone.prototype.getFallbackForm = function() {
+      var existingFallback, fields, fieldsString, form;
+      if (existingFallback = this.getExistingFallback()) {
+        return existingFallback;
+      }
+      fieldsString = "<div class=\"dz-fallback\">";
+      if (this.options.dictFallbackText) {
+        fieldsString += "<p>" + this.options.dictFallbackText + "</p>";
+      }
+      fieldsString += "<input type=\"file\" name=\"" + (this._getParamName(0)) + "\" " + (this.options.uploadMultiple ? 'multiple="multiple"' : void 0) + " /><input type=\"submit\" value=\"Upload!\"></div>";
+      fields = Dropzone.createElement(fieldsString);
+      if (this.element.tagName !== "FORM") {
+        form = Dropzone.createElement("<form action=\"" + this.options.url + "\" enctype=\"multipart/form-data\" method=\"" + this.options.method + "\"></form>");
+        form.appendChild(fields);
+      } else {
+        this.element.setAttribute("enctype", "multipart/form-data");
+        this.element.setAttribute("method", this.options.method);
+      }
+      return form != null ? form : fields;
+    };
+
+    Dropzone.prototype.getExistingFallback = function() {
+      var fallback, getFallback, j, len, ref, tagName;
+      getFallback = function(elements) {
+        var el, j, len;
+        for (j = 0, len = elements.length; j < len; j++) {
+          el = elements[j];
+          if (/(^| )fallback($| )/.test(el.className)) {
+            return el;
+          }
+        }
+      };
+      ref = ["div", "form"];
+      for (j = 0, len = ref.length; j < len; j++) {
+        tagName = ref[j];
+        if (fallback = getFallback(this.element.getElementsByTagName(tagName))) {
+          return fallback;
+        }
+      }
+    };
+
+    Dropzone.prototype.setupEventListeners = function() {
+      var elementListeners, event, j, len, listener, ref, results;
+      ref = this.listeners;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        elementListeners = ref[j];
+        results.push((function() {
+          var ref1, results1;
+          ref1 = elementListeners.events;
+          results1 = [];
+          for (event in ref1) {
+            listener = ref1[event];
+            results1.push(elementListeners.element.addEventListener(event, listener, false));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    };
+
+    Dropzone.prototype.removeEventListeners = function() {
+      var elementListeners, event, j, len, listener, ref, results;
+      ref = this.listeners;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        elementListeners = ref[j];
+        results.push((function() {
+          var ref1, results1;
+          ref1 = elementListeners.events;
+          results1 = [];
+          for (event in ref1) {
+            listener = ref1[event];
+            results1.push(elementListeners.element.removeEventListener(event, listener, false));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    };
+
+    Dropzone.prototype.disable = function() {
+      var file, j, len, ref, results;
+      this.clickableElements.forEach(function(element) {
+        return element.classList.remove("dz-clickable");
+      });
+      this.removeEventListeners();
+      ref = this.files;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        file = ref[j];
+        results.push(this.cancelUpload(file));
+      }
+      return results;
+    };
+
+    Dropzone.prototype.enable = function() {
+      this.clickableElements.forEach(function(element) {
+        return element.classList.add("dz-clickable");
+      });
+      return this.setupEventListeners();
+    };
+
+    Dropzone.prototype.filesize = function(size) {
+      var cutoff, i, j, len, selectedSize, selectedUnit, unit, units;
+      selectedSize = 0;
+      selectedUnit = "b";
+      if (size > 0) {
+        units = ['tb', 'gb', 'mb', 'kb', 'b'];
+        for (i = j = 0, len = units.length; j < len; i = ++j) {
+          unit = units[i];
+          cutoff = Math.pow(this.options.filesizeBase, 4 - i) / 10;
+          if (size >= cutoff) {
+            selectedSize = size / Math.pow(this.options.filesizeBase, 4 - i);
+            selectedUnit = unit;
+            break;
+          }
+        }
+        selectedSize = Math.round(10 * selectedSize) / 10;
+      }
+      return "<strong>" + selectedSize + "</strong> " + this.options.dictFileSizeUnits[selectedUnit];
+    };
+
+    Dropzone.prototype._updateMaxFilesReachedClass = function() {
+      if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
+        if (this.getAcceptedFiles().length === this.options.maxFiles) {
+          this.emit('maxfilesreached', this.files);
+        }
+        return this.element.classList.add("dz-max-files-reached");
+      } else {
+        return this.element.classList.remove("dz-max-files-reached");
+      }
+    };
+
+    Dropzone.prototype.drop = function(e) {
+      var files, items;
+      if (!e.dataTransfer) {
+        return;
+      }
+      this.emit("drop", e);
+      files = e.dataTransfer.files;
+      this.emit("addedfiles", files);
+      if (files.length) {
+        items = e.dataTransfer.items;
+        if (items && items.length && (items[0].webkitGetAsEntry != null)) {
+          this._addFilesFromItems(items);
+        } else {
+          this.handleFiles(files);
+        }
+      }
+    };
+
+    Dropzone.prototype.paste = function(e) {
+      var items, ref;
+      if ((e != null ? (ref = e.clipboardData) != null ? ref.items : void 0 : void 0) == null) {
+        return;
+      }
+      this.emit("paste", e);
+      items = e.clipboardData.items;
+      if (items.length) {
+        return this._addFilesFromItems(items);
+      }
+    };
+
+    Dropzone.prototype.handleFiles = function(files) {
+      var file, j, len, results;
+      results = [];
+      for (j = 0, len = files.length; j < len; j++) {
+        file = files[j];
+        results.push(this.addFile(file));
+      }
+      return results;
+    };
+
+    Dropzone.prototype._addFilesFromItems = function(items) {
+      var entry, item, j, len, results;
+      results = [];
+      for (j = 0, len = items.length; j < len; j++) {
+        item = items[j];
+        if ((item.webkitGetAsEntry != null) && (entry = item.webkitGetAsEntry())) {
+          if (entry.isFile) {
+            results.push(this.addFile(item.getAsFile()));
+          } else if (entry.isDirectory) {
+            results.push(this._addFilesFromDirectory(entry, entry.name));
+          } else {
+            results.push(void 0);
+          }
+        } else if (item.getAsFile != null) {
+          if ((item.kind == null) || item.kind === "file") {
+            results.push(this.addFile(item.getAsFile()));
+          } else {
+            results.push(void 0);
+          }
+        } else {
+          results.push(void 0);
+        }
+      }
+      return results;
+    };
+
+    Dropzone.prototype._addFilesFromDirectory = function(directory, path) {
+      var dirReader, errorHandler, readEntries;
+      dirReader = directory.createReader();
+      errorHandler = function(error) {
+        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
+      };
+      readEntries = (function(_this) {
+        return function() {
+          return dirReader.readEntries(function(entries) {
+            var entry, j, len;
+            if (entries.length > 0) {
+              for (j = 0, len = entries.length; j < len; j++) {
+                entry = entries[j];
+                if (entry.isFile) {
+                  entry.file(function(file) {
+                    if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
+                      return;
+                    }
+                    file.fullPath = path + "/" + file.name;
+                    return _this.addFile(file);
+                  });
+                } else if (entry.isDirectory) {
+                  _this._addFilesFromDirectory(entry, path + "/" + entry.name);
+                }
+              }
+              readEntries();
+            }
+            return null;
+          }, errorHandler);
+        };
+      })(this);
+      return readEntries();
+    };
+
+    Dropzone.prototype.accept = function(file, done) {
+      if (file.size > this.options.maxFilesize * 1024 * 1024) {
+        return done(this.options.dictFileTooBig.replace("{{filesize}}", Math.round(file.size / 1024 / 10.24) / 100).replace("{{maxFilesize}}", this.options.maxFilesize));
+      } else if (!Dropzone.isValidFile(file, this.options.acceptedFiles)) {
+        return done(this.options.dictInvalidFileType);
+      } else if ((this.options.maxFiles != null) && this.getAcceptedFiles().length >= this.options.maxFiles) {
+        done(this.options.dictMaxFilesExceeded.replace("{{maxFiles}}", this.options.maxFiles));
+        return this.emit("maxfilesexceeded", file);
+      } else {
+        return this.options.accept.call(this, file, done);
+      }
+    };
+
+    Dropzone.prototype.addFile = function(file) {
+      file.upload = {
+        progress: 0,
+        total: file.size,
+        bytesSent: 0,
+        filename: this._renameFile(file)
+      };
+      this.files.push(file);
+      file.status = Dropzone.ADDED;
+      this.emit("addedfile", file);
+      this._enqueueThumbnail(file);
+      return this.accept(file, (function(_this) {
+        return function(error) {
+          if (error) {
+            file.accepted = false;
+            _this._errorProcessing([file], error);
+          } else {
+            file.accepted = true;
+            if (_this.options.autoQueue) {
+              _this.enqueueFile(file);
+            }
+          }
+          return _this._updateMaxFilesReachedClass();
+        };
+      })(this));
+    };
+
+    Dropzone.prototype.enqueueFiles = function(files) {
+      var file, j, len;
+      for (j = 0, len = files.length; j < len; j++) {
+        file = files[j];
+        this.enqueueFile(file);
+      }
+      return null;
+    };
+
+    Dropzone.prototype.enqueueFile = function(file) {
+      if (file.status === Dropzone.ADDED && file.accepted === true) {
+        file.status = Dropzone.QUEUED;
+        if (this.options.autoProcessQueue) {
+          return setTimeout(((function(_this) {
+            return function() {
+              return _this.processQueue();
+            };
+          })(this)), 0);
+        }
+      } else {
+        throw new Error("This file can't be queued because it has already been processed or was rejected.");
+      }
+    };
+
+    Dropzone.prototype._thumbnailQueue = [];
+
+    Dropzone.prototype._processingThumbnail = false;
+
+    Dropzone.prototype._enqueueThumbnail = function(file) {
+      if (this.options.createImageThumbnails && file.type.match(/image.*/) && file.size <= this.options.maxThumbnailFilesize * 1024 * 1024) {
+        this._thumbnailQueue.push(file);
+        return setTimeout(((function(_this) {
+          return function() {
+            return _this._processThumbnailQueue();
+          };
+        })(this)), 0);
+      }
+    };
+
+    Dropzone.prototype._processThumbnailQueue = function() {
+      var file;
+      if (this._processingThumbnail || this._thumbnailQueue.length === 0) {
+        return;
+      }
+      this._processingThumbnail = true;
+      file = this._thumbnailQueue.shift();
+      return this.createThumbnail(file, this.options.thumbnailWidth, this.options.thumbnailHeight, this.options.thumbnailMethod, true, (function(_this) {
+        return function(dataUrl) {
+          _this.emit("thumbnail", file, dataUrl);
+          _this._processingThumbnail = false;
+          return _this._processThumbnailQueue();
+        };
+      })(this));
+    };
+
+    Dropzone.prototype.removeFile = function(file) {
+      if (file.status === Dropzone.UPLOADING) {
+        this.cancelUpload(file);
+      }
+      this.files = without(this.files, file);
+      this.emit("removedfile", file);
+      if (this.files.length === 0) {
+        return this.emit("reset");
+      }
+    };
+
+    Dropzone.prototype.removeAllFiles = function(cancelIfNecessary) {
+      var file, j, len, ref;
+      if (cancelIfNecessary == null) {
+        cancelIfNecessary = false;
+      }
+      ref = this.files.slice();
+      for (j = 0, len = ref.length; j < len; j++) {
+        file = ref[j];
+        if (file.status !== Dropzone.UPLOADING || cancelIfNecessary) {
+          this.removeFile(file);
+        }
+      }
+      return null;
+    };
+
+    Dropzone.prototype.resizeImage = function(file, width, height, resizeMethod, callback) {
+      return this.createThumbnail(file, width, height, resizeMethod, false, (function(_this) {
+        return function(dataUrl, canvas) {
+          var resizeMimeType, resizedDataURL;
+          if (canvas === null) {
+            return callback(file);
+          } else {
+            resizeMimeType = _this.options.resizeMimeType;
+            if (resizeMimeType == null) {
+              resizeMimeType = file.type;
+            }
+            resizedDataURL = canvas.toDataURL(resizeMimeType, _this.options.resizeQuality);
+            if (resizeMimeType === 'image/jpeg' || resizeMimeType === 'image/jpg') {
+              resizedDataURL = ExifRestore.restore(file.dataURL, resizedDataURL);
+            }
+            return callback(Dropzone.dataURItoBlob(resizedDataURL));
+          }
+        };
+      })(this));
+    };
+
+    Dropzone.prototype.createThumbnail = function(file, width, height, resizeMethod, fixOrientation, callback) {
+      var fileReader;
+      fileReader = new FileReader;
+      fileReader.onload = (function(_this) {
+        return function() {
+          file.dataURL = fileReader.result;
+          if (file.type === "image/svg+xml") {
+            if (callback != null) {
+              callback(fileReader.result);
+            }
+            return;
+          }
+          return _this.createThumbnailFromUrl(file, width, height, resizeMethod, fixOrientation, callback);
+        };
+      })(this);
+      return fileReader.readAsDataURL(file);
+    };
+
+    Dropzone.prototype.createThumbnailFromUrl = function(file, width, height, resizeMethod, fixOrientation, callback, crossOrigin) {
+      var img;
+      img = document.createElement("img");
+      if (crossOrigin) {
+        img.crossOrigin = crossOrigin;
+      }
+      img.onload = (function(_this) {
+        return function() {
+          var loadExif;
+          loadExif = function(callback) {
+            return callback(1);
+          };
+          if ((typeof EXIF !== "undefined" && EXIF !== null) && fixOrientation) {
+            loadExif = function(callback) {
+              return EXIF.getData(img, function() {
+                return callback(EXIF.getTag(this, 'Orientation'));
+              });
+            };
+          }
+          return loadExif(function(orientation) {
+            var canvas, ctx, ref, ref1, ref2, ref3, resizeInfo, thumbnail;
+            file.width = img.width;
+            file.height = img.height;
+            resizeInfo = _this.options.resize.call(_this, file, width, height, resizeMethod);
+            canvas = document.createElement("canvas");
+            ctx = canvas.getContext("2d");
+            canvas.width = resizeInfo.trgWidth;
+            canvas.height = resizeInfo.trgHeight;
+            if (orientation > 4) {
+              canvas.width = resizeInfo.trgHeight;
+              canvas.height = resizeInfo.trgWidth;
+            }
+            switch (orientation) {
+              case 2:
+                ctx.translate(canvas.width, 0);
+                ctx.scale(-1, 1);
+                break;
+              case 3:
+                ctx.translate(canvas.width, canvas.height);
+                ctx.rotate(Math.PI);
+                break;
+              case 4:
+                ctx.translate(0, canvas.height);
+                ctx.scale(1, -1);
+                break;
+              case 5:
+                ctx.rotate(0.5 * Math.PI);
+                ctx.scale(1, -1);
+                break;
+              case 6:
+                ctx.rotate(0.5 * Math.PI);
+                ctx.translate(0, -canvas.height);
+                break;
+              case 7:
+                ctx.rotate(0.5 * Math.PI);
+                ctx.translate(canvas.width, -canvas.height);
+                ctx.scale(-1, 1);
+                break;
+              case 8:
+                ctx.rotate(-0.5 * Math.PI);
+                ctx.translate(-canvas.width, 0);
+            }
+            drawImageIOSFix(ctx, img, (ref = resizeInfo.srcX) != null ? ref : 0, (ref1 = resizeInfo.srcY) != null ? ref1 : 0, resizeInfo.srcWidth, resizeInfo.srcHeight, (ref2 = resizeInfo.trgX) != null ? ref2 : 0, (ref3 = resizeInfo.trgY) != null ? ref3 : 0, resizeInfo.trgWidth, resizeInfo.trgHeight);
+            thumbnail = canvas.toDataURL("image/png");
+            if (callback != null) {
+              return callback(thumbnail, canvas);
+            }
+          });
+        };
+      })(this);
+      if (callback != null) {
+        img.onerror = callback;
+      }
+      return img.src = file.dataURL;
+    };
+
+    Dropzone.prototype.processQueue = function() {
+      var i, parallelUploads, processingLength, queuedFiles;
+      parallelUploads = this.options.parallelUploads;
+      processingLength = this.getUploadingFiles().length;
+      i = processingLength;
+      if (processingLength >= parallelUploads) {
+        return;
+      }
+      queuedFiles = this.getQueuedFiles();
+      if (!(queuedFiles.length > 0)) {
+        return;
+      }
+      if (this.options.uploadMultiple) {
+        return this.processFiles(queuedFiles.slice(0, parallelUploads - processingLength));
+      } else {
+        while (i < parallelUploads) {
+          if (!queuedFiles.length) {
+            return;
+          }
+          this.processFile(queuedFiles.shift());
+          i++;
+        }
+      }
+    };
+
+    Dropzone.prototype.processFile = function(file) {
+      return this.processFiles([file]);
+    };
+
+    Dropzone.prototype.processFiles = function(files) {
+      var file, j, len;
+      for (j = 0, len = files.length; j < len; j++) {
+        file = files[j];
+        file.processing = true;
+        file.status = Dropzone.UPLOADING;
+        this.emit("processing", file);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("processingmultiple", files);
+      }
+      return this.uploadFiles(files);
+    };
+
+    Dropzone.prototype._getFilesWithXhr = function(xhr) {
+      var file, files;
+      return files = (function() {
+        var j, len, ref, results;
+        ref = this.files;
+        results = [];
+        for (j = 0, len = ref.length; j < len; j++) {
+          file = ref[j];
+          if (file.xhr === xhr) {
+            results.push(file);
+          }
+        }
+        return results;
+      }).call(this);
+    };
+
+    Dropzone.prototype.cancelUpload = function(file) {
+      var groupedFile, groupedFiles, j, k, len, len1, ref;
+      if (file.status === Dropzone.UPLOADING) {
+        groupedFiles = this._getFilesWithXhr(file.xhr);
+        for (j = 0, len = groupedFiles.length; j < len; j++) {
+          groupedFile = groupedFiles[j];
+          groupedFile.status = Dropzone.CANCELED;
+        }
+        file.xhr.abort();
+        for (k = 0, len1 = groupedFiles.length; k < len1; k++) {
+          groupedFile = groupedFiles[k];
+          this.emit("canceled", groupedFile);
+        }
+        if (this.options.uploadMultiple) {
+          this.emit("canceledmultiple", groupedFiles);
+        }
+      } else if ((ref = file.status) === Dropzone.ADDED || ref === Dropzone.QUEUED) {
+        file.status = Dropzone.CANCELED;
+        this.emit("canceled", file);
+        if (this.options.uploadMultiple) {
+          this.emit("canceledmultiple", [file]);
+        }
+      }
+      if (this.options.autoProcessQueue) {
+        return this.processQueue();
+      }
+    };
+
+    resolveOption = function() {
+      var args, option;
+      option = arguments[0], args = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      if (typeof option === 'function') {
+        return option.apply(this, args);
+      }
+      return option;
+    };
+
+    Dropzone.prototype.uploadFile = function(file) {
+      return this.uploadFiles([file]);
+    };
+
+    Dropzone.prototype.uploadFiles = function(files) {
+      var doneCounter, doneFunction, file, formData, handleError, headerName, headerValue, headers, i, input, inputName, inputType, j, k, key, l, len, len1, len2, len3, m, method, o, option, progressObj, ref, ref1, ref2, ref3, ref4, ref5, response, results, updateProgress, url, value, xhr;
+      xhr = new XMLHttpRequest();
+      for (j = 0, len = files.length; j < len; j++) {
+        file = files[j];
+        file.xhr = xhr;
+      }
+      method = resolveOption(this.options.method, files);
+      url = resolveOption(this.options.url, files);
+      xhr.open(method, url, true);
+      xhr.timeout = resolveOption(this.options.timeout, files);
+      xhr.withCredentials = !!this.options.withCredentials;
+      response = null;
+      handleError = (function(_this) {
+        return function() {
+          var k, len1, results;
+          results = [];
+          for (k = 0, len1 = files.length; k < len1; k++) {
+            file = files[k];
+            results.push(_this._errorProcessing(files, response || _this.options.dictResponseError.replace("{{statusCode}}", xhr.status), xhr));
+          }
+          return results;
+        };
+      })(this);
+      updateProgress = (function(_this) {
+        return function(e) {
+          var allFilesFinished, k, l, len1, len2, len3, m, progress, results;
+          if (e != null) {
+            progress = 100 * e.loaded / e.total;
+            for (k = 0, len1 = files.length; k < len1; k++) {
+              file = files[k];
+              file.upload.progress = progress;
+              file.upload.total = e.total;
+              file.upload.bytesSent = e.loaded;
+            }
+          } else {
+            allFilesFinished = true;
+            progress = 100;
+            for (l = 0, len2 = files.length; l < len2; l++) {
+              file = files[l];
+              if (!(file.upload.progress === 100 && file.upload.bytesSent === file.upload.total)) {
+                allFilesFinished = false;
+              }
+              file.upload.progress = progress;
+              file.upload.bytesSent = file.upload.total;
+            }
+            if (allFilesFinished) {
+              return;
+            }
+          }
+          results = [];
+          for (m = 0, len3 = files.length; m < len3; m++) {
+            file = files[m];
+            results.push(_this.emit("uploadprogress", file, progress, file.upload.bytesSent));
+          }
+          return results;
+        };
+      })(this);
+      xhr.onload = (function(_this) {
+        return function(e) {
+          var error1, ref;
+          if (files[0].status === Dropzone.CANCELED) {
+            return;
+          }
+          if (xhr.readyState !== 4) {
+            return;
+          }
+          if (xhr.responseType !== 'arraybuffer' && xhr.responseType !== 'blob') {
+            response = xhr.responseText;
+            if (xhr.getResponseHeader("content-type") && ~xhr.getResponseHeader("content-type").indexOf("application/json")) {
+              try {
+                response = JSON.parse(response);
+              } catch (error1) {
+                e = error1;
+                response = "Invalid JSON response from server.";
+              }
+            }
+          }
+          updateProgress();
+          if (!((200 <= (ref = xhr.status) && ref < 300))) {
+            return handleError();
+          } else {
+            return _this._finished(files, response, e);
+          }
+        };
+      })(this);
+      xhr.onerror = (function(_this) {
+        return function() {
+          if (files[0].status === Dropzone.CANCELED) {
+            return;
+          }
+          return handleError();
+        };
+      })(this);
+      progressObj = (ref = xhr.upload) != null ? ref : xhr;
+      progressObj.onprogress = updateProgress;
+      headers = {
+        "Accept": "application/json",
+        "Cache-Control": "no-cache",
+        "X-Requested-With": "XMLHttpRequest"
+      };
+      if (this.options.headers) {
+        extend(headers, this.options.headers);
+      }
+      for (headerName in headers) {
+        headerValue = headers[headerName];
+        if (headerValue) {
+          xhr.setRequestHeader(headerName, headerValue);
+        }
+      }
+      formData = new FormData();
+      if (this.options.params) {
+        ref1 = this.options.params;
+        for (key in ref1) {
+          value = ref1[key];
+          formData.append(key, value);
+        }
+      }
+      for (k = 0, len1 = files.length; k < len1; k++) {
+        file = files[k];
+        this.emit("sending", file, xhr, formData);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("sendingmultiple", files, xhr, formData);
+      }
+      if (this.element.tagName === "FORM") {
+        ref2 = this.element.querySelectorAll("input, textarea, select, button");
+        for (l = 0, len2 = ref2.length; l < len2; l++) {
+          input = ref2[l];
+          inputName = input.getAttribute("name");
+          inputType = input.getAttribute("type");
+          if (input.tagName === "SELECT" && input.hasAttribute("multiple")) {
+            ref3 = input.options;
+            for (m = 0, len3 = ref3.length; m < len3; m++) {
+              option = ref3[m];
+              if (option.selected) {
+                formData.append(inputName, option.value);
+              }
+            }
+          } else if (!inputType || ((ref4 = inputType.toLowerCase()) !== "checkbox" && ref4 !== "radio") || input.checked) {
+            formData.append(inputName, input.value);
+          }
+        }
+      }
+      doneCounter = 0;
+      results = [];
+      for (i = o = 0, ref5 = files.length - 1; 0 <= ref5 ? o <= ref5 : o >= ref5; i = 0 <= ref5 ? ++o : --o) {
+        doneFunction = (function(_this) {
+          return function(file, paramName, fileName) {
+            return function(transformedFile) {
+              formData.append(paramName, transformedFile, fileName);
+              if (++doneCounter === files.length) {
+                return _this.submitRequest(xhr, formData, files);
+              }
+            };
+          };
+        })(this);
+        results.push(this.options.transformFile.call(this, files[i], doneFunction(files[i], this._getParamName(i), files[i].upload.filename)));
+      }
+      return results;
+    };
+
+    Dropzone.prototype.submitRequest = function(xhr, formData, files) {
+      return xhr.send(formData);
+    };
+
+    Dropzone.prototype._finished = function(files, responseText, e) {
+      var file, j, len;
+      for (j = 0, len = files.length; j < len; j++) {
+        file = files[j];
+        file.status = Dropzone.SUCCESS;
+        this.emit("success", file, responseText, e);
+        this.emit("complete", file);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("successmultiple", files, responseText, e);
+        this.emit("completemultiple", files);
+      }
+      if (this.options.autoProcessQueue) {
+        return this.processQueue();
+      }
+    };
+
+    Dropzone.prototype._errorProcessing = function(files, message, xhr) {
+      var file, j, len;
+      for (j = 0, len = files.length; j < len; j++) {
+        file = files[j];
+        file.status = Dropzone.ERROR;
+        this.emit("error", file, message, xhr);
+        this.emit("complete", file);
+      }
+      if (this.options.uploadMultiple) {
+        this.emit("errormultiple", files, message, xhr);
+        this.emit("completemultiple", files);
+      }
+      if (this.options.autoProcessQueue) {
+        return this.processQueue();
+      }
+    };
+
+    return Dropzone;
+
+  })(Emitter);
+
+  Dropzone.version = "5.1.1";
+
+  Dropzone.options = {};
+
+  Dropzone.optionsForElement = function(element) {
+    if (element.getAttribute("id")) {
+      return Dropzone.options[camelize(element.getAttribute("id"))];
+    } else {
+      return void 0;
+    }
+  };
+
+  Dropzone.instances = [];
+
+  Dropzone.forElement = function(element) {
+    if (typeof element === "string") {
+      element = document.querySelector(element);
+    }
+    if ((element != null ? element.dropzone : void 0) == null) {
+      throw new Error("No Dropzone found for given element. This is probably because you're trying to access it before Dropzone had the time to initialize. Use the `init` option to setup any additional observers on your Dropzone.");
+    }
+    return element.dropzone;
+  };
+
+  Dropzone.autoDiscover = true;
+
+  Dropzone.discover = function() {
+    var checkElements, dropzone, dropzones, j, len, results;
+    if (document.querySelectorAll) {
+      dropzones = document.querySelectorAll(".dropzone");
+    } else {
+      dropzones = [];
+      checkElements = function(elements) {
+        var el, j, len, results;
+        results = [];
+        for (j = 0, len = elements.length; j < len; j++) {
+          el = elements[j];
+          if (/(^| )dropzone($| )/.test(el.className)) {
+            results.push(dropzones.push(el));
+          } else {
+            results.push(void 0);
+          }
+        }
+        return results;
+      };
+      checkElements(document.getElementsByTagName("div"));
+      checkElements(document.getElementsByTagName("form"));
+    }
+    results = [];
+    for (j = 0, len = dropzones.length; j < len; j++) {
+      dropzone = dropzones[j];
+      if (Dropzone.optionsForElement(dropzone) !== false) {
+        results.push(new Dropzone(dropzone));
+      } else {
+        results.push(void 0);
+      }
+    }
+    return results;
+  };
+
+  Dropzone.blacklistedBrowsers = [/opera.*Macintosh.*version\/12/i];
+
+  Dropzone.isBrowserSupported = function() {
+    var capableBrowser, j, len, ref, regex;
+    capableBrowser = true;
+    if (window.File && window.FileReader && window.FileList && window.Blob && window.FormData && document.querySelector) {
+      if (!("classList" in document.createElement("a"))) {
+        capableBrowser = false;
+      } else {
+        ref = Dropzone.blacklistedBrowsers;
+        for (j = 0, len = ref.length; j < len; j++) {
+          regex = ref[j];
+          if (regex.test(navigator.userAgent)) {
+            capableBrowser = false;
+            continue;
+          }
+        }
+      }
+    } else {
+      capableBrowser = false;
+    }
+    return capableBrowser;
+  };
+
+  Dropzone.dataURItoBlob = function(dataURI) {
+    var ab, byteString, i, ia, j, mimeString, ref;
+    byteString = atob(dataURI.split(',')[1]);
+    mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    ab = new ArrayBuffer(byteString.length);
+    ia = new Uint8Array(ab);
+    for (i = j = 0, ref = byteString.length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {
+      type: mimeString
+    });
+  };
+
+  without = function(list, rejectedItem) {
+    var item, j, len, results;
+    results = [];
+    for (j = 0, len = list.length; j < len; j++) {
+      item = list[j];
+      if (item !== rejectedItem) {
+        results.push(item);
+      }
+    }
+    return results;
+  };
+
+  camelize = function(str) {
+    return str.replace(/[\-_](\w)/g, function(match) {
+      return match.charAt(1).toUpperCase();
+    });
+  };
+
+  Dropzone.createElement = function(string) {
+    var div;
+    div = document.createElement("div");
+    div.innerHTML = string;
+    return div.childNodes[0];
+  };
+
+  Dropzone.elementInside = function(element, container) {
+    if (element === container) {
+      return true;
+    }
+    while (element = element.parentNode) {
+      if (element === container) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  Dropzone.getElement = function(el, name) {
+    var element;
+    if (typeof el === "string") {
+      element = document.querySelector(el);
+    } else if (el.nodeType != null) {
+      element = el;
+    }
+    if (element == null) {
+      throw new Error("Invalid `" + name + "` option provided. Please provide a CSS selector or a plain HTML element.");
+    }
+    return element;
+  };
+
+  Dropzone.getElements = function(els, name) {
+    var e, el, elements, error1, j, k, len, len1, ref;
+    if (els instanceof Array) {
+      elements = [];
+      try {
+        for (j = 0, len = els.length; j < len; j++) {
+          el = els[j];
+          elements.push(this.getElement(el, name));
+        }
+      } catch (error1) {
+        e = error1;
+        elements = null;
+      }
+    } else if (typeof els === "string") {
+      elements = [];
+      ref = document.querySelectorAll(els);
+      for (k = 0, len1 = ref.length; k < len1; k++) {
+        el = ref[k];
+        elements.push(el);
+      }
+    } else if (els.nodeType != null) {
+      elements = [els];
+    }
+    if (!((elements != null) && elements.length)) {
+      throw new Error("Invalid `" + name + "` option provided. Please provide a CSS selector, a plain HTML element or a list of those.");
+    }
+    return elements;
+  };
+
+  Dropzone.confirm = function(question, accepted, rejected) {
+    if (window.confirm(question)) {
+      return accepted();
+    } else if (rejected != null) {
+      return rejected();
+    }
+  };
+
+  Dropzone.isValidFile = function(file, acceptedFiles) {
+    var baseMimeType, j, len, mimeType, validType;
+    if (!acceptedFiles) {
+      return true;
+    }
+    acceptedFiles = acceptedFiles.split(",");
+    mimeType = file.type;
+    baseMimeType = mimeType.replace(/\/.*$/, "");
+    for (j = 0, len = acceptedFiles.length; j < len; j++) {
+      validType = acceptedFiles[j];
+      validType = validType.trim();
+      if (validType.charAt(0) === ".") {
+        if (file.name.toLowerCase().indexOf(validType.toLowerCase(), file.name.length - validType.length) !== -1) {
+          return true;
+        }
+      } else if (/\/\*$/.test(validType)) {
+        if (baseMimeType === validType.replace(/\/.*$/, "")) {
+          return true;
+        }
+      } else {
+        if (mimeType === validType) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  if (typeof jQuery !== "undefined" && jQuery !== null) {
+    jQuery.fn.dropzone = function(options) {
+      return this.each(function() {
+        return new Dropzone(this, options);
+      });
+    };
+  }
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = Dropzone;
+  } else {
+    window.Dropzone = Dropzone;
+  }
+
+  Dropzone.ADDED = "added";
+
+  Dropzone.QUEUED = "queued";
+
+  Dropzone.ACCEPTED = Dropzone.QUEUED;
+
+  Dropzone.UPLOADING = "uploading";
+
+  Dropzone.PROCESSING = Dropzone.UPLOADING;
+
+  Dropzone.CANCELED = "canceled";
+
+  Dropzone.ERROR = "error";
+
+  Dropzone.SUCCESS = "success";
+
+
+  /*
+  
+  Bugfix for iOS 6 and 7
+  Source: http://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios
+  based on the work of https://github.com/stomita/ios-imagefile-megapixel
+   */
+
+  detectVerticalSquash = function(img) {
+    var alpha, canvas, ctx, data, ey, ih, iw, py, ratio, sy;
+    iw = img.naturalWidth;
+    ih = img.naturalHeight;
+    canvas = document.createElement("canvas");
+    canvas.width = 1;
+    canvas.height = ih;
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    data = ctx.getImageData(1, 0, 1, ih).data;
+    sy = 0;
+    ey = ih;
+    py = ih;
+    while (py > sy) {
+      alpha = data[(py - 1) * 4 + 3];
+      if (alpha === 0) {
+        ey = py;
+      } else {
+        sy = py;
+      }
+      py = (ey + sy) >> 1;
+    }
+    ratio = py / ih;
+    if (ratio === 0) {
+      return 1;
+    } else {
+      return ratio;
+    }
+  };
+
+  drawImageIOSFix = function(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+    var vertSquashRatio;
+    vertSquashRatio = detectVerticalSquash(img);
+    return ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
+  };
+
+  ExifRestore = (function() {
+    function ExifRestore() {}
+
+    ExifRestore.KEY_STR = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+    ExifRestore.encode64 = function(input) {
+      var chr1, chr2, chr3, enc1, enc2, enc3, enc4, i, output;
+      output = '';
+      chr1 = void 0;
+      chr2 = void 0;
+      chr3 = '';
+      enc1 = void 0;
+      enc2 = void 0;
+      enc3 = void 0;
+      enc4 = '';
+      i = 0;
+      while (true) {
+        chr1 = input[i++];
+        chr2 = input[i++];
+        chr3 = input[i++];
+        enc1 = chr1 >> 2;
+        enc2 = (chr1 & 3) << 4 | chr2 >> 4;
+        enc3 = (chr2 & 15) << 2 | chr3 >> 6;
+        enc4 = chr3 & 63;
+        if (isNaN(chr2)) {
+          enc3 = enc4 = 64;
+        } else if (isNaN(chr3)) {
+          enc4 = 64;
+        }
+        output = output + this.KEY_STR.charAt(enc1) + this.KEY_STR.charAt(enc2) + this.KEY_STR.charAt(enc3) + this.KEY_STR.charAt(enc4);
+        chr1 = chr2 = chr3 = '';
+        enc1 = enc2 = enc3 = enc4 = '';
+        if (!(i < input.length)) {
+          break;
+        }
+      }
+      return output;
+    };
+
+    ExifRestore.restore = function(origFileBase64, resizedFileBase64) {
+      var image, rawImage, segments;
+      if (!origFileBase64.match('data:image/jpeg;base64,')) {
+        return resizedFileBase64;
+      }
+      rawImage = this.decode64(origFileBase64.replace('data:image/jpeg;base64,', ''));
+      segments = this.slice2Segments(rawImage);
+      image = this.exifManipulation(resizedFileBase64, segments);
+      return 'data:image/jpeg;base64,' + this.encode64(image);
+    };
+
+    ExifRestore.exifManipulation = function(resizedFileBase64, segments) {
+      var aBuffer, exifArray, newImageArray;
+      exifArray = this.getExifArray(segments);
+      newImageArray = this.insertExif(resizedFileBase64, exifArray);
+      aBuffer = new Uint8Array(newImageArray);
+      return aBuffer;
+    };
+
+    ExifRestore.getExifArray = function(segments) {
+      var seg, x;
+      seg = void 0;
+      x = 0;
+      while (x < segments.length) {
+        seg = segments[x];
+        if (seg[0] === 255 & seg[1] === 225) {
+          return seg;
+        }
+        x++;
+      }
+      return [];
+    };
+
+    ExifRestore.insertExif = function(resizedFileBase64, exifArray) {
+      var array, ato, buf, imageData, mae, separatePoint;
+      imageData = resizedFileBase64.replace('data:image/jpeg;base64,', '');
+      buf = this.decode64(imageData);
+      separatePoint = buf.indexOf(255, 3);
+      mae = buf.slice(0, separatePoint);
+      ato = buf.slice(separatePoint);
+      array = mae;
+      array = array.concat(exifArray);
+      array = array.concat(ato);
+      return array;
+    };
+
+    ExifRestore.slice2Segments = function(rawImageArray) {
+      var endPoint, head, length, seg, segments;
+      head = 0;
+      segments = [];
+      while (true) {
+        if (rawImageArray[head] === 255 & rawImageArray[head + 1] === 218) {
+          break;
+        }
+        if (rawImageArray[head] === 255 & rawImageArray[head + 1] === 216) {
+          head += 2;
+        } else {
+          length = rawImageArray[head + 2] * 256 + rawImageArray[head + 3];
+          endPoint = head + length + 2;
+          seg = rawImageArray.slice(head, endPoint);
+          segments.push(seg);
+          head = endPoint;
+        }
+        if (head > rawImageArray.length) {
+          break;
+        }
+      }
+      return segments;
+    };
+
+    ExifRestore.decode64 = function(input) {
+      var base64test, buf, chr1, chr2, chr3, enc1, enc2, enc3, enc4, i, output;
+      output = '';
+      chr1 = void 0;
+      chr2 = void 0;
+      chr3 = '';
+      enc1 = void 0;
+      enc2 = void 0;
+      enc3 = void 0;
+      enc4 = '';
+      i = 0;
+      buf = [];
+      base64test = /[^A-Za-z0-9\+\/\=]/g;
+      if (base64test.exec(input)) {
+        console.warning('There were invalid base64 characters in the input text.\n' + 'Valid base64 characters are A-Z, a-z, 0-9, \'+\', \'/\',and \'=\'\n' + 'Expect errors in decoding.');
+      }
+      input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
+      while (true) {
+        enc1 = this.KEY_STR.indexOf(input.charAt(i++));
+        enc2 = this.KEY_STR.indexOf(input.charAt(i++));
+        enc3 = this.KEY_STR.indexOf(input.charAt(i++));
+        enc4 = this.KEY_STR.indexOf(input.charAt(i++));
+        chr1 = enc1 << 2 | enc2 >> 4;
+        chr2 = (enc2 & 15) << 4 | enc3 >> 2;
+        chr3 = (enc3 & 3) << 6 | enc4;
+        buf.push(chr1);
+        if (enc3 !== 64) {
+          buf.push(chr2);
+        }
+        if (enc4 !== 64) {
+          buf.push(chr3);
+        }
+        chr1 = chr2 = chr3 = '';
+        enc1 = enc2 = enc3 = enc4 = '';
+        if (!(i < input.length)) {
+          break;
+        }
+      }
+      return buf;
+    };
+
+    return ExifRestore;
+
+  })();
+
+
+  /*
+   * contentloaded.js
+   *
+   * Author: Diego Perini (diego.perini at gmail.com)
+   * Summary: cross-browser wrapper for DOMContentLoaded
+   * Updated: 20101020
+   * License: MIT
+   * Version: 1.2
+   *
+   * URL:
+   * http://javascript.nwbox.com/ContentLoaded/
+   * http://javascript.nwbox.com/ContentLoaded/MIT-LICENSE
+   */
+
+  contentLoaded = function(win, fn) {
+    var add, doc, done, init, poll, pre, rem, root, top;
+    done = false;
+    top = true;
+    doc = win.document;
+    root = doc.documentElement;
+    add = (doc.addEventListener ? "addEventListener" : "attachEvent");
+    rem = (doc.addEventListener ? "removeEventListener" : "detachEvent");
+    pre = (doc.addEventListener ? "" : "on");
+    init = function(e) {
+      if (e.type === "readystatechange" && doc.readyState !== "complete") {
+        return;
+      }
+      (e.type === "load" ? win : doc)[rem](pre + e.type, init, false);
+      if (!done && (done = true)) {
+        return fn.call(win, e.type || e);
+      }
+    };
+    poll = function() {
+      var e, error1;
+      try {
+        root.doScroll("left");
+      } catch (error1) {
+        e = error1;
+        setTimeout(poll, 50);
+        return;
+      }
+      return init("poll");
+    };
+    if (doc.readyState !== "complete") {
+      if (doc.createEventObject && root.doScroll) {
+        try {
+          top = !win.frameElement;
+        } catch (undefined) {}
+        if (top) {
+          poll();
+        }
+      }
+      doc[add](pre + "DOMContentLoaded", init, false);
+      doc[add](pre + "readystatechange", init, false);
+      return win[add](pre + "load", init, false);
+    }
+  };
+
+  Dropzone._autoDiscoverFunction = function() {
+    if (Dropzone.autoDiscover) {
+      return Dropzone.discover();
+    }
+  };
+
+  contentLoaded(window, Dropzone._autoDiscoverFunction);
+
+}).call(this);

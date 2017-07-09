@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Dropzone
+    const dropzone = document.getElementById('formGalleryProject');
     Dropzone.options.formGalleryProject = {
         maxFiles: 1,
         accept: function(file, done) {
