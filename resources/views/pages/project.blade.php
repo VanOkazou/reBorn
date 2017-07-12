@@ -12,15 +12,12 @@ use Carbon\Carbon;
         </a>
     </h1>
 
-    {{--Logo reBorn--}}
-    <div id="logo-evangelist"><span>v</span><span>p</span></div>
-
     {{--Content--}}
     <div id="project-page" class="wrapper">
         <div class="container-fluid">
             <div class="pictures">
                 @foreach($project->attachments as $attachment)
-                    <img src="{{ $attachment->url }}" alt="{{ $project->name }}">
+                    <img src="{{ URL::asset($attachment->url) }}" alt="{{ $project->name }}">
                 @endforeach
             </div>
             <div class="infos">
@@ -51,11 +48,23 @@ use Carbon\Carbon;
                         <p class="date">Réalisé le : {{ Carbon::parse($project->date)->format('d M Y') }}</p>
                     </div>
 
-                    {{--Cats--}}
+                    {{--Technos--}}
                     <div class="info-bloc">
-                        @foreach($project->technos as $techno)
-                            {{ $techno->name }}
-                        @endforeach
+                        <div class="bloc-techno">
+                            <ul>
+                                @foreach($project->technos as $techno)
+                                    <li>
+                                        <img src="{{ asset($techno->icon) }}" alt="{{ $techno->name }}" />
+                                        <p class="name">{{ $techno->name }}</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    {{--Description--}}
+                    <div class="info-bloc">
+                        {{ $project->description }}
                     </div>
 
                 </div>

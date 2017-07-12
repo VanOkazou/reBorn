@@ -74,7 +74,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // Dropzone
-    var dropzone = document.getElementById('formGalleryProject');
     Dropzone.options.formGalleryProject = {
         maxFiles: 1,
         accept: function accept(file, done) {
@@ -177,6 +176,121 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('attach-' + id).style.display = 'none';
             };
             httpRequest.open('POST', url);
+            httpRequest.send();
+        });
+    });
+
+    // PAGE TECHNOS
+    // Click on preview
+    var previewsIconTechno = document.querySelectorAll('.previewTechno');
+    if (previewsIconTechno) {
+        [].forEach.call(previewsIconTechno, function (elt) {
+            elt.addEventListener('click', function () {
+                var input = elt.dataset.input;
+                document.getElementById(input).click();
+            });
+        });
+    }
+
+    // Change image
+    var inputsIconTechno = document.querySelectorAll('.inputIconTechno');
+    if (inputsIconTechno) {
+        [].forEach.call(inputsIconTechno, function (elt) {
+            elt.addEventListener('change', function () {
+                var reader = new FileReader();
+                var techno = elt.id;
+                var previewId = 'preview-' + techno;
+
+                reader.onload = function (e) {
+                    document.getElementById(previewId).setAttribute('src', e.target.result);
+                };
+
+                reader.readAsDataURL(elt.files[0]);
+            });
+        });
+    }
+
+    // Delete technos
+    [].forEach.call(document.querySelectorAll('.delete-techno'), function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            e = e || window.event;
+            var src = e.target || e.srcElement;
+
+            while ("undefined" === src.getAttribute('data-id') || !src.getAttribute('data-id')) {
+                src = src.parentElement;
+            }
+
+            var idtechno = src.getAttribute('data-id');
+            var token = src.getAttribute('data-token');
+
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function (data) {
+                document.getElementById('form-techno-' + idtechno).style.display = 'none';
+            };
+            httpRequest.open('DELETE', 'technos/' + idtechno);
+            httpRequest.send();
+        });
+    });
+
+    // Add techno User
+    var btnAddUserTechno = document.getElementById('btnAddUserTechno');
+    btnAddUserTechno.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        e = e || window.event;
+        var src = e.target || e.srcElement;
+
+        var errormsg = document.getElementById('error-add-techno');
+        var listUserTechnos = document.getElementById('list-technos-user');
+        var inputTechno = document.getElementById('inputTechno');
+        var idTechno = inputTechno.value;
+        var labelTechno = inputTechno.options[inputTechno.selectedIndex].innerHTML;
+        var versionTechno = document.getElementById('inputVersion').value;
+        var percentTechno = document.getElementById('inputPercent').value;
+
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function (data) {
+            if (data.target.readyState === 4) {
+                if (data.target.status === 200) {
+                    var li = document.createElement("li");
+                    li.setAttribute("class", "row");
+                    li.setAttribute("id", "techno-" + idTechno);
+
+                    var html = "<div class=\"col-xs-3\">\n                                    Techno : <input type=\"text\" disabled value=\"" + labelTechno + "\" />\n                                </div>\n                                <div class=\"col-xs-3\">\n                                    Version : <input type=\"text\" disabled value=\"" + versionTechno + "\" />\n                                </div>\n                                <div class=\"col-xs-3\">\n                                    <input type=\"text\" disabled value=\"" + percentTechno + "\" /> %\n                                </div>\n                                <div class=\"col-xs-3 text-right\">\n                                    Refresh\n                                </div>";
+
+                    li.innerHTML = html;
+                    listUserTechnos.appendChild(li);
+                } else {
+                    errormsg.innerHTML = 'Error, check fields please !';
+                }
+            }
+        };
+        httpRequest.open('POST', '/iamanevangelist/techno-user/add/' + idTechno + '/' + versionTechno + '/' + percentTechno);
+        httpRequest.send();
+    });
+
+    // Delete techno User
+    [].forEach.call(document.querySelectorAll('.delete-techno-user'), function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            e = e || window.event;
+            var src = e.target || e.srcElement;
+
+            while ("undefined" === src.getAttribute('data-id-techno') || !src.getAttribute('data-id-techno')) {
+                src = src.parentElement;
+            }
+
+            var idtechno = src.getAttribute('data-id-techno');
+            var token = src.getAttribute('data-token');
+
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function (data) {
+                document.getElementById('techno-' + idtechno).style.display = 'none';
+            };
+            httpRequest.open('POST', '/iamanevangelist/techno-user/delete/' + idtechno);
             httpRequest.send();
         });
     });

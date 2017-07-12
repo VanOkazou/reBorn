@@ -214,5 +214,149 @@ html {
         .wrapper {
             position: relative;
         }
+
+        // Sections
+        #section-evangelist-projects {
+            &>div {
+                .section-big-title {
+                    text-align: center;
+                }
+                #gallery-filter {
+                    ul {
+                        width: 100%;
+                        @include flex();
+                        margin: 55px 0;
+                        li {
+                            @include ff(2);
+                            text-transform: uppercase;
+                            padding: 3px 25px;
+                            color: $light-reborn;
+                            &.on {
+                                color: $dark-reborn;
+                            }
+                            &:hover {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                #gallery-projects {
+                    @media screen and (max-width: $breakpt-sm) {
+                        height: auto!important;
+                    }
+                    .projects {
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                        @include flex($ai:flex-start, $jc:flex-start);
+                        &>li {
+                            position: absolute;
+                            display: none;
+                            @media screen and (min-width: $breakpt-sm + 1) {
+                                opacity: .2;
+                                display: block;
+                            }
+                            &.on {
+                                opacity: 1;
+                                display: block;
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                            &:nth-child(12n+1) {
+                                width: 40%;
+                                left: 0;
+                            }
+                            &:nth-child(12n+2) {
+                                width: 20%;
+                            }
+                            &:nth-child(12n+3) {
+                                width: 20%;
+                            }
+                            &:nth-child(12n+4) {
+                                width: 40%;
+                            }
+                            &:nth-child(12n+5) {
+                                width: 40%;
+                            }
+                            &:nth-child(12n+6) {
+                                width: 40%;
+                            }
+                            &:nth-child(12n+7) {
+                                width: 20%;
+                            }
+                            &:nth-child(12n+8) {
+                                width: 20%;
+                            }
+                            &:nth-child(12n+9) {
+                                width: 40%;
+                            }
+                            &:nth-child(12n+10) {
+                                width: 20%;
+                            }
+                            &:nth-child(12n+11) {
+                                width: 20%;
+                            }
+                            &:nth-child(12n+12) {
+                                width: 20%;
+                            }
+                            @media screen and (max-width: $breakpt-sm) {
+                                position: static;
+                                padding: 5px 0;
+                                width: 100%!important;
+                                height: 200px!important;
+                            }
+                            @media screen and (max-width: $breakpt-xs) {
+                                height: 150px!important;
+                            }
+                            &>a {
+                                display: block;
+                                width: 100%;
+                                height: 100%;
+                                position: relative;
+                                overflow: hidden;
+                                &:hover {
+                                    .pic {
+                                        -webkit-filter: grayscale(0%);
+                                        filter: grayscale(0%);
+                                        transform: scale(1.1);
+                                    }
+                                }
+                                .pic {
+                                    width: 100%;
+                                    height: 100%;
+                                    display: block;
+                                    @include bgImg();
+                                    -webkit-filter: grayscale(90%);
+                                    filter: grayscale(90%);
+                                    transition: all .4s ease-in;
+                                    transform: scale(1);
+                                }
+                                .infos {
+                                    position: absolute;
+                                    z-index: 10;
+                                    bottom: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    padding: 10px 25px 10px 10px;
+                                    p {
+                                        color: $white;
+                                        text-shadow: 0 0 .3 $black;
+                                        &.title {
+                                            @include fs(2rem);
+                                            margin-bottom: 7px;
+                                        }
+                                        &.cats {
+                                            font-weight: 100;
+                                            @include fs(1.3rem);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -2,11 +2,12 @@
     width: 100%;
     min-height: 100vh;
     background-color: $light-grey-1;
-    padding: 125px 100px 55px;
+    padding: 95px 100px 55px;
     &>.container-fluid {
         padding: 0;
         border-radius: 3px;
         position: relative;
+        display: flex;
         .pictures {
             background-color: $white;
             width: calc(100% - 300px);
@@ -21,17 +22,12 @@
             }
         }
         .infos {
-            position: absolute;
-            top: 0;
-            right: 0;
             width: 300px;
             .infos-content {
-                @include size(300px, calc(100vh - 175px));
-
+                @include size(300px, 100%);
                 background-color: $light-grey-2;
                 border: 1px solid $light-grey;
                 border-left: none;
-                position: fixed;
                 .info-bloc {
                     padding: 25px;
                     border-bottom: 1px solid $light-grey;
@@ -74,6 +70,23 @@
                         @include fs(1.2rem);
                         margin-top: 7px;
                         opacity: .5;
+                    }
+                    .bloc-techno {
+                        position: relative;
+                        ul {
+                            @include flex($jc:flex-end);
+                            li {
+                                text-align: center;
+                                width: calc(100% / 3);
+                                img {
+                                    height: 35px;
+                                }
+                                .name {
+                                    @include fs(1.1rem);
+                                    opacity: .5;
+                                }
+                            }
+                        }
                     }
                 }
             }

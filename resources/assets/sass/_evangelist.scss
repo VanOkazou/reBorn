@@ -7,6 +7,7 @@
         width: 65px;
         z-index: 100;
         display: flex();
+        display: none;
         #section-title {
             text-align: center;
             padding: 10px;
@@ -62,7 +63,7 @@
                 a {
                     border-radius: 5px 5px 0 0;
                     width: 30px;
-                    height: 50px;
+                    height: 40px;
                     display: block;
                     text-align: center;
                     color: $dark-reborn;
@@ -78,6 +79,21 @@
         }
     }
 
+    // Chapter
+    .chapter {
+        padding-top: 35px;
+        color: $medium-grey-1;
+        @include ff(1);
+        letter-spacing: 3px;
+        span {
+            @include ff(2);
+            color: $dark-reborn;
+            width: 35px;
+            display: inline-block;
+            letter-spacing: 0;
+        }
+    }
+
     // Section About
     #section-about {
         display: flex;
@@ -85,7 +101,7 @@
         .bg {
             @include bgImg();
             width: 60%;
-            height: calc(90% - 240px);
+            height: calc(100% - 240px);
             position: absolute;
             right: 0;
             top: 120px;
@@ -94,19 +110,7 @@
         &>.container {
             &>.row {
                 &>div {
-                    .chapter {
-                        padding-top: 35px;
-                        color: $medium-grey-1;
-                        @include ff(1);
-                        letter-spacing: 3px;
-                        span {
-                            @include ff(2);
-                            color: $dark-reborn;
-                            width: 35px;
-                            display: inline-block;
-                            letter-spacing: 0;
-                        }
-                    }
+
                     .slogan {
                         @include fs(6rem, 6.5rem);
                         padding: 25px 0 0 35px;
@@ -132,4 +136,6 @@
             }
         }
     }
+
+
 }

@@ -45,8 +45,11 @@
         </a>
     </h1>
 
-    {{--Logo reBorn--}}
-    <div id="logo-evangelist"><span>v</span><span>p</span></div>
+    {{--Logo Evangelist--}}
+    <div id="logo-evangelist">
+        <span>{{ $initialFirstname }}</span>
+        <span>{{ $initialLastname }}</span>
+    </div>
 
     {{--Socials--}}
     <div id="socials">
@@ -85,6 +88,39 @@
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    <section id="section-evangelist-projects" class="section full-height padding-top-big padding-bottom-big">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <div class="chapter"><span>02.</span>My works</div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div id="gallery-filter">
+                <ul>
+                    @foreach($arr_cat as $cat)
+                        <li id="{{ $cat }}" class="cat-filter">{{ $cat }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <div id="gallery-projects">
+                <ul class="projects oneByOne" data-interval="50">
+                    @foreach($projects as $index=>$project)
+                        <li data-item="{{ $index + 1 }}" data-cats="{{ $project->stringCats }}">
+                            <a href="{{ route('project', ['id'=>$project->id]) }}" title="{{ $project->title }}">
+                                <div class="pic" style="background-image: url({{ asset($project->une) }});"></div>
+                                <div class="infos">
+                                    <p class="title">{{ $project->title }}</p>
+                                    <p class="cats">{{ $project->stringCats }}</p>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
         </div>
     </section>

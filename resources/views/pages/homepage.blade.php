@@ -69,36 +69,36 @@
         </section>
 
         <section id="section-evangelist-projects" class="section full-height padding-top-big padding-bottom-big bg-light">
-                <div class="container">
-                    <h4 class="section-big-title">
-                        Take a look at our
-                        <small>realisations</small>
-                    </h4>
+            <div class="container">
+            <h4 class="section-big-title">
+                Take a look at our
+                <small>realisations</small>
+            </h4>
+            </div>
+            <div class="container-fluid">
+                <div id="gallery-filter">
+                    <ul>
+                        @foreach($cats as $cat)
+                            <li id="{{ $cat->name }}" class="cat-filter">{{ $cat->name }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-                <div class="container-fluid">
-                    <div id="gallery-filter">
-                        <ul>
-                            @foreach($cats as $cat)
-                                <li id="{{ $cat->name }}" class="cat-filter">{{ $cat->name }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div id="gallery-projects">
-                        <ul class="projects oneByOne" data-interval="50">
-                            @foreach($projects as $index=>$project)
-                                <li data-item="{{ $index + 1 }}" data-cats="{{ $project->stringCats }}">
-                                    <a href="{{ route('project', ['id'=>$project->id]) }}" title="{{ $project->title }}">
-                                        <div class="pic" style="background-image: url({{ asset($project->une) }});"></div>
-                                        <div class="infos">
-                                            <p class="title">{{ $project->title }}</p>
-                                            <p class="cats">{{ $project->stringCats }}</p>
-                                        </div>
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div id="gallery-projects">
+                    <ul class="projects oneByOne" data-interval="50">
+                        @foreach($projects as $index=>$project)
+                            <li data-item="{{ $index + 1 }}" data-cats="{{ $project->stringCats }}">
+                                <a href="{{ route('project', ['id'=>$project->id]) }}" title="{{ $project->title }}">
+                                    <div class="pic" style="background-image: url({{ asset($project->une) }});"></div>
+                                    <div class="infos">
+                                        <p class="title">{{ $project->title }}</p>
+                                        <p class="cats">{{ $project->stringCats }}</p>
+                                    </div>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
+            </div>
         </section>
     </div>
 @endsection
