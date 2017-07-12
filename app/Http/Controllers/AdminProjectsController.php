@@ -29,8 +29,10 @@ class AdminProjectsController extends Controller
     public function index()
     {
         $user = User::find(Auth::id());
+        $user->load(['projects' => function ($q) {
+            $q->orderByDesc('updated_at');
+        }, 'projects.categories']);
 
-        $user->load('projects.categories');
         return View('admin.projects.index' , compact('user'));
     }
 
@@ -42,7 +44,8 @@ class AdminProjectsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return View('admin.projects.create' , compact('categories'));
+        $technos = Techno::all();
+        return View('admin.projects.create' , compact('categories', 'technos'));
     }
 
     public function uploadImage(Request $request){
@@ -62,7 +65,12 @@ class AdminProjectsController extends Controller
     {
         //init
         $input = $request->input();
-        $arrayImg = [];
+        $inputFile = $request->file();
+
+        if(isset($inputFile['une'])) {
+            $uneName = 'uploads/' . time().'-'.$inputFile['une']->getClientOriginalName();
+            $inputFile['une']->move(public_path('uploads'), $uneName);
+        }
 
         $validator = $this->validateRules($request->all());
 
@@ -75,6 +83,7 @@ class AdminProjectsController extends Controller
 
         //Create project
         $project = new Project();
+        $project->une = $uneName;
         $project->title = $input['title'];
         $project->description = $input['description'];
         $project->date = $input['date'];
@@ -97,6 +106,7 @@ class AdminProjectsController extends Controller
         }
 
         //Link belongToMany
+
         $project->categories()->attach($input['category']);
         $project->technos()->attach($input['techno']);
         $project->users()->attach(Auth::id());
@@ -179,7 +189,6 @@ class AdminProjectsController extends Controller
 
 
         // Update project
-        $project = Project::find($id);
         $project->une = $uneName;
         $project->title = $input['title'];
         $project->description = $input['description'];

@@ -8,13 +8,13 @@
 
 */
 
-Route::get('/', 'HomeController@index')->name('homepage');
+Route::get('/', 'FrontController@homeIndex')->name('homepage');
 
 // Route for Evangelist
-Route::get('/evangelist/{user}', 'UserController@show')->name('evangelist');
+Route::get('/evangelist/{user}', 'FrontController@evangelistIndex')->name('evangelist');
 
 // Route for Project
-Route::get('/project/{id}', 'ProjectController@show')->name('project');
+Route::get('/project/{id}', 'FrontController@projectIndex')->name('project');
 
 
 
@@ -35,6 +35,8 @@ Route::group(['middleware'=>'auth', 'prefix'=>'iamanevangelist' ], function () {
     Route::resource('/technos', 'AdminTechnosController');
     Route::post('/projects/upload', 'AdminProjectsController@uploadImage')->name('projects.upload');
     Route::post('/attachment/delete/{id}', 'AdminProjectsController@destroyAttachment')->name('attachment.destroy');
+    Route::post('/techno-user/add/{id}/{version}/{percent}', 'AdminUsersController@storeTechno')->name('techno.store');
+    Route::post('/techno-user/delete/{idtechno}', 'AdminUsersController@destroyTechno')->name('techno.destroy');
 });
 
 /*

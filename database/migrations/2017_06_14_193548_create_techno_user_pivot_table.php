@@ -13,6 +13,8 @@ class CreateTechnoUserPivotTable extends Migration
     public function up()
     {
         Schema::create('techno_user', function (Blueprint $table) {
+            $table->integer('pourcentage');
+            $table->string('version');
             $table->integer('techno_id')->unsigned()->index();
             $table->foreign('techno_id')->references('id')->on('technos')->onDelete('cascade');
             $table->integer('user_id')->unsigned()->index();

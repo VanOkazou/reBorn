@@ -44,7 +44,7 @@ class User extends Authenticatable
      */
     public function technos()
     {
-        return $this->belongsToMany('App\Models\Techno');
+        return $this->belongsToMany('App\Models\Techno')->withPivot('user_id', 'techno_id', 'pourcentage', 'version');
     }
 
     /**

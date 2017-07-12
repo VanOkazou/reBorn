@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Techno;
 use App\Models\User;
+use App\TechnoUserPivot;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -73,7 +76,9 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return View('admin.users.edit' , compact('user'));
+
+        $technos = Techno::pluck('name', 'id');
+        return View('admin.users.edit' , compact('user','technos'));
     }
 
     /**
@@ -85,9 +90,11 @@ class AdminUsersController extends Controller
      */
     public function update(Request $request,$id)
     {
+
         $input = $request->input();
         $files = $request->file();
         $user = User::find($id);
+
 
         //Check with validator
         $validator = $this->validateRules($request->all());
@@ -137,10 +144,30 @@ class AdminUsersController extends Controller
         User::where('id', $id)
             ->update($dataUpdate);
 
+        //Pourcentage et version
+        $user->technos()->save(Techno::find($input['techno']),
+            [
+            'pourcentage' => $input['pourcentage'],
+                'version' => $input['version']
+            ]);
 
 
         Session::flash('message', 'Votre profil a été modifié !');
         return redirect()->back();
+    }
+
+    /**
+     * Store a techno for an user
+     *
+     */
+    public function storeTechno($id, $version, $percent)
+    {
+        $user = User::find(Auth::id());
+        $user->technos()->save(Techno::find($id),
+            [
+                'pourcentage' => $percent,
+                'version' => $version
+            ]);
     }
 
     /**
@@ -152,6 +179,18 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove a techno.
+     *
+     * @param  int  $idTechno
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyTechno($idTechno)
+    {
+        $user = User::find(Auth::id());
+        $user->technos()->detach(Techno::find($idTechno));
     }
 
     /**

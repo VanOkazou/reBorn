@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Techno;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class AdminTechnosController extends Controller
 {
+
+    private $validationRules = [
+        'name' => 'required|filled|unique:technos|max:255',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class AdminTechnosController extends Controller
      */
     public function index()
     {
-        $technos = Techno::all();
+        $technos = Techno::all()->sortByDesc('created_at');
         
         return View('Admin.technos.index', compact('technos'));
     }
@@ -33,11 +40,34 @@ class AdminTechnosController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        //init
+        $input = $request->input();
+        $files = $request->file();
+        if(isset($files['icon'])) {
+            $iconName = 'images/icon/'.$files['icon']->getClientOriginalName();
+            $files['icon']->move(public_path('images/icon/'), $iconName);
+        }
+
+        $validator = $this->validateRules($request->all());
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $techno = new Techno();
+        $techno->name = $input['name'];
+        $techno->icon = $iconName;
+        $techno->type = $input['type'];
+        $techno->save();
+
+        Session::flash('message', 'la techno ' . $techno->name . ' a été crée !');
+        return redirect()->back();
     }
 
     /**
@@ -71,7 +101,23 @@ class AdminTechnosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->input();
+        $files = $request->file();
+        $techno = Techno::find($id);
+
+        $iconName = $techno->icon;
+        if(isset($files['icon'])) {
+            $iconName = 'images/icon/'.$files['icon']->getClientOriginalName();
+            $files['icon']->move(public_path('uploads'), $iconName);
+        }
+
+        // Update project
+        $techno->icon = $iconName;
+        $techno->type = $input['type'];
+        $techno->save();
+
+        Session::flash('message', 'Modifications have been saved!');
+        return redirect()->back();
     }
 
     /**
@@ -82,6 +128,20 @@ class AdminTechnosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $techno = Techno::find($id);
+        $msg = $techno->name . ' a été supprimé !';
+        $techno->delete();
+
+        Session::flash('message', $msg);
+        return redirect()->back();
+    }
+
+    /**
+     * @param array $attributes
+     * @return Validator
+     */
+    private function validateRules(array $attributes)
+    {
+        return Validator::make($attributes, $this->validationRules);
     }
 }
