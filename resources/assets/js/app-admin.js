@@ -172,52 +172,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add techno User
     let btnAddUserTechno = document.getElementById('btnAddUserTechno');
-    btnAddUserTechno.addEventListener('click', e => {
-        e.preventDefault();
+    if(document.body.contains(btnAddUserTechno)) {
+        btnAddUserTechno.addEventListener('click', e => {
+            e.preventDefault();
 
-        e = e || window.event;
-        let src = e.target || e.srcElement;
+            e = e || window.event;
+            let src = e.target || e.srcElement;
 
-        let errormsg = document.getElementById('error-add-techno');
-        let listUserTechnos = document.getElementById('list-technos-user');
-        let inputTechno = document.getElementById('inputTechno');
-        let idTechno = inputTechno.value;
-        let labelTechno = inputTechno.options[inputTechno.selectedIndex].innerHTML;
-        let versionTechno = document.getElementById('inputVersion').value;
-        let percentTechno = document.getElementById('inputPercent').value;
+            let errormsg = document.getElementById('error-add-techno');
+            let listUserTechnos = document.getElementById('list-technos-user');
+            let inputTechno = document.getElementById('inputTechno');
+            let idTechno = inputTechno.value;
+            let labelTechno = inputTechno.options[inputTechno.selectedIndex].innerHTML;
+            let versionTechno = document.getElementById('inputVersion').value;
+            let percentTechno = document.getElementById('inputPercent').value;
 
-        let httpRequest = new XMLHttpRequest()
-        httpRequest.onreadystatechange = function (data) {
-            if (data.target.readyState === 4) {
-                if (data.target.status === 200) {
-                    let li = document.createElement("li");
-                    li.setAttribute("class", "row");
-                    li.setAttribute("id", "techno-"+idTechno);
+            let httpRequest = new XMLHttpRequest()
+            httpRequest.onreadystatechange = function (data) {
+                if (data.target.readyState === 4) {
+                    if (data.target.status === 200) {
+                        let li = document.createElement("li");
+                        li.setAttribute("class", "row");
+                        li.setAttribute("id", "techno-"+idTechno);
 
-                    let html = `<div class="col-xs-3">
-                                    Techno : <input type="text" disabled value="${labelTechno}" />
-                                </div>
-                                <div class="col-xs-3">
-                                    Version : <input type="text" disabled value="${versionTechno}" />
-                                </div>
-                                <div class="col-xs-3">
-                                    <input type="text" disabled value="${percentTechno}" /> %
-                                </div>
-                                <div class="col-xs-3 text-right">
-                                    Refresh
-                                </div>`;
+                        let html = `<div class="col-xs-3">
+                                        Techno : <input type="text" disabled value="${labelTechno}" />
+                                    </div>
+                                    <div class="col-xs-3">
+                                        Version : <input type="text" disabled value="${versionTechno}" />
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" disabled value="${percentTechno}" /> %
+                                    </div>
+                                    <div class="col-xs-3 text-right">
+                                        Refresh
+                                    </div>`;
 
-                    li.innerHTML = html;
-                    listUserTechnos.appendChild(li);
+                        li.innerHTML = html;
+                        listUserTechnos.appendChild(li);
 
-                } else {
-                    errormsg.innerHTML = 'Error, check fields please !'
+                        document.getElementById('no-techno').style.display = 'none';
+
+                    } else {
+                        errormsg.innerHTML = 'Error, check fields please !'
+                    }
                 }
             }
-        }
-        httpRequest.open('POST', '/iamanevangelist/techno-user/add/'+idTechno+'/'+versionTechno+'/'+percentTechno)
-        httpRequest.send()
-    });
+            httpRequest.open('POST', '/iamanevangelist/techno-user/add/'+idTechno+'/'+versionTechno+'/'+percentTechno)
+            httpRequest.send()
+        });
+    }
 
 
     // Delete techno User

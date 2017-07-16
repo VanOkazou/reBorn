@@ -47,9 +47,15 @@ class AdminTechnosController extends Controller
         //init
         $input = $request->input();
         $files = $request->file();
+
         if(isset($files['icon'])) {
             $iconName = 'images/icon/'.$files['icon']->getClientOriginalName();
             $files['icon']->move(public_path('images/icon/'), $iconName);
+        }
+
+        if(isset($files['iconBlack'])) {
+            $iconBlackName = 'images/icon/'.$files['iconBlack']->getClientOriginalName();
+            $files['iconBlack']->move(public_path('images/icon/'), $iconBlackName);
         }
 
         $validator = $this->validateRules($request->all());
@@ -63,10 +69,11 @@ class AdminTechnosController extends Controller
         $techno = new Techno();
         $techno->name = $input['name'];
         $techno->icon = $iconName;
+        $techno->iconBlack = $iconBlackName;
         $techno->type = $input['type'];
         $techno->save();
 
-        Session::flash('message', 'la techno ' . $techno->name . ' a été crée !');
+        Session::flash('message', 'La techno ' . $techno->name . ' a été crée !');
         return redirect()->back();
     }
 

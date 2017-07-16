@@ -21,10 +21,13 @@
             <li>
                 <a data-toggle="tab" href="#menu1">Gallery</a>
             </li>
+            <li>
+                <a data-toggle="tab" href="#menu2">Members</a>
+            </li>
         </ul>
 
         <div class="tab-content">
-            <div id="menu0" class="tab-pane fade in active">
+            <div id="menu0" class="tab-pane fade">
                 {{ Form::open([
                     'route' => ['projects.update', $project->id],
                     'method' => 'put',
@@ -157,6 +160,30 @@
                         @endforeach
                     </ul>
                 </div>
+            </div>
+
+            <div id="menu2" class="tab-pane fade in active">
+                {{ Form::open([
+                    'route' => 'projects.users',
+                    'method' => 'post',
+                    'class'=>'form-horizontal',
+                    'role' => 'form',
+                ]) }}
+
+                    @foreach($otherUsers as $user)
+
+                        {{ Form::checkbox('member-project', $user->id, false, ['id' => 'member-'.$user->id]) }}
+                        <label for="{{ 'member-'.$user->id }}">
+                            @if($user->firstname != '' && $user->lastname != '')
+                                {{ $user->firstname . ' ' . $user->lastname }}
+                            @else
+                                {{ $user->username }}
+                            @endif
+                        </label>
+
+                    @endforeach
+
+                {{ Form::close() }}
             </div>
         </div>
     </div>

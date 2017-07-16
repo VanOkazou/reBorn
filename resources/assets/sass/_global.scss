@@ -64,7 +64,9 @@ html {
         strong {
             font-weight: bold;
         }
-
+        em {
+            font-style: italic;
+        }
 
         // Colors
         .white {
@@ -119,6 +121,7 @@ html {
                 padding-top: 40px;
             }
         }
+
         .padding-bottom-big {
             padding-bottom: 120px;
             @media screen and (max-width: $breakpt-md) {

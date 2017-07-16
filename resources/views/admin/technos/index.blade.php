@@ -14,6 +14,35 @@
         <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
     @endif
     <div class="container">
+        <h3>Create a new techno</h3>
+        {{ Form::open([
+            'route' => ['technos.store'],
+            'method' => 'post',
+            'class'=>'form-horizontal single-techno create-techno',
+            'role' => 'form',
+            'files' => true
+        ]) }}
+        <div class="item-techno item-icon">
+            <img src="{{ asset('images/pic/default-techno.png') }}" alt="new" class="previewTechno" data-input="techno-new" id="preview-techno-new" />
+            {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-new']) }}
+        </div>
+        <div class="item-techno item-icon">
+            <img src="{{ asset('images/pic/default-techno.png') }}" alt="new" class="previewTechno" data-input="technoBlack-new" id="preview-technoBlack-new" />
+            {{ Form::file('iconBlack', ['class' => 'form-control inputIconTechno', 'id' => 'technoBlack-new']) }}
+        </div>
+        <div class="item-techno item-name">
+            {{ Form::text('name', '', ['class' => 'form-control']) }}
+        </div>
+        <div class="item-techno item-type">
+            {{ Form::select('type',['lang' => 'Language', 'soft' => 'Logiciel', 'fram' => 'Framework', 'cms' => 'CMS'], '', ['class' => 'form-control']) }}
+        </div>
+
+        <div class="item-techno item-update">
+            {{ Form::submit('Create a new techno', ['class' => 'btn btn-primary']) }}
+        </div>
+        {{ Form::close() }}
+
+        <h3>List of technos</h3>
         <div class="panel-group" id="accordion-technos" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -25,29 +54,6 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
-                        {{ Form::open([
-                            'route' => ['technos.store'],
-                            'method' => 'post',
-                            'class'=>'form-horizontal single-techno create-techno',
-                            'role' => 'form',
-                            'files' => true
-                        ]) }}
-                            <div class="item-techno item-icon">
-                                <img src="{{ asset('images/pic/default-techno.png') }}" alt="new" class="previewTechno" data-input="techno-new-lang" id="preview-techno-new-lang" />
-                                {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-new-lang']) }}
-                            </div>
-                            <div class="item-techno item-name">
-                                {{ Form::text('name', '', ['class' => 'form-control']) }}
-                            </div>
-                            <div class="item-techno item-type">
-                                {{ Form::hidden('type','lang', ['class' => 'form-control']) }}
-                            </div>
-
-                            <div class="item-techno item-update">
-                                {{ Form::submit('Create a new techno', ['class' => 'btn btn-primary']) }}
-                            </div>
-                        {{ Form::close() }}
-
                         @foreach($technos as $techno)
                             @if($techno->type == 'lang')
                                 {{ Form::open([
@@ -61,6 +67,10 @@
                                     <div class="item-techno item-icon">
                                         <img src="{{ asset($techno->icon) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="techno-{{ $techno->id }}" id="preview-techno-{{ $techno->id }}">
                                         {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-' . $techno->id]) }}
+                                    </div>
+                                    <div class="item-techno item-icon">
+                                        <img src="{{ asset($techno->iconBlack) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="technoBlack-{{ $techno->id }}" id="preview-technoBlack-{{ $techno->id }}">
+                                        {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'technoBlack-' . $techno->id]) }}
                                     </div>
                                     <div class="item-techno item-name">
                                         {{ Form::text('name', $techno->name, ['class' => 'form-control', 'disabled']) }}
@@ -93,29 +103,6 @@
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingtwo">
                     <div class="panel-body">
-                        {{ Form::open([
-                            'route' => ['technos.store'],
-                            'method' => 'post',
-                            'class'=>'form-horizontal single-techno create-techno',
-                            'role' => 'form',
-                            'files' => true
-                        ]) }}
-                        <div class="item-techno item-icon">
-                            <img src="{{ asset('images/pic/default-techno.png') }}" alt="new" class="previewTechno" data-input="techno-new-soft" id="preview-techno-new-soft" />
-                            {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-new-soft']) }}
-                        </div>
-                        <div class="item-techno item-name">
-                            {{ Form::text('name', '', ['class' => 'form-control']) }}
-                        </div>
-                        <div class="item-techno item-type">
-                            {{ Form::hidden('type','soft', ['class' => 'form-control']) }}
-                        </div>
-
-                        <div class="item-techno item-update">
-                            {{ Form::submit('Create a new techno', ['class' => 'btn btn-primary']) }}
-                        </div>
-                        {{ Form::close() }}
-
                         @foreach($technos as $techno)
                             @if($techno->type == 'soft')
                                 {{ Form::open([
@@ -129,6 +116,10 @@
                                 <div class="item-techno item-icon">
                                     <img src="{{ asset($techno->icon) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="techno-{{ $techno->id }}" id="preview-techno-{{ $techno->id }}">
                                     {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-' . $techno->id]) }}
+                                </div>
+                                <div class="item-techno item-icon">
+                                    <img src="{{ asset($techno->iconBlack) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="technoBlack-{{ $techno->id }}" id="preview-technoBlack-{{ $techno->id }}">
+                                    {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'technoBlack-' . $techno->id]) }}
                                 </div>
                                 <div class="item-techno item-name">
                                     {{ Form::text('name', $techno->name, ['class' => 'form-control', 'disabled']) }}
@@ -161,29 +152,6 @@
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="panel-body">
-                        {{ Form::open([
-                            'route' => ['technos.store'],
-                            'method' => 'post',
-                            'class'=>'form-horizontal single-techno create-techno',
-                            'role' => 'form',
-                            'files' => true
-                        ]) }}
-                        <div class="item-techno item-icon">
-                            <img src="{{ asset('images/pic/default-techno.png') }}" alt="new" class="previewTechno" data-input="techno-new-fram" id="preview-techno-new-fram" />
-                            {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-new-fram']) }}
-                        </div>
-                        <div class="item-techno item-name">
-                            {{ Form::text('name', '', ['class' => 'form-control']) }}
-                        </div>
-                        <div class="item-techno item-type">
-                            {{ Form::hidden('type','fram', ['class' => 'form-control']) }}
-                        </div>
-
-                        <div class="item-techno item-update">
-                            {{ Form::submit('Create a new techno', ['class' => 'btn btn-primary']) }}
-                        </div>
-                        {{ Form::close() }}
-
                         @foreach($technos as $techno)
                             @if($techno->type == 'fram')
                                 {{ Form::open([
@@ -197,6 +165,10 @@
                                 <div class="item-techno item-icon">
                                     <img src="{{ asset($techno->icon) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="techno-{{ $techno->id }}" id="preview-techno-{{ $techno->id }}">
                                     {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-' . $techno->id]) }}
+                                </div>
+                                <div class="item-techno item-icon">
+                                    <img src="{{ asset($techno->iconBlack) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="technoBlack-{{ $techno->id }}" id="preview-technoBlack-{{ $techno->id }}">
+                                    {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'technoBlack-' . $techno->id]) }}
                                 </div>
                                 <div class="item-techno item-name">
                                     {{ Form::text('name', $techno->name, ['class' => 'form-control', 'disabled']) }}
@@ -229,29 +201,6 @@
                 </div>
                 <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                     <div class="panel-body">
-                        {{ Form::open([
-                            'route' => ['technos.store'],
-                            'method' => 'post',
-                            'class'=>'form-horizontal single-techno create-techno',
-                            'role' => 'form',
-                            'files' => true
-                        ]) }}
-                        <div class="item-techno item-icon">
-                            <img src="{{ asset('images/pic/default-techno.png') }}" alt="new" class="previewTechno" data-input="techno-new-cms" id="preview-techno-new-cms" />
-                            {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-new-cms']) }}
-                        </div>
-                        <div class="item-techno item-name">
-                            {{ Form::text('name', '', ['class' => 'form-control']) }}
-                        </div>
-                        <div class="item-techno item-type">
-                            {{ Form::hidden('type','fram', ['class' => 'form-control']) }}
-                        </div>
-
-                        <div class="item-techno item-update">
-                            {{ Form::submit('Create a new techno', ['class' => 'btn btn-primary']) }}
-                        </div>
-                        {{ Form::close() }}
-
                         @foreach($technos as $techno)
                             @if($techno->type == 'cms')
                                 {{ Form::open([
@@ -265,6 +214,10 @@
                                 <div class="item-techno item-icon">
                                     <img src="{{ asset($techno->icon) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="techno-{{ $techno->id }}" id="preview-techno-{{ $techno->id }}">
                                     {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'techno-' . $techno->id]) }}
+                                </div>
+                                <div class="item-techno item-icon">
+                                    <img src="{{ asset($techno->iconBlack) }}" alt="{{ $techno->name }}" class="previewTechno" data-input="technoBlack-{{ $techno->id }}" id="preview-technoBlack-{{ $techno->id }}">
+                                    {{ Form::file('icon', ['class' => 'form-control inputIconTechno', 'id' => 'technoBlack-' . $techno->id]) }}
                                 </div>
                                 <div class="item-techno item-name">
                                     {{ Form::text('name', $techno->name, ['class' => 'form-control', 'disabled']) }}

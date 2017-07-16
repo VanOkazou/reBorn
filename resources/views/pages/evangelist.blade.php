@@ -54,24 +54,36 @@
     {{--Socials--}}
     <div id="socials">
         <ul>
+            @if(!is_null($user->ln))
             <li>
-                <a href="#" title="linkedin" class="reborn-icon-linkedin"></a>
+                <a href="{{ $user->ln }}" title="linkedin" target="_blank" class="reborn-icon-linkedin"></a>
             </li>
-            <li>
-                <a href="#" title="github" class="reborn-icon-github"></a>
-            </li>
-            <li>
-                <a href="#" title="facebook" class="reborn-icon-facebook"></a>
-            </li>
-            <li>
-                <a href="#" title="twitter" class="reborn-icon-twitter"></a>
-            </li>
-            <li>
-                <a href="#" title="behance" class="reborn-icon-behance"></a>
-            </li>
-            <li>
-                <a href="#" title="dribbble" class="reborn-icon-dribbble"></a>
-            </li>
+            @endif
+            @if(!is_null($user->gh))
+                <li>
+                    <a href="{{ $user->gh }}" title="github" target="_blank" class="reborn-icon-github"></a>
+                </li>
+            @endif
+            @if(!is_null($user->fb))
+                <li>
+                    <a href="{{ $user->fb }}" title="facebook" target="_blank" class="reborn-icon-facebook"></a>
+                </li>
+            @endif
+            @if(!is_null($user->tw))
+                <li>
+                    <a href="{{ $user->tw }}" title="twitter" target="_blank" class="reborn-icon-twitter"></a>
+                </li>
+            @endif
+            @if(!is_null($user->bh))
+                <li>
+                    <a href="{{ $user->bh }}" title="behance" target="_blank" class="reborn-icon-behance"></a>
+                </li>
+            @endif
+            @if(!is_null($user->db))
+                <li>
+                    <a href="{{ $user->db }}" title="dribbble" target="_blank" class="reborn-icon-dribbble"></a>
+                </li>
+            @endif
         </ul>
     </div>
 
@@ -91,11 +103,12 @@
             </div>
         </div>
     </section>
+
     <section id="section-evangelist-projects" class="section full-height padding-top-big padding-bottom-big">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-xs-12">
-                    <div class="chapter"><span>02.</span>My works</div>
+                    <div class="chapter"><span>02.</span>Works</div>
                 </div>
             </div>
         </div>
@@ -107,7 +120,7 @@
                     @endforeach
                 </ul>
             </div>
-            <div id="gallery-projects">
+            <div id="gallery-projects" class="container">
                 <ul class="projects oneByOne" data-interval="50">
                     @foreach($projects as $index=>$project)
                         <li data-item="{{ $index + 1 }}" data-cats="{{ $project->stringCats }}">
@@ -121,6 +134,47 @@
                         </li>
                     @endforeach
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-evangelist-skills" class="section full-height padding-top-big padding-bottom-big">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <div class="chapter"><span>03.</span>Competences</div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="expert-list">
+                @foreach($experts as $expert)
+                    <div class="single-expert">
+                        <div class="expert-content">
+                            <p class="label-expert light-reborn">
+                                <span>Expert</span>
+                            </p>
+                            <img src="{{ asset($expert->iconBlack) }}" alt="{{ $expert->name }}" />
+                            <p class="techno-name">{{ $expert->name }}</p>
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
+            <div class="row skills-list">
+                @foreach($user->technos as $techno)
+                    <div class="single-skill col-md-3 col-sm-4 col-xs-12">
+                        <div class="c100 p{{ $techno->pivot->pourcentage }} center">
+                            <span>{{ $techno->pivot->pourcentage }}%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                        <p class="name text-center">{{ $techno->name }}</p>
+                        <p class="version text-center">{{ $techno->pivot->version }}</p>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

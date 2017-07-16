@@ -78,7 +78,12 @@ class AdminUsersController extends Controller
         $user = User::find($id);
 
         $technos = Techno::pluck('name', 'id');
-        return View('admin.users.edit' , compact('user','technos'));
+        $experts = unserialize($user->expert);
+        $expert1 = isset($experts[0]) ? $experts[0] : null;
+        $expert2 = isset($experts[1]) ? $experts[1] : null;
+        $expert3 = isset($experts[2]) ? $experts[2] : null;
+
+        return View('admin.users.edit' , compact('user','technos', 'expert1', 'expert2', 'expert3'));
     }
 
     /**
@@ -94,7 +99,6 @@ class AdminUsersController extends Controller
         $input = $request->input();
         $files = $request->file();
         $user = User::find($id);
-
 
         //Check with validator
         $validator = $this->validateRules($request->all());
@@ -120,36 +124,54 @@ class AdminUsersController extends Controller
             $files['bgimg']->move(public_path('uploads'), $bgimgName);
         }
 
+        // Expert
+        $experts = [];
+        if(!is_null($input['expert1'])) {
+            array_push($experts, $input['expert1']);
+        }
+        if(!is_null($input['expert2'])) {
+            array_push($experts, $input['expert2']);
+        }
+        if(!is_null($input['expert3'])) {
+            array_push($experts, $input['expert3']);
+        }
+        $experts = serialize($experts);
+
         //Update if Ok
         $dataUpdate = [
-          'username' => $input['username'],
-          'slug' => $input['slug'],
-          'about' => $input['about'],
-          'slogan' => $input['slogan'],
-          'avatar' =>  $avatarName,
-          'bgimg' => $bgimgName,
-          'description' => $input['description'],
-          'lastname' => $input['lastname'],
-          'firstname' => $input['firstname'],
-          'job' => $input['job'],
-          'city' => $input['city'],
-          'email' => $input['email'],
-          'fb' => $input['facebook'],
-          'tw' => $input['twitter'],
-          'ln' => $input['linkedin'],
-          'bh' => $input['behance'],
-          'db' => $input['dribble'],
-          'viadeo' => $input['viadeo'],
+            'username' => $input['username'],
+            'slug' => $input['slug'],
+            'about' => $input['about'],
+            'slogan' => $input['slogan'],
+            'avatar' =>  $avatarName,
+            'bgimg' => $bgimgName,
+            'description' => $input['description'],
+            'lastname' => $input['lastname'],
+            'firstname' => $input['firstname'],
+            'job' => $input['job'],
+            'expert' => $experts,
+            'city' => $input['city'],
+            'email' => $input['email'],
+            'fb' => $input['facebook'],
+            'tw' => $input['twitter'],
+            'ln' => $input['linkedin'],
+            'bh' => $input['behance'],
+            'db' => $input['dribble'],
+            'gh' => $input['github'],
+            'viadeo' => $input['viadeo'],
         ];
         User::where('id', $id)
             ->update($dataUpdate);
 
         //Pourcentage et version
-        $user->technos()->save(Techno::find($input['techno']),
-            [
-            'pourcentage' => $input['pourcentage'],
-                'version' => $input['version']
-            ]);
+        if(!is_null($input['techno'])) {
+            $user->technos()->save(Techno::find($input['techno']),
+                [
+                    'pourcentage' => $input['pourcentage'],
+                    'version' => $input['version']
+                ]);
+        }
+
 
 
         Session::flash('message', 'Votre profil a été modifié !');

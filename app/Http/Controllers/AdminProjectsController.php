@@ -153,6 +153,7 @@ class AdminProjectsController extends Controller
         $categories = Category::all();
         $projectTechnos = [];
         $technos = Techno::all();
+        $otherUsers = User::all()->except(Auth::id());
 
         foreach($project->categories as $cat) {
             array_push($projectCats, $cat->name);
@@ -162,9 +163,17 @@ class AdminProjectsController extends Controller
             array_push($projectTechnos, $techno->name);
         }
 
-        return View('admin.projects.edit' , compact('project','categories','projectCats', 'technos', 'projectTechnos'));
+        return View('admin.projects.edit' , compact('project','categories','projectCats', 'technos', 'projectTechnos', 'otherUsers'));
     }
 
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         //init
@@ -256,5 +265,17 @@ class AdminProjectsController extends Controller
     private function validateRules(array $attributes)
     {
         return Validator::make($attributes, $this->validationRules);
+    }
+
+    /**
+     * Update the pivot Project User.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    private function updateProjectUsers(Request $request, $id)
+    {
+
     }
 }

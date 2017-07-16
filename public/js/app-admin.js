@@ -236,40 +236,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Add techno User
     var btnAddUserTechno = document.getElementById('btnAddUserTechno');
-    btnAddUserTechno.addEventListener('click', function (e) {
-        e.preventDefault();
+    if (document.body.contains(btnAddUserTechno)) {
+        btnAddUserTechno.addEventListener('click', function (e) {
+            e.preventDefault();
 
-        e = e || window.event;
-        var src = e.target || e.srcElement;
+            e = e || window.event;
+            var src = e.target || e.srcElement;
 
-        var errormsg = document.getElementById('error-add-techno');
-        var listUserTechnos = document.getElementById('list-technos-user');
-        var inputTechno = document.getElementById('inputTechno');
-        var idTechno = inputTechno.value;
-        var labelTechno = inputTechno.options[inputTechno.selectedIndex].innerHTML;
-        var versionTechno = document.getElementById('inputVersion').value;
-        var percentTechno = document.getElementById('inputPercent').value;
+            var errormsg = document.getElementById('error-add-techno');
+            var listUserTechnos = document.getElementById('list-technos-user');
+            var inputTechno = document.getElementById('inputTechno');
+            var idTechno = inputTechno.value;
+            var labelTechno = inputTechno.options[inputTechno.selectedIndex].innerHTML;
+            var versionTechno = document.getElementById('inputVersion').value;
+            var percentTechno = document.getElementById('inputPercent').value;
 
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = function (data) {
-            if (data.target.readyState === 4) {
-                if (data.target.status === 200) {
-                    var li = document.createElement("li");
-                    li.setAttribute("class", "row");
-                    li.setAttribute("id", "techno-" + idTechno);
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = function (data) {
+                if (data.target.readyState === 4) {
+                    if (data.target.status === 200) {
+                        var li = document.createElement("li");
+                        li.setAttribute("class", "row");
+                        li.setAttribute("id", "techno-" + idTechno);
 
-                    var html = "<div class=\"col-xs-3\">\n                                    Techno : <input type=\"text\" disabled value=\"" + labelTechno + "\" />\n                                </div>\n                                <div class=\"col-xs-3\">\n                                    Version : <input type=\"text\" disabled value=\"" + versionTechno + "\" />\n                                </div>\n                                <div class=\"col-xs-3\">\n                                    <input type=\"text\" disabled value=\"" + percentTechno + "\" /> %\n                                </div>\n                                <div class=\"col-xs-3 text-right\">\n                                    Refresh\n                                </div>";
+                        var html = "<div class=\"col-xs-3\">\n                                        Techno : <input type=\"text\" disabled value=\"" + labelTechno + "\" />\n                                    </div>\n                                    <div class=\"col-xs-3\">\n                                        Version : <input type=\"text\" disabled value=\"" + versionTechno + "\" />\n                                    </div>\n                                    <div class=\"col-xs-3\">\n                                        <input type=\"text\" disabled value=\"" + percentTechno + "\" /> %\n                                    </div>\n                                    <div class=\"col-xs-3 text-right\">\n                                        Refresh\n                                    </div>";
 
-                    li.innerHTML = html;
-                    listUserTechnos.appendChild(li);
-                } else {
-                    errormsg.innerHTML = 'Error, check fields please !';
+                        li.innerHTML = html;
+                        listUserTechnos.appendChild(li);
+
+                        document.getElementById('no-techno').style.display = 'none';
+                    } else {
+                        errormsg.innerHTML = 'Error, check fields please !';
+                    }
                 }
-            }
-        };
-        httpRequest.open('POST', '/iamanevangelist/techno-user/add/' + idTechno + '/' + versionTechno + '/' + percentTechno);
-        httpRequest.send();
-    });
+            };
+            httpRequest.open('POST', '/iamanevangelist/techno-user/add/' + idTechno + '/' + versionTechno + '/' + percentTechno);
+            httpRequest.send();
+        });
+    }
 
     // Delete techno User
     [].forEach.call(document.querySelectorAll('.delete-techno-user'), function (btn) {

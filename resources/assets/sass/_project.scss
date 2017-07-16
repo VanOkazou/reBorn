@@ -74,10 +74,11 @@
                     .bloc-techno {
                         position: relative;
                         ul {
-                            @include flex($jc:flex-end);
+                            @include flex($jc:flex-end, $ai:baseline);
                             li {
                                 text-align: center;
                                 width: calc(100% / 3);
+                                padding: 10px;
                                 img {
                                     height: 35px;
                                 }

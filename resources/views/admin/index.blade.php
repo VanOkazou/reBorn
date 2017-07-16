@@ -8,7 +8,7 @@
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
                         @if (Auth::check())
-                            BONJOUR
+                            Bonjour {{ Auth::user()->username }}
                         @else
 
                             <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">

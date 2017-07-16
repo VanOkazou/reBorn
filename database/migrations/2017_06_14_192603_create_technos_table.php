@@ -17,6 +17,7 @@ class CreateTechnosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->longText('icon')->nullable();
+            $table->longText('iconBlack')->nullable();
             $table->enum('type', ['soft', 'lang', 'fram', 'cms']);
             $table->timestamps();
         });

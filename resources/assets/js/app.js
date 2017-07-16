@@ -48,11 +48,21 @@ const gallery = (gallery, items) => {
         let size = gridSize / 5;
 
         // On définit la taille totale de la grille
-        let gallerySize = gridSize;
+        let gallerySize = 0;
         let sup = totalItems - 12;
-        if (sup < 5 && sup > 0) {
+
+
+        if(sup >= 0) {
+            gallerySize = gridSize;
+        } else {
+            sup = totalItems;
+        }
+
+        if (sup <= 4) {
             gallerySize += (size*2);
-        } else if (sup < 7) {
+        } else if (sup <= 6) {
+            gallerySize += (size*3);
+        } else if (sup == 7) {
             gallerySize += (size*4);
         } else {
             gallerySize += (size*5);

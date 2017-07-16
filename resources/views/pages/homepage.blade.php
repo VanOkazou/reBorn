@@ -24,7 +24,7 @@
             </div>
         </section>
 
-        <section id="section-evangelist-list" class="section full-height padding-top-big">
+        <section id="section-evangelist-list" class="section full-height padding-top-big padding-bottom-big">
             <div class="container flex-full-height">
                 <div class="row">
                     <div class="col-md-4 col-xs-12 left">
@@ -38,32 +38,39 @@
                             @foreach($users as $user)
                             <li>
                                 <a href="{{ route('evangelist', ['user'=>$user->slug]) }}" title="{{ $user->firstname }}">
-                                    <span class="pic" style="background-image: url({{ url($user->avatar) }});"></span>
+
+                                    <span class="pic" style="background-image: url({{ asset($user->avatar != '' ? $user->avatar : 'images/pic/default-avatar.png') }});"></span>
+
                                     <span class="name">
-                                        <small>{{ $user->lastname }}</small>
-                                        <span>{{ $user->firstname }}</span>
+                                        <small>{{ (!is_null($user->lastname) && $user->lastname != '') ? $user->lastname : '&nbsp;' }}</small>
+                                        <span>{{ (!is_null($user->firstname) && $user->firstname != '') ? $user->firstname : $user->username }}</span>
                                     </span>
                                     <span class="job">
-                                        <span class="light-reborn">reBorn founder &</span> Lead Frontend Developper
+                                        @if($user->status == 1)<span class="light-reborn">reBorn founder & </span>@endif
+                                        <span>{{ !is_null($user->job) ? $user->job : 'Evangelist' }}</span>
                                     </span>
                                 </a>
                                 <ul class="socials">
-                                    <li><a href="#" title="ln" class="reborn-icon-linkedin"></a></li>
-                                    <li><a href="#" title="ln" class="reborn-icon-github"></a></li>
-                                    <li><a href="#" title="ln" class="reborn-icon-behance"></a></li>
+                                    @if(!is_null($user->ln))
+                                        <li>
+                                            <a href="{{ $user->ln }}" title="linkedin" target="_blank" class="reborn-icon-linkedin"></a>
+                                        </li>
+                                    @endif
+                                    @if(!is_null($user->gh))
+                                        <li>
+                                            <a href="{{ $user->gh }}" title="github" target="_blank" class="reborn-icon-github"></a>
+                                        </li>
+                                    @endif
+                                    <li>
+                                        <a href="mailto:{{ $user->email }}" title="Email">
+                                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             @endforeach
                         </ul>
                     </div>
-                </div>
-                <div class="link-container">
-                    <button data-target="#section-evangelist-projects" class="btn-down">
-                        <div class="label-link">Our works</div>
-                        <p class="link-icon">
-                            <span class="reborn-icon-angle-double-down"></span>
-                        </p>
-                    </button>
                 </div>
             </div>
         </section>

@@ -20,6 +20,10 @@ $font-path: '../fonts/';
 // Admin style
 #admin-app {
 
+    em {
+        font-style: italic;
+    }
+
     .alert-info, .alert-danger {
         margin-top: -20px;
     }
@@ -95,53 +99,49 @@ $font-path: '../fonts/';
     // TECHNOS
     #accordion-technos {
         .panel {
-                .panel-heading {
-                    padding: 0;
-                    .panel-title {
-                        width: 100%;
-                        a {
-                            display: block;
-                            padding: 15px 25px;
-                        }
-                    }
-                }
-                .panel-collapse {
-                    .panel-body {
-                        .single-techno {
-                            padding: 5px 0;
-                            height: 50px;
-                            @include flex($jc: flex-start);
-                            &:not(:last-child) {
-                                border-bottom: 1px solid $light-grey;
-                            }
-                            .item-techno {
-                                &:not(:last-child) {
-                                    padding-right: 15px;
-                                }
-                                &.item-icon {
-                                    width: 70px;
-                                    height: 30px;
-                                    text-align: center;
-                                    .previewTechno {
-                                        height: 100%;
-                                        &:hover {
-                                            cursor: pointer;
-                                        }
-                                    }
-                                    input {
-                                        position: absolute;
-                                        left: -9999px;
-                                        opacity: 0;
-                                    }
-                                }
-                                &.item-update {
-                                    margin-left: auto;
-                                }
-                            }
-                        }
+            .panel-heading {
+                padding: 0;
+                .panel-title {
+                    width: 100%;
+                    a {
+                        display: block;
+                        padding: 15px 25px;
                     }
                 }
             }
+        }
+    }
+    .single-techno {
+        padding: 5px 0;
+        height: 50px;
+        @include flex($jc: flex-start);
+        &:not(:last-child) {
+            border-bottom: 1px solid $light-grey;
+        }
+        .item-techno {
+            &:not(:last-child) {
+                padding-right: 15px;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+            &.item-icon {
+                width: 70px;
+                height: 30px;
+                text-align: center;
+                .previewTechno {
+                    height: 100%;
+                }
+                input {
+                    position: absolute;
+                    left: -9999px;
+                    opacity: 0;
+                }
+            }
+            &.item-update {
+                margin-left: auto;
+            }
+        }
     }
 
     // TECHNOS PAGE USER

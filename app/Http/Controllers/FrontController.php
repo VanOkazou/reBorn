@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\Techno;
 use App\Models\User;
 
 class FrontController extends Controller
@@ -45,12 +46,11 @@ class FrontController extends Controller
         $initialFirstname = $user->firstname[0];
         $initialLastname = $user->lastname[0];
 
-        $user->load('projects');
-
+        // Projects
+        $user->load('projects', 'technos');
         $projects = $user->projects()->with('categories')->get();
         $cats = Category::all();
         $arr_cat = [];
-
         foreach ($projects as $project) {
             $arr_cats = [];
             foreach ($project->categories as $cat) {
@@ -64,7 +64,16 @@ class FrontController extends Controller
             $project['stringCats'] = $stringCats;
         }
 
-        return View('pages.evangelist', compact('user', 'initialFirstname', 'initialLastname', 'projects', 'arr_cat'));
+        // Technos
+        $experts = [];
+        if(!is_null($user->expert)) {
+            foreach(unserialize($user->expert) as $expert) {
+                $technoExpert = Techno::find($expert);
+                array_push($experts, $technoExpert);
+            }
+        }
+
+        return View('pages.evangelist', compact('user', 'initialFirstname', 'initialLastname', 'projects', 'arr_cat', 'experts'));
     }
 
     /**

@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->longText('description');
             $table->string('lastname');
             $table->string('firstname');
-            $table->string('job')->nullable();
-            $table->longText('avatar')->nullable();
+            $table->string('expert')->nullable();
+            $table->string('job')->default('Evangelist');
+            $table->string('avatar')->default('images/pic/default-avatar.png');
             $table->longText('bgimg')->nullable();
             $table->string('city')->nullable();
             $table->boolean('status', '0');
@@ -32,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('fb')->nullable();
             $table->string('tw')->nullable();
             $table->string('ln')->nullable();
+            $table->string('gh')->nullable();
             $table->string('bh')->nullable();
             $table->string('db')->nullable();
             $table->string('viadeo')->nullable();

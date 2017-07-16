@@ -85,6 +85,8 @@
     }
     #section-evangelist-list {
         display: flex;
+        position: relative;
+        flex-direction: column;
         &>.container {
             flex-direction: column;
             &>.row {
@@ -148,12 +150,13 @@
                                 }
                                 &:hover {
                                     opacity: 1;
+                                    cursor: pointer;
                                 }
                             }
                             .socials {
                                 @include flex($jc:flex-end);
                                 padding-right: 15%;
-                                padding-top: 15px;
+                                padding-top: 5px;
                                 li {
                                     &:not(:last-child) {
                                         margin-right: 15px;

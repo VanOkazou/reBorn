@@ -157,6 +157,13 @@
                         {{ Form::url('dribble', $user->db, ['class' => 'form-control']) }}
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    {{ Form::label('github', 'GitHub', ['class' => 'col-md-2 control-label']) }}
+                    <div class="col-md-10">
+                        {{ Form::url('github', $user->gh, ['class' => 'form-control']) }}
+                    </div>
+                </div>
             </div>
             <div id="menu3" class="tab-pane fade">
                 <div class="form-group row">
@@ -180,17 +187,25 @@
                 <div class="skills-expert">
                     <h3>Choose at most 3 skills you are expert in</h3>
                     <div class="form-group row">
-                        {{ Form::label('avatar', 'Avatar', ['class' => 'col-md-2 control-label']) }}
-                        <div class="col-md-10 form-group-preview">
-                            <div id="previewAvatar" class="previewImg preview-small" style="background-size: cover; background-position: center center; background-image: url({{ asset($user->avatar) }});"></div>
-                            {{ Form::file('avatar', '', ['class' => 'form-control']) }}
+                        <div class="col-md-4 col-xs-12">
+                            {!! Form::select('expert1', ['' => 'Select your language'] + $technos->toArray() , $expert1, ['class' => 'form-control']) !!}
                         </div>
+                        <div class="col-md-4 col-xs-12">
+                            {!! Form::select('expert2', ['' => 'Select your language'] + $technos->toArray(), $expert2, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            {!! Form::select('expert3', ['' => 'Select your language'] + $technos->toArray(), $expert3, ['class' => 'form-control']) !!}
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="skills-list">
                     <h3>List of your skills</h3>
                     <ul class="list-technos-user" id="list-technos-user">
+                    @if(count($user->technos) < 1)
+                        <p id="no-techno"><em>No techno currently</em></p>
+                    @else
                         @foreach($user->technos as $techno)
                             <li class="row" id="techno-{{ $techno->id }}">
                                 <div class="col-xs-3">
@@ -207,6 +222,7 @@
                                 </div>
                             </li>
                         @endforeach
+                    @endif
                     </ul>
                 </div>
 
@@ -214,7 +230,7 @@
                     <h3>Add a new skill</h3>
                     <div class="form-group row">
                         <div class="col-md-3 col-xs-12">
-                            {!! Form::select('techno', $technos, null, ['class' => 'form-control', 'id' => 'inputTechno']) !!}
+                            {!! Form::select('techno', ['' => 'Select your language'] + $technos->toArray(), null, ['class' => 'form-control', 'id' => 'inputTechno']) !!}
                         </div>
                         <div class="col-md-3 col-xs-12">
                             {!! Form::text('version', null, ['class' => 'form-control','placeholder' => 'Version', 'id' => 'inputVersion']) !!}

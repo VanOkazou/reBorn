@@ -1,3 +1,4 @@
+@import "percentCircles";
 #evangelist-profil {
     // Navigation
     #nav-profil-container {
@@ -130,6 +131,68 @@
                             left: 0;
                             top: 10px;
                             position: absolute;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Section Skills
+    #section-evangelist-skills {
+        &>.container {
+            .expert-list {
+                display: flex;
+                margin-top: 55px;
+                margin-left: -10px;
+                margin-right: -10px;
+                .single-expert {
+                    flex: 1;
+                    padding: 10px;
+                    .expert-content {
+                        background-color: $light-grey-1;
+                        padding: 35px;
+                        text-align: center;
+                        @include ff(2);
+                        .label-expert {
+                            @include flex();
+                            span {
+                                @include fs(1.8rem);
+                                text-transform: uppercase;
+                                padding: 0 7px;
+                            }
+                            &:before, &:after {
+                                content: "\e006 \e006 \e006";
+                                font-family: 'Glyphicons Halflings';
+                                color: $dark-reborn;
+                                letter-spacing: 3px;
+                                @include fs(1rem);
+                            }
+
+                        }
+                        img {
+                            height: 70px;
+                            margin: 20px 0 5px;
+                        }
+                        .techno-name {
+                            @include fs(2.5rem);
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+            &>.row {
+                &.skills-list {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    padding-top: 55px;
+                    .single-skill {
+                        .name {
+                            margin-top: 10px;
+                        }
+                        .version {
+                            color: $light-reborn;
                         }
                     }
                 }
